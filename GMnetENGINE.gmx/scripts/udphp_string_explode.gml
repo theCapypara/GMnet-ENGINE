@@ -2,7 +2,7 @@
 
 /*  INTERNAL COMMAND
 **  Usage:
-**      udphp_sstring_explode(str,sep,index)
+**      udphp_string_explode(str,sep,index)
 **
 **  Arguments:
 **      str         string of elements

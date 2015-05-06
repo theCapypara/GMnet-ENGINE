@@ -77,10 +77,10 @@ var port = real(get_string("On which port should the server listen?","6510"));
 //Setup server, on success start game, on failure end the game.
 if (htme_serverStart(port,32)) {
     //Set a server name and description. See chapter BONUS 1 in the manual.
-    //This is only relevant if you are using the PLUS version, otherwise you
+    //This is only relevant if you are using GMnet ENGINE version, otherwise you
     //won't notice this
-    htme_setData(2,get_string("How should this server be called (for the lobbies)?","HTME Demo Server"));
-    htme_setData(3,get_string("Enter a server description (for the lobbies)?","A server created for the HTME demo project"));
+    htme_setData(2,get_string("How should this server be called (for the lobbies)?","GMnet Demo Server"));
+    htme_setData(3,get_string("Enter a server description (for the lobbies)?","A server created for the GMnet CORE/ENGINE demo project"));
     room_goto(htme_rom_demo);
 } else {
     show_message("Could not start server! Check your network configuration!");
@@ -110,12 +110,12 @@ if (htme_serverStart(port,32)) {
             <kind>1</kind>
             <string>///GOTO LOBBY
 if (!obj_htme.use_udphp) {
-   show_message("You need to have udphp enabled in htme_init!#(And have the PLUS version or UDPHP installed!)");
+   show_message("You need to have GMnet PUNCH enabled in htme_init (use_udphp)!#(And have GMnet ENGINE or GMnet PUNCH)");
 } else {
   if (room_exists(asset_get_index("udphhtme_lobby"))) {
      room_goto(asset_get_index("udphhtme_lobby"));
   } else {
-   show_message("UDPHP is NOT INSTALLED (or the lobby room is missing)!#(Do you have the PLUS version or UDPHP installed? Make sure you imported the room udphhtme_lobby. See the first chapter of the tutorial ('Adding the engine to a project') for help!)"); 
+   show_message("GMnet PUNCH is NOT INSTALLED (or the lobby room is missing)!#(Do you have GMnet ENGINE or GMnet CORE with GMnet PUNCH installed? Make sure you imported the room udphhtme_lobby. See the first chapter of the tutorial ('Adding the engine to a project') for help!)"); 
   }
 }
 </string>
@@ -223,10 +223,12 @@ if (htme_clientStart(ip, port)) {
             <string>///Draw greeting text.
 var text1 = "
 Hello and welcome!#
-Thanks for purchasing the HappyTear Multiplayer Engine.#
-This demo will show you some of what the engine is capable of.#
-This project is also explained step by step in the manual:#
-htme.parakoopa.de OR manual.zip in the Included Files.##
+Thanks for choosing GMnet CORE or GMnet ENGINE.#
+This demo will show you some of what the GMnet CORE is capable of.#
+If you use GMnet ENGINE, you will also be able to benefit from additional#
+features of GMnet PUNCH and ACCESS.
+This project is also explained step by step in the manual at#
+gmnet.parakoopa.de##
 Controls:#
 Arrow keys: Move#
 Up: Enter doors#
@@ -244,17 +246,18 @@ var text4 = "
 Press K to access the LAN lobby.
 ";
 var text5 = "
-Press L to access the ONLINE lobby.#       (UDPHP or PLUS version only!)
+Press L to access the ONLINE lobby.#  (Only with GMnet PUNCH!)
 ";
-draw_text(20,20,text1);
+draw_sprite(htme_logo,0,20,20);
+draw_text(20,120,text1);
 draw_set_colour(c_red);
-draw_text(300,300,text2);
+draw_text(300,400,text2);
 draw_set_colour(c_yellow);
-draw_text(300,340,text3);
+draw_text(300,440,text3);
 draw_set_colour(c_fuchsia);
-draw_text(300,380,text4);
+draw_text(300,480,text4);
 draw_set_colour(c_aqua);
-draw_text(300,420,text5);
+draw_text(300,520,text5);
 draw_set_colour(c_white);
 </string>
           </argument>

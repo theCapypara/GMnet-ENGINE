@@ -51,7 +51,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///ADD TO THE HAPPYTEAR MULTIPLAYER ENGINE
+            <string>///ADD TO GMnet ENGINE
 
 /**
   * This checks if this was CREATED on the server. If no, we instantly destroy

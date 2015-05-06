@@ -38,7 +38,7 @@ if (!self.use_udphp || (in_ip != self.udphp_master_ip)) {
             //Connected! Yay!
             //We are recieving our player hash with every packet, so we
             //don't need to do get that here, 
-            //especially since when using udphp, this can't be done yet anyway
+            //especially since when using GMnet PUNCH, this can't be done yet anyway
             //Mark engine as conncted
             self.isConnected = true;
             htme_debugger("htme_clientConnectNetworking",htme_debug.TRAFFIC,"Got packet htme_packet.SERVER_CONREQACCEPT");

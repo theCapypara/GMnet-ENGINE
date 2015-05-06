@@ -3,8 +3,8 @@
 /*
 **  Description:
 **      This script will "register" a client for udp holepunching, assign a number to it
-**      and activate all udphp functions for this client id.
-**      Requirement: Configured udphp (udphp_config)
+**      and activate all GMnet PUNCH functions for this client id.
+**      Requirement: Configured GMnet PUNCH (udphp_config)
 **  
 **  Usage:
 **      udphp_createClient(udp_socket,server_ip,buffer,directconnect,directconnect_port)

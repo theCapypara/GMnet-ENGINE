@@ -50,7 +50,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///ADD TO THE HAPPYTEAR MULTIPLAYER ENGINE
+            <string>///ADD TO GMnet ENGINE
 
 /**
   * Register as chat handler. We can now send and recieve chat messages.

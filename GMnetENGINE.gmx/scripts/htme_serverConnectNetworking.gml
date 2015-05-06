@@ -35,7 +35,7 @@ if (is_undefined(ds_map_find_value(self.playermap,in_ip+":"+string(in_port)))) {
             buffer_seek(buffer, buffer_seek_start, 0);
             buffer_write(buffer, buffer_s8, htme_packet.SERVER_CONREQACCEPT);
             //We are sending the player hash of the local player with every packet, so we
-            //don't need to do that here, especially since when using udphp, this can't be
+            //don't need to do that here, especially since when using GMnet PUNCH, this can't be
             //done yet anyway
             network_send_udp(self.socketOrServer,in_ip,in_port,buffer,buffer_tell(buffer));
             htme_debugger("htme_serverConnectNetworking",htme_debug.TRAFFIC,"Got packet htme_packet.CLIENT_REQUESTCONNECT from "+in_ip+":"+string(in_port));

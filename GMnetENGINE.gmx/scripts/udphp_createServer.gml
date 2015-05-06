@@ -3,8 +3,8 @@
 /*
 **  Description:
 **      This script will set up everything required for udp holepunching on the server side and activate
-**      the master server connection and the udphp server functions
-**      Requirement: Configured udphp (udphp_config)
+**      the master server connection and the GMnet PUNCH server functions
+**      Requirement: Configured GMnet PUNCH (udphp_config)
 **  
 **  Usage:
 **      udphp_createServer(udp_server,buffer,player_list)

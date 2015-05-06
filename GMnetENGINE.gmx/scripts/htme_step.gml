@@ -32,7 +32,7 @@ if (self.started) {
         if (self.use_udphp && !self.isConnected) {
             if(!script_execute(asset_get_index("udphp_clientPunch"),self.udphp_client_id)) {
                 //When this returns false, the connection failed or the client was destroyed.
-                htme_debugger("htme_step",htme_debug.INFO,"CLIENT: udphp client is dead - connection propably failed.");
+                htme_debugger("htme_step",htme_debug.INFO,"CLIENT: GMnet PUNCH client is dead - connection propably failed.");
                 htme_clientStop();
             } else {
                 self.isConnected = script_execute(asset_get_index("udphp_clientIsConnected"),self.udphp_client_id);

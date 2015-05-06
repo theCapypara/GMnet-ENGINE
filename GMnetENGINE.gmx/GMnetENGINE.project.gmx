@@ -65,6 +65,7 @@
       <sprite>sprites\htme_spr_wall</sprite>
       <sprite>sprites\htme_spr_player</sprite>
       <sprite>sprites\htme_spr_door</sprite>
+      <sprite>sprites\htme_logo</sprite>
     </sprites>
   </sprites>
   <backgrounds name="background"/>

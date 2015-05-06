@@ -2,7 +2,7 @@
 
 /*
 **  Description:
-**      Configures this instance to be synced via the HappyTear Multiplayer engine.
+**      Configures this instance to be synced via GMnet CORE.
 **      this must be called before all other mp commands.
 **  
 **  Usage:

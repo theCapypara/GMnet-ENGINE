@@ -50,7 +50,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///ADD TO THE HAPPYTEAR MULTIPLAYER ENGINE
+            <string>///ADD TO GMnet ENGINE
 /**
   * Starts syncing.
   * Everything in this script MUST only be run in the create event and at the very beginning.

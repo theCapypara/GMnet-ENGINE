@@ -25,13 +25,13 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>//IF YOU USE UDPHP - it will only let you connect to udphp servers:
+            <string>//IF YOU USE GMnet PUNCH demo project:
 if (!script_exists(asset_get_index("htme_init"))) {
-   self.game = "udphp_demo120"
+   self.game = "gmnet_punch_122"
 }
-//IF YOU USE HTME - it will only let you conect to htme servers
+//IF YOU USE GMnet ENGINE demo project:
 else {
-   self.game = "htme_demo121"
+   self.game = "gmnet_engine_123"
 }
 //IF YOU USE YOUR OWN SERVER - Change self.game!
 
@@ -285,7 +285,7 @@ if (ds_exists(l,ds_type_list)) {
            show_message("Game server or version is incompatible!");
            exit;
         }
-        //====UDPHP DEMO ONLY
+        //====GMnet PUNCH DEMO ONLY
         if (!script_exists(asset_get_index("htme_init"))) {
             //Create new client - See obj_client + manual for more information
             global.tmp_lobby_ip = ip;
@@ -293,7 +293,7 @@ if (ds_exists(l,ds_type_list)) {
             //Return to main room
             room_goto(asset_get_index("udphp_room"));
         }
-        //====HTME DEMO ONLY
+        //====GMnet ENGINE DEMO ONLY
         else {
             //Setup client, on success go to waiting room, otherwise end game
             //We don't actually know the port, but that doesn't matter, the master
@@ -348,7 +348,7 @@ if (ds_exists(l,ds_type_list)) {
            show_message("Game server or version is incompatible!");
            exit;
         }
-        //====UDPHP DEMO ONLY
+        //====GMnet PUNCH DEMO ONLY
         if (!script_exists(asset_get_index("htme_init"))) {
             //Create new client - See obj_client + manual for more information
             global.tmp_lobby_ip = ip;
@@ -356,7 +356,7 @@ if (ds_exists(l,ds_type_list)) {
             //Return to main room
             room_goto(asset_get_index("udphp_room"));
         }
-        //====HTME DEMO ONLY
+        //====GMnet ENGINE DEMO ONLY
         else {
             //Setup client, on success go to waiting room, otherwise end game
             //We don't actually know the port, but that doesn't matter, the master
@@ -411,7 +411,7 @@ if (ds_exists(l,ds_type_list)) {
            show_message("Game server or version is incompatible!");
            exit;
         }
-        //====UDPHP DEMO ONLY
+        //====GMnet PUNCH DEMO ONLY
         if (!script_exists(asset_get_index("htme_init"))) {
             //Create new client - See obj_client + manual for more information
             global.tmp_lobby_ip = ip;
@@ -419,7 +419,7 @@ if (ds_exists(l,ds_type_list)) {
             //Return to main room
             room_goto(asset_get_index("udphp_room"));
         }
-        //====HTME DEMO ONLY
+        //====GMnet ENGINE DEMO ONLY
         else {
             //Setup client, on success go to waiting room, otherwise end game
             //We don't actually know the port, but that doesn't matter, the master
@@ -474,7 +474,7 @@ if (ds_exists(l,ds_type_list)) {
            show_message("Game server or version is incompatible!");
            exit;
         }
-        //====UDPHP DEMO ONLY
+        //====GMnet PUNCH DEMO ONLY
         if (!script_exists(asset_get_index("htme_init"))) {
             //Create new client - See obj_client + manual for more information
             global.tmp_lobby_ip = ip;
@@ -482,7 +482,7 @@ if (ds_exists(l,ds_type_list)) {
             //Return to main room
             room_goto(asset_get_index("udphp_room"));
         }
-        //====HTME DEMO ONLY
+        //====GMnet ENGINE DEMO ONLY
         else {
             //Setup client, on success go to waiting room, otherwise end game
             //We don't actually know the port, but that doesn't matter, the master
@@ -526,11 +526,11 @@ if (ds_exists(l,ds_type_list)) {
           <argument>
             <kind>1</kind>
             <string>///Go back
-//====UDPHP DEMO ONLY
+//====GMnet PUNCH DEMO ONLY
 if (!script_exists(asset_get_index("htme_init"))) {
    room_goto(asset_get_index("udphp_room"));
 }
-//====HTME DEMO ONLY
+//====GMnet ENGINE DEMO ONLY
 else {
    room_goto(asset_get_index("htme_rom_menu"));
 }

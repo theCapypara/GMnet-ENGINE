@@ -3,7 +3,7 @@
 /*
 **  Description:
 **      This script will configure this engine to be used as a client until it is stopped.
-**      The client will be started and try to connect to the server, either via udphp or directly.
+**      The client will be started and try to connect to the server, either via GMnet PUNCH or directly.
 **  
 **  Usage:
 **      <see above>
@@ -12,7 +12,7 @@
 **      server_ip          string         The IP of the server to connect to
 **      server_port real   real           The port of the server to connect to. This does
 **                                        not need o be correctly if you want to rely 100% on
-**                                        udphp, as udphp will auto-resolve the port if it
+**                                        GMnet PUNCH, as PUNCH will auto-resolve the port if it
 **                                        connects via master server.
 **
 **  Returns:
@@ -47,7 +47,7 @@ if (self.use_udphp) {
    self.udphp_client_id = script_execute(asset_get_index("udphp_createClient"),self.socketOrServer,server_ip,self.buffer,false,server_port);
    if(self.udphp_client_id) {
         //Error while starting udphp
-        htme_debugger("htme_clientStart",htme_debug.ERROR,"Could not start udphp client instance! Check udphp log, increase log level if neccesary.");
+        htme_debugger("htme_clientStart",htme_debug.ERROR,"Could not start GMnet PUNCH client instance! Check GMnet PUNCH log, increase log level if neccesary.");
         htme_serverStop();
         return false;
     }

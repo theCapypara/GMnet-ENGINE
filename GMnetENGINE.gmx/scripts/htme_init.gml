@@ -4,7 +4,7 @@
 **  Description:
 **      PRIVATE "METHOD" OF obj_htme! That means this script MUST be called with obj_htme!
 **
-**      This will load all variables and settings required by the HappyTear Multiplayer Engine.
+**      This will load all variables and settings required by GMnet CORE/ENGINE.
 **      You will find the whole configuration here.
 **  
 **  Usage:
@@ -81,7 +81,7 @@ randomize();
 /** 
  * Set the level of debug. The debug messages of this level and higher
  * will be shown. NONE disables debug messages. TRAFFIC ONLY shows traffic!
- * When UDPHP is enabled, it's debug level will be adjusted accordingly.
+ * When GMnet PUNCH is enabled (use_udphp = true), it's debug level will be adjusted accordingly.
 */
 self.debuglevel = htme_debug.WARNING;
 
@@ -99,17 +99,19 @@ self.debugoverlay = false;
  */
 global.htme_object = self.id;
 
-htme_debugger("htme_init",htme_debug.INFO,"SETTING UP MULTIPLAYER ENGINE");
+htme_debugger("htme_init",htme_debug.INFO,"SETTING UP GMnet CORE");
 
 /** 
- * Use udphp? Set to true if udphp is installed and should be used to make the conection.
+ * Use GMnet PUNCH? Set to true if GMnet PUNCH is installed and should be used to make the conection.
+ * GMnet PUNCH is installed if you use GMnet ENGINE and needs to be installed manually
+ * when using GMnet CORE.
  * More Information can be found in the manual.
  */
 
 self.use_udphp = true;
 
 /** 
- * WHEN USING UDPHP:
+ * WHEN USING GMnet PUNCH:
  * IP of the master/mediation server 
  * THERE CAN BE NO GAME SERVER RUNNING ON THIS IP!!
  * Use 95.85.63.183 if you have no server. It is only for debugging!
@@ -118,14 +120,14 @@ self.use_udphp = true;
 self.udphp_master_ip = "95.85.63.183";
 
 /** 
- * WHEN USING UDPHP:
+ * WHEN USING GMnet PUNCH:
  * Port of the master/mediation server 
  * @type real
  */
 self.udphp_master_port = 6510;
 
 /** 
- * WHEN USING UDPHP:
+ * WHEN USING GMnet PUNCH:
  * The server should reconnect to the master server every x steps.
  * The server will only reconnect if it's no longer connected.
  * @type real
@@ -160,7 +162,7 @@ self.gamename = "htme_demo121"
  ***/
  
 if (self.use_udphp) {
-    htme_debugger("htme_init",htme_debug.INFO,"Starting udphp...");
+    htme_debugger("htme_init",htme_debug.INFO,"Starting GMnet PUNCH...");
     var u_debug = false, u_silent = true;
     if (self.debuglevel <= htme_debug.INFO) {u_debug=false;u_silent=false;}
     if (self.debuglevel <= htme_debug.DEBUG) {u_debug=true;u_silent=false;}
@@ -184,7 +186,7 @@ self.server_ip = "";
 self.server_port = 0;
 //Buffer used for everything
 self.buffer = buffer_create(256, buffer_grow, 1);
-//Player list for udphp ONLY [we use a different type of player map;see below] [Only for server with udphp]
+//Player list for GMnet PUNCH ONLY [we use a different type of player map;see below] [Only for server with udphp]
 self.udphp_playerlist = -1;
 //Playermap. Contains entry with the format <ip:port> -> <playerhash> [Only server!]
 self.playermap = -1;

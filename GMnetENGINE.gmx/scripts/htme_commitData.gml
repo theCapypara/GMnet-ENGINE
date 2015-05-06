@@ -2,7 +2,7 @@
 
 /*
 **  Description:
-**      UDPHP must be enabled and a server mus be running!!
+**      GMnet PUNCH must be enabled and a server must be running!!
 **      Sends the 7 data strings to the master server to update them for the
 **      lobby. This only has to be done, if the server is not already connected
 **      to the master server.

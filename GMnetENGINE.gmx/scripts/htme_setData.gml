@@ -3,7 +3,7 @@
 /*
 **  Description:
 **      A server must be running!!
-**      Set data that can be used by the lobby (PLUS) and be retrieved by 
+**      Set data that can be used by the lobby (GMnet PUNCH) and be retrieved by 
 **      connected clients.
 **      The main purpose of this is to set general metadata for the server
 **      which can be used for lobbys.
@@ -51,7 +51,7 @@ with (global.htme_object) {
         break;
     }
     
-    //Sync with udphp
+    //Sync with GMnet PUNCH
     if (self.use_udphp) {
         script_execute(asset_get_index("udphp_serverSetData"),argument0,argument1);
     }

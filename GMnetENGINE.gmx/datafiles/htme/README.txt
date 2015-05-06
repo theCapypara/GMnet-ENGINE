@@ -1,6 +1,6 @@
-Welcome! Thanks for purachasing.
+Welcome!
 The manual can be found at
 
-http://htme.parakoopa.de/manual
+http://gmnet.parakoopa.de
 
 The licenses can be found in LICENSE.txt

@@ -5,7 +5,7 @@
 **      PRIVATE "METHOD" OF obj_htme! That means this script MUST be called with obj_htme!
 **
 **      Proccesses all incoming packets, except pings, signed packets, connection packets
-**      and udphp packets.
+**      and GMnet PUNCH packets.
 **      May also process packets relayed by the signed packets networking event. More information
 **      can be found in the manual ( I hope :D ). Because of this the buffer pointer is NOT 
 **      reset here!

@@ -2,7 +2,7 @@
 
 /*  INTERNAL COMMAND
 **  Description:
-**      "Logs" everything related to udphp
+**      "Logs" everything related to GMnet PUNCH
 **  
 **  Usage:
 **      udphp_handleerror(type,component,client_id,message)

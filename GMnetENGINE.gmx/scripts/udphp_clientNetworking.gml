@@ -87,4 +87,4 @@ if (in_ip == global.udphp_master) {
      //After that we need to reset the buffer for future use
      buffer_seek(in_buff, buffer_seek_start, 0);
 }
-///SCENARIO X: Packet has nothing to do with udphp, ignore
+///SCENARIO X: Packet has nothing to do with GMnet PUNCH, ignore
