@@ -11,7 +11,8 @@ GMnet ENGINE contains the following three products (all can be used on their own
   **GMnet PUNCH** (all scripts with the **udphp_** prefix) handles NAT traversal/UDP hole punching, so players behind firewalls can communicate. It requires GMnet GATE.PUNCH (see below).
 
 * ![GMnet ACCESS](http://parakoopa.de/GMnet/small_access.png)
-  **GMnet ACCESS** (all scripts with the **gmnacc_** prefix) can handle user authentification and can store and recieve data related to users. It requires GMnet GATE.ACCESS (see below).
+**!!NOT YET INCLUDED (or even done)!!**
+**GMnet ACCESS** (all scripts with the **gmnacc_** prefix) can handle user authentification and can store and recieve data related to users. It requires GMnet GATE.ACCESS (see below).
 
 * This repo also contains a demo project for GMnet ENGINE and GMnet CORE. The demo projects for ACCESS and PUNCH can be found in the repos below
 
