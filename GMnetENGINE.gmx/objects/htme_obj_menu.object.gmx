@@ -223,10 +223,8 @@ if (htme_clientStart(ip, port)) {
             <string>///Draw greeting text.
 var text1 = "
 Hello and welcome!#
-Thanks for choosing GMnet CORE or GMnet ENGINE.#
-This demo will show you some of what the GMnet CORE is capable of.#
-If you use GMnet ENGINE, you will also be able to benefit from additional#
-features of GMnet PUNCH and ACCESS.
+Thanks for choosing GMnet ENGINE.#
+This demo will show you some of what GMnet ENGINE is capable of.#
 This project is also explained step by step in the manual at#
 gmnet.parakoopa.de##
 Controls:#
@@ -246,7 +244,7 @@ var text4 = "
 Press K to access the LAN lobby.
 ";
 var text5 = "
-Press L to access the ONLINE lobby.#  (Only with GMnet PUNCH!)
+Press L to access the ONLINE lobby.
 ";
 draw_sprite(htme_logo,0,20,20);
 draw_text(20,120,text1);
