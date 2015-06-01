@@ -8,4 +8,5 @@ self.clientStopped = true;
 //TODO CLEAN ALL DATA
 ds_map_clear(self.localInstances);
 ds_map_clear(self.globalInstances);
-ds_map_destroy(self.chatQueues);
+if (ds_exists(self.chatQueues,ds_type_map))
+    ds_map_destroy(self.chatQueues);
