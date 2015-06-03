@@ -155,7 +155,7 @@ self.lan_interval = 15*room_speed;
  *  + version
  *  Example: htme_demo120
  **/
-self.gamename = "htme_demo121"
+self.gamename = "gmnet_engine_123"
 
 /*** 
  *** BELOW: INIT INTERNAL VARIABLES - DO NOT CHANGE 
