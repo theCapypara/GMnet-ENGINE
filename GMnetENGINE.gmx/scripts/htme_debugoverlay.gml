@@ -67,6 +67,7 @@ switch (self.dbgstate) {
     break;
     case vk_f6:
         htme_doGlobalSync();
+    break;
     case vk_f7:
         htme_doChat();
     break;
