@@ -2,7 +2,7 @@
 
 /*
 **  Description:
-**      This command is indiependent of clients and servers. It can be run
+**      This command is independent of clients and servers. It can be run
 **      without a client or server started.
 **
 **      Download the list of servers from the master server.
