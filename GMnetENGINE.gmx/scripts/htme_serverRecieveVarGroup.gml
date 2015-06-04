@@ -166,7 +166,7 @@ if (buffer_read(in_buff, buffer_s8 ) == htme_packet.SIGNEDPACKET) {
    var group = ds_map_find_value(instance_groups,groupname);
    if (!is_undefined(group)) {
       self.syncForce = true;
-      htme_syncSingleVarGroup(group,all,instance,instancehash,object_id,inst_stayAlive,playerhash);
+      htme_syncSingleVarGroup(group,all);
       self.syncForce = false;
    }
 }

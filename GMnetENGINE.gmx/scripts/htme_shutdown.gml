@@ -1,4 +1,24 @@
-//TODO HEADER
+///htme_shutdown();
+
+/*
+**  Description:
+**      PRIVATE "METHOD" OF obj_htme! That means this script MUST be called with obj_htme!
+**
+**      Shuts down GMnet CORE with no explanation or cleaning.
+**      
+**  
+**  Usage:
+**      <See above>
+**
+**  Arguments:
+**      buffer      buffer      the outgoing buffer
+**      cmd_list    ds_list     the list of commands as described in htme_createSignedPacket
+**
+**  Returns:
+**      <nothing>
+**
+*/
+
 self.started = false;
 self.isServer = false;
 self.isConnected = false;

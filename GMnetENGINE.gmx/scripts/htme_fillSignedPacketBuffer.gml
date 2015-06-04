@@ -31,5 +31,15 @@ buffer_seek(buffer, buffer_seek_start, 0);
 for (var i=0;i<ds_list_size(cmd_list);i+=2) {
     var type = ds_list_find_value(cmd_list,i);
     var content = ds_list_find_value(cmd_list,i+1);
+    if (is_undefined(content)) {
+        htme_debugger("htme_signedPacketFillBuffer",htme_debug.ERROR,"TRIED TO SEND UNDEFINED CONTENT IN A BUFFER!");
+        htme_debugger("htme_signedPacketFillBuffer",htme_debug.ERROR,"THIS MAY CRASH THE GAME, BUT THERE IS NO WAY TO CONTINUE! PLEASE REPORT!");
+        if (self.isServer) {
+           htme_serverStop();
+        } else {
+           htme_clientStop();
+        }
+        exit;
+    }
     buffer_write(buffer, type, content);
 }
