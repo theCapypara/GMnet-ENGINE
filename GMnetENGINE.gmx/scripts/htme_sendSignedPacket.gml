@@ -36,5 +36,4 @@ var cmd_list = packet[? "cmd_list"];
 htme_fillSignedPacketBuffer(self.buffer,cmd_list);
 
 //Send!
-htme_debugger("htme_sendSignedPacket",htme_debug.TRAFFIC,"Sending signed packet to "+target+" with unknown contents.");
 network_send_udp( self.socketOrServer, ip, port, self.buffer, buffer_tell(self.buffer) );

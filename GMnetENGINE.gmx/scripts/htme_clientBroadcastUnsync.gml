@@ -29,6 +29,5 @@ cmd_map[| 1] = htme_packet.CLIENT_INSTANCEREMOVED;
 
 cmd_map[| 2] = buffer_string;
 cmd_map[| 3] = hash;
-htme_debugger("htme_clientBroadcastUnsync",htme_debug.TRAFFIC,"Creating signed packet htme_packet.CLIENT_INSTANCEREMOVED for server");
 htme_removeSignedPacketsByCatFilter(hash);
 htme_createSignedPacket(cmd_map,noone,hash+"__REMOVE_");

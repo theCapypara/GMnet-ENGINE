@@ -36,6 +36,5 @@ for(var i=0; i<ds_map_size(self.playermap); i+=1) {
     var ip = htme_playerMapIP(key);
     var port = htme_playerMapPort(key);
     network_send_udp( self.socketOrServer, ip, port, self.buffer, buffer_tell(self.buffer) );
-    htme_debugger("htme_serverSendBufferToAllExcept",htme_debug.TRAFFIC,"Sending unknown content to "+key+" via htme_serverSendBufferToAllExcept");
     key = ds_map_find_next(self.playermap, key);
 }

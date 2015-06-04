@@ -32,13 +32,10 @@ cmd_map[| 2] = buffer_string;
 cmd_map[| 3] = hash;
 
 if (argument_count > 1) {
-   htme_debugger("htme_clientBroadcastUnsync",htme_debug.TRAFFIC,"Creating signed packet htme_packet.SERVER_INSTANCEREMOVED for "+argument[1]);
    //FIXME: We are throwing away all sPs currently, we should focus
    //one the ones for one player
    htme_removeSignedPacketsByCatFilter(hash);
    htme_createSignedPacket(cmd_map,argument[1],hash+"__REMOVE_");
 } else {
-  htme_debugger("htme_clientBroadcastUnsync",htme_debug.TRAFFIC,"Creating signed packet htme_packet.SERVER_INSTANCEREMOVED for all clients");
-  htme_removeSignedPacketsByCatFilter(hash);
   htme_createSignedPacket(cmd_map,all,hash+"__REMOVE_");
 }

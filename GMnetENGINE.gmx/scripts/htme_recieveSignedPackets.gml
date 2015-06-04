@@ -35,7 +35,7 @@ var in_ip = ds_map_find_value(async_load, "ip");
 var in_buff = ds_map_find_value(async_load, "buffer");
 var in_id = ds_map_find_value(async_load, "id");
 var in_port = ds_map_find_value(async_load, "port");
-var dbg_contents = "";
+
 buffer_seek(in_buff, buffer_seek_start, 0);
 //Create playermap if it doesn't exist, fix for YYC compatibility
 if not ds_exists(self.playermap,ds_type_map)
@@ -57,7 +57,6 @@ if ((self.isServer && !is_undefined(ds_map_find_value(self.playermap,in_ip+":"+s
                     htme_debugger("htme_recieveSignedPackets",htme_debug.DEBUG,"It was an accept message");
                     //The other side confirmed our packet, we don't need to send it anymore
                     var achash = buffer_read(in_buff, buffer_string );
-                    dbg_contents += "achash: "+achash+",";
                     for(var i=0; i<ds_list_size(self.signedPackets); i+=1) {
                         var packet = ds_list_find_value(self.signedPackets,i);
                         if (packet[? "hash"] == achash) {
@@ -65,10 +64,8 @@ if ((self.isServer && !is_undefined(ds_map_find_value(self.playermap,in_ip+":"+s
                            break;
                         }
                     }
-                    htme_debugger("htme_recieveSignedPackets",htme_debug.TRAFFIC,"Got packet htme_packet.SIGNEDPACKET (id:"+phash+") with subcommand htme_packet.SIGNEDPACKET_ACCEPTED from "+in_ip+":"+string(in_port)+". Contents: {"+dbg_contents+"}");
                 break;
                 default:
-                    htme_debugger("htme_recieveSignedPackets",htme_debug.TRAFFIC,"Got packet htme_packet.SIGNEDPACKET (id:"+phash+") with different subcommand from "+in_ip+":"+string(in_port)+". RELAYING to networking functions (see next output on incoming traffic)");
                     htme_debugger("htme_recieveSignedPackets",htme_debug.DEBUG,"It was an actual packet with the command id "+string(subcmd));
                     //Ignore packet if we already recieved it before
                     if (ds_list_find_index(self.signedPacketsInCache,phash) != -1) {
@@ -83,8 +80,6 @@ if ((self.isServer && !is_undefined(ds_map_find_value(self.playermap,in_ip+":"+s
                     
                     cmd_list[| 2] = buffer_string;
                     cmd_list[| 3] = phash;
-                    dbg_contents = "packethash: "+phash+","
-                    htme_debugger("htme_recieveSignedPackets",htme_debug.TRAFFIC,"Creating signed packet htme_packet.SIGNEDPACKET_ACCEPTED for "+in_ip+":"+string(in_port)+" with contents {"+dbg_contents+"}");
                     if (self.isServer) {
                         htme_createSingleSignedPacket(cmd_list,in_ip+":"+string(in_port),htme_hash(),self.global_timeout/10);
                     } else {

@@ -27,7 +27,6 @@ var in_ip = ds_map_find_value(async_load, "ip");
 var in_buff = ds_map_find_value(async_load, "buffer");
 var in_id = ds_map_find_value(async_load, "id");
 var in_port = ds_map_find_value(async_load, "port");
-var dbg_contents = "";
 
 //Check that the packet is from the server
 if (in_ip == self.server_ip) {
@@ -37,7 +36,6 @@ if (in_ip == self.server_ip) {
         case htme_packet.SERVER_GREETINGS:
             //Note our playerhash and attach it to previously created instances.
             var playerhash = buffer_read(in_buff,buffer_string);
-            dbg_contents += "playerhash: "+playerhash+","
             self.playerhash = playerhash;
             ds_list_add(self.playerlist,playerhash);
             //Attach correct playerhash.
@@ -55,7 +53,6 @@ if (in_ip == self.server_ip) {
                     }
                 }
             }
-            htme_debugger("htme_clientNetworking",htme_debug.TRAFFIC,"Got packet htme_packet.SERVER_GREETINGS with contents {"+dbg_contents+"}");
             htme_debugger("htme_clientNetworking",htme_debug.INFO,"Got greetings from server");
             //Pretend we are entering a new room
             htme_roomstart();
@@ -63,33 +60,27 @@ if (in_ip == self.server_ip) {
         case htme_packet.SERVER_PLAYERCONNECTED:
             //Do nothing apart from logging
             var playerhash = buffer_read(in_buff,buffer_string);
-            dbg_contents += "playerhash: "+playerhash+",";
             //Oh, and adding him to the local playerlist.
             ds_list_add(self.playerlist,playerhash);
-            htme_debugger("htme_clientNetworking",htme_debug.TRAFFIC,"Got packet htme_packet.PLAYERCONNECTED with contents {"+dbg_contents+"}");
             htme_debugger("htme_clientNetworking",htme_debug.INFO,"Player "+playerhash+" connected.");
         break;
         case htme_packet.SERVER_PLAYERDISCONNECTED:
             //Do nothing apart from logging
             var playerhash = buffer_read(in_buff,buffer_string);
-            dbg_contents += "playerhash: "+playerhash+",";
             //Oh, and adding him to the local playerlist.
             ds_list_delete(self.playerlist,ds_list_find_index(self.playerlist,playerhash));;
-            htme_debugger("htme_clientNetworking",htme_debug.TRAFFIC,"Got packet htme_packet.PLAYERDISCONNECTED with contents {"+dbg_contents+"}");
             htme_debugger("htme_clientNetworking",htme_debug.INFO,"Player "+playerhash+" disconnected.");
         break;
         case htme_packet.INSTANCE_VARGROUP:
             htme_debugger("htme_clientNetworking",htme_debug.DEBUG,"Got a update packet");
-            htme_recieveVarGroup(dbg_contents);
+            htme_recieveVarGroup();
         break;
         case htme_packet.GLOBALSYNC:
-            htme_debugger("htme_clientNetworking",htme_debug.TRAFFIC,"Got packet htme_packet.GLOBALSYNC. Contents not logged.");
             htme_debugger("htme_clientNetworking",htme_debug.DEBUG,"Got a update globalsync update");
             htme_recieveGS();
         break;
         case htme_packet.SERVER_INSTANCEREMOVED:
              var hash = buffer_read(in_buff,buffer_string);
-             dbg_contents += "hash: "+hash+",";
              htme_debugger("htme_clientNetworking",htme_debug.DEBUG,"Server said, remove instance "+hash+"!");
              var inst = ds_map_find_value(self.globalInstances,hash);
              if (!is_undefined(inst) && instance_exists(inst)) {
@@ -97,14 +88,11 @@ if (in_ip == self.server_ip) {
                 {with (inst) {instance_destroy();}}
              }
              ds_map_delete(self.globalInstances,hash);
-             htme_debugger("htme_clientNetworking",htme_debug.TRAFFIC,"Recieved htme_packet.SERVER_INSTANCEREMOVED from server with content {"+dbg_contents+"}");
         break;
         case htme_packet.SERVER_KICKREQ:
              htme_clientDisconnect();
-             htme_debugger("htme_clientNetworking",htme_debug.TRAFFIC,"Recieved htme_packet.SERVER_KICKREQ from server.");
         break;
         case htme_packet.CHAT_API:
-             htme_debugger("htme_clientNetworking",htme_debug.TRAFFIC,"Recieved htme_packet.CHAT_API from server.");
              var channel = buffer_read(in_buff,buffer_string);
              var to = buffer_read(in_buff,buffer_string);
              var message = buffer_read(in_buff,buffer_string);

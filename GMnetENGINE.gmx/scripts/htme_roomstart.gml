@@ -30,7 +30,6 @@ if (!self.isServer) {
     
     cmd_map[| 2] = buffer_u16;
     cmd_map[| 3] = room;
-    htme_debugger("htme_roomstart",htme_debug.TRAFFIC,"Creating signed packet htme_packet.CLIENT_ROOMCHANGE");
     htme_createSignedPacket(cmd_map,noone,htme_hash());
     htme_forceSyncLocalInstances(self.playerhash);
 } else {

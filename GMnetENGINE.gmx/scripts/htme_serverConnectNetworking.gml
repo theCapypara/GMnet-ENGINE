@@ -38,8 +38,6 @@ if (is_undefined(ds_map_find_value(self.playermap,in_ip+":"+string(in_port)))) {
             //don't need to do that here, especially since when using GMnet PUNCH, this can't be
             //done yet anyway
             network_send_udp(self.socketOrServer,in_ip,in_port,buffer,buffer_tell(buffer));
-            htme_debugger("htme_serverConnectNetworking",htme_debug.TRAFFIC,"Got packet htme_packet.CLIENT_REQUESTCONNECT from "+in_ip+":"+string(in_port));
-            htme_debugger("htme_serverConnectNetworking",htme_debug.TRAFFIC,"Sent packet htme_packet.SERVER_CONREQACCEPT to "+in_ip+":"+string(in_port));
             htme_debugger("htme_serverConnectNetworking",htme_debug.INFO,"CONNECTED TO CLIENT "+in_ip+":"+string(in_port));
             //Register a new player
             htme_serverEventPlayerConnected(in_ip,in_port);

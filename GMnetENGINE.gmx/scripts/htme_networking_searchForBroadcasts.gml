@@ -28,12 +28,11 @@ with (global.htme_object) {
     var in_buff = ds_map_find_value(async_load, "buffer");
     var in_id = ds_map_find_value(async_load, "id");
     var in_port = ds_map_find_value(async_load, "port");
-    var dbg_contents = "";
+    
     //Read command
     code = buffer_read(in_buff, buffer_s8 );
     switch code {
         case htme_packet.SERVER_BROADCAST:
-            htme_debugger("htme_networking_searchForBroadcasts",htme_debug.TRAFFIC,"Got a server broadcast");
             var data1 = buffer_read(in_buff, buffer_string );
             if (self.lanlobbyfilter != "") {
                 if (self.lanlobbyfilter != data1)

@@ -41,7 +41,6 @@ if (!self.use_udphp || (in_ip != self.udphp_master_ip)) {
             //especially since when using GMnet PUNCH, this can't be done yet anyway
             //Mark engine as conncted
             self.isConnected = true;
-            htme_debugger("htme_clientConnectNetworking",htme_debug.TRAFFIC,"Got packet htme_packet.SERVER_CONREQACCEPT");
             htme_debugger("htme_clientConnectNetworking",htme_debug.INFO,"CONNECTED TO SERVER!");
             htme_roomstart();
         break;

@@ -1,4 +1,4 @@
-///htme_serverRecieveVarGroup(instancehash,playerhash,object_id,inst_stayAlive,instance,tolerance,datatype,groupname,dbg_contents);
+///htme_serverRecieveVarGroup(instancehash,playerhash,object_id,inst_stayAlive,instance,tolerance,datatype,groupname);
 
 /*
 **  Description:
@@ -26,7 +26,6 @@ var instance = argument4;
 var tolerance = argument5;
 var datatype = argument6;
 var groupname = argument7;
-var dbg_contents = argument8;
 
 var in_ip = ds_map_find_value(async_load, "ip");
 var in_buff = ds_map_find_value(async_load, "buffer");
@@ -142,11 +141,9 @@ switch (datatype) {
         //Simple datatype
         var backupVars = backupEntry[? "backupVars"];
         var length = buffer_read(in_buff,buffer_u8);
-        dbg_contents += "length: "+string(length)+",";
         for (var l=0;l<length;l++) {
             var vname = buffer_read(in_buff,buffer_string);
             var vval = buffer_read(in_buff,datatype);
-            dbg_contents += vname+": "+string(vval)+",";
             //Check tolerance
             var checkedval = htme_RecieveVar(ds_map_find_value(backupVars,vname),vval,tolerance,datatype);
             with (instance) { ds_map_replace(self.htme_mp_vars,vname,checkedval);}
