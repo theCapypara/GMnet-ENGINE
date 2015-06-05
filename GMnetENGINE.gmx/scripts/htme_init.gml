@@ -43,6 +43,10 @@ enum htme_packet {
     CHAT_API=115,
     SIGNEDPACKET=126,
     SIGNEDPACKET_ACCEPTED=127,
+    SIGNEDPACKET_NEW=125,
+    SIGNEDPACKET_NEW_CMD=124,
+    SIGNEDPACKET_NEW_CMD_REQ=1,
+    SIGNEDPACKET_NEW_CMD_MISS=2
 }
 
 enum mp_type {
@@ -204,12 +208,6 @@ self.clientTimeoutRecv = 0;
 //Server timeout check (ds_map) -> <ip:port> -> real
 self.serverTimeoutSend = -1;
 self.serverTimeoutRecv = -1;
-//Signed packets list <map containing ["cmd_list"->cmd_list,"target"->ip:port],"timeout"->real>
-self.signedPackets = -1;
-//Map of all signed packets <category> -> <packet> ; Only one packet per category will always exist
-self.signedPacketsCategories = -1;
-//Cache for recieved signedPackets
-self.signedPacketsInCache = ds_list_create();
 //List of locally controlled instances <hash> -> <instance_id> 
 self.localInstances = ds_map_create();
 //List of all controlled instances <hash> -> <instance_id> 
@@ -257,3 +255,21 @@ self.lan_intervalpnt = self.lan_interval;
 self.serverEventHandlerConnect = htme_defaultEventHandler;
 self.serverEventHandlerDisconnect = htme_defaultEventHandler;
 self.chatQueues = -1;
+//Signed Packet Count Map - Sending
+/*STRUCTURE:
+    self.sPcountOUT -> 
+                      [ip:port] -> ds_map ->
+                                            n -> real
+                                            [i] -> buffer
+*/                                              
+       
+self.sPcountOUT = ds_map_create();
+//Signed Packet Count Map - Recieving
+/*STRUCTURE:
+    self.sPcountIN -> 
+                      [ip:port] -> ds_map ->
+                                            n -> real
+                                            buffs -> ds_priority -> 
+                                                                   [i] -> buffer
+*/       
+self.sPcountIN = ds_map_create();

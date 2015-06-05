@@ -191,7 +191,6 @@
           </scripts>
           <scripts name="networking">
             <script>scripts\htme_networking.gml</script>
-            <script>scripts\htme_recieveSignedPackets.gml</script>
             <script>scripts\htme_recieveVarGroup.gml</script>
             <script>scripts\htme_RecieveVar.gml</script>
             <script>scripts\htme_recieveGS.gml</script>
@@ -226,12 +225,10 @@
           <script>scripts\htme_chatAddChannel.gml</script>
         </scripts>
         <scripts name="signed_packets">
-          <script>scripts\htme_createSignedPacket.gml</script>
-          <script>scripts\htme_createSingleSignedPacket.gml</script>
-          <script>scripts\htme_sendSignedPacket.gml</script>
-          <script>scripts\htme_fillSignedPacketBuffer.gml</script>
-          <script>scripts\htme_removeSignedPacket.gml</script>
-          <script>scripts\htme_removeSignedPacketsByCatFilter.gml</script>
+          <script>scripts\htme_sendNewSignedPacket.gml</script>
+          <script>scripts\htme_initSignedPacket.gml</script>
+          <script>scripts\htme_sendSingleSignedPacket.gml</script>
+          <script>scripts\htme_recieveSignedPackets.gml</script>
         </scripts>
       </scripts>
       <scripts name="instance comamnds">
