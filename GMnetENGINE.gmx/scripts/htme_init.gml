@@ -87,7 +87,7 @@ randomize();
  * will be shown. NONE disables debug messages. TRAFFIC ONLY shows traffic!
  * When GMnet PUNCH is enabled (use_udphp = true), it's debug level will be adjusted accordingly.
 */
-self.debuglevel = htme_debug.WARNING;
+self.debuglevel = htme_debug.DEBUG;
 
 /** 
  * Enable or disable the debug overlay. Provides you with useful debugging tools.

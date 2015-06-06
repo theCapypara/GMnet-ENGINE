@@ -31,7 +31,7 @@ if (self.started) {
         //the signedPacket Networking function which moves the pointer ahead one, so we
         //can't do buffer_seek inside the Networking functions of client/server
         buffer_seek(ds_map_find_value(async_load, "buffer"), buffer_seek_start, 0);
-        htme_serverNetworking();
+        htme_serverNetworking(ds_map_find_value(async_load, "buffer"));
     } else {
         ///CLIENT
         if (self.use_udphp) {
@@ -41,7 +41,7 @@ if (self.started) {
         }
         htme_clientCheckConnectionNetworking();
         buffer_seek(ds_map_find_value(async_load, "buffer"), buffer_seek_start, 0);
-        htme_clientNetworking();
+        htme_clientNetworking(ds_map_find_value(async_load, "buffer"));
     }
     htme_recieveSignedPackets();
 }
