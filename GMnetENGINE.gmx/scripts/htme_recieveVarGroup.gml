@@ -32,6 +32,12 @@ var instance = ds_map_find_value(self.globalInstances,instancehash);
 var tolerance = buffer_read(in_buff,buffer_f32);
 var datatype = buffer_read(in_buff,buffer_u16);
 
+//Check if we actually know who we are
+if (!self.isServer && self.playerhash == "") {
+    htme_debugger("htme_recieveVarGroup",htme_debug.INFO,"Recieved vargroup but we are not continuing: We don't have a playerhash yet.");    
+    exit;
+}
+
 //Check if player is in playerlist real quick
 if (ds_list_find_index(self.playerlist,playerhash) == -1) {
    ds_list_add(self.playerlist,playerhash);
@@ -53,7 +59,7 @@ if ((is_undefined(instance) || !instance_exists(instance))) {
       var backupCheck = true;
     }
     if (insameroom || inst_stayAlive || backupCheck) {
-        htme_debugger("htme_clientNetworking",htme_debug.DEBUG,"Got a new instance. Creating:");
+        htme_debugger("htme_recieveVarGroup",htme_debug.DEBUG,"Got a new instance. Creating:");
         //Create instance and entry
         self.tmp_creatingNetworkInstance = true;
         self.tmp_creatingNetworkInstanceHash = instancehash;

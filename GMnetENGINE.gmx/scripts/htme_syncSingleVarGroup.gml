@@ -23,6 +23,12 @@
 var group = argument0;
 var target = argument1;
 
+//Check if we actually know who we are
+if (!self.isServer && self.playerhash == "") {
+    htme_debugger("htme_syncSingleVarGroup",htme_debug.INFO,"Tried to send vargroup but we are not continuing: We don't have a playerhash yet.");    
+    exit;
+}
+
 /**RETRIEVE INFORMATION**/
 var inst_hash = group[? "instancehash"];
 var inst = group[? "instance"];
