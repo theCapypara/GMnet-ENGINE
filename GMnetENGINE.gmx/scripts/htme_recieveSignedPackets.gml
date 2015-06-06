@@ -47,7 +47,7 @@ if ((self.isServer && !is_undefined(ds_map_find_value(self.playermap,in_ip+":"+s
             
             //Get Player Inmap
             var sender_inmap = ds_map_find_value(self.sPcountIN,sender);
-            if (is_undefined(sender_outmap)) {
+            if (is_undefined(sender_inmap)) {
                 sender_inmap = ds_map_create();
                 sender_inmap[? "n"] = 0;
                 ds_map_add_map(self.sPcountIN,sender,sender_inmap);
