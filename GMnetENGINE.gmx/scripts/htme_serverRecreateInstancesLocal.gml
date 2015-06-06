@@ -40,9 +40,11 @@ for(var i=0; i<ds_map_size(mapToUse); i+=1) {
         //RECREATE
         var backupVars = backupEntry[? "backupVars"];
         self.tmp_creatingNetworkInstance = true;
+        self.tmp_creatingNetworkInstanceNoGroups = true;
         self.tmp_creatingNetworkInstanceHash = key;
         inst = instance_create(-100,-100,backupEntry[? "object"]);
         self.tmp_creatingNetworkInstance = false;
+        self.tmp_creatingNetworkInstanceNoGroups = false;
         ds_map_replace(self.globalInstances,key,inst);
         with inst {
             self.htme_mp_id = key;

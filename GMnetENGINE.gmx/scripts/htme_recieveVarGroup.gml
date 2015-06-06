@@ -63,7 +63,7 @@ if ((is_undefined(instance) || !instance_exists(instance))) {
         //Create instance and entry
         self.tmp_creatingNetworkInstance = true;
         //Do not create vargroups if simply changing room
-        if (self.isServer && (!inst_stayAlive || !backupCheck)) {
+        if (self.isServer && !backupCheck) {
            self.tmp_creatingNetworkInstanceNoGroups = true;
         }
         self.tmp_creatingNetworkInstanceHash = instancehash;

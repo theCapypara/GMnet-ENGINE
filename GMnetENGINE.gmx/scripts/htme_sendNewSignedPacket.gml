@@ -69,6 +69,7 @@ with (global.htme_object) {
                 //Skip if not in same room
                 if (!htme_serverPlayerIsInRoom(key,rroom)) {key = ds_map_find_next(self.playermap, key);continue; } 
             }
+            buffer_seek(send_buff, buffer_seek_end, 0);
             htme_initSignedPacket(send_buff,key);
             key = ds_map_find_next(self.playermap, key);
         }
