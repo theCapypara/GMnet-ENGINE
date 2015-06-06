@@ -62,6 +62,7 @@ if (!is_undefined(player)) {
              htme_serverBroadcastRoomChange(ds_map_find_value(self.playermap,in_ip+":"+string(in_port)));
         break;
         case htme_packet.CLIENT_BYE:
+             htme_debugger("htme_serverKickClient",htme_debug.INFO,"bye "+in_ip+":"+string(in_port));
              htme_serverKickClient(in_ip+":"+string(in_port));
         break;
         case htme_packet.CHAT_API:

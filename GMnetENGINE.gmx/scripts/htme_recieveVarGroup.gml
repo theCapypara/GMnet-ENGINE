@@ -59,12 +59,17 @@ if ((is_undefined(instance) || !instance_exists(instance))) {
       var backupCheck = true;
     }
     if (insameroom || inst_stayAlive || backupCheck) {
-        htme_debugger("htme_recieveVarGroup",htme_debug.DEBUG,"Got a new instance. Creating:");
+        htme_debugger("htme_recieveVarGroup",htme_debug.DEBUG,"Got a new instance for "+instancehash+". Creating:");
         //Create instance and entry
         self.tmp_creatingNetworkInstance = true;
+        //Do not create vargroups if simply changing room
+        if (!inst_stayAlive || !backupCheck) {
+           self.tmp_creatingNetworkInstanceNoGroups = true;
+        }
         self.tmp_creatingNetworkInstanceHash = instancehash;
         instance = instance_create(-100,-100,object_id);
         self.tmp_creatingNetworkInstance = false;
+        self.tmp_creatingNetworkInstanceNoGroups = false;
         ds_map_replace(self.globalInstances,instancehash,instance);
         with instance {
             self.htme_mp_id = instancehash;

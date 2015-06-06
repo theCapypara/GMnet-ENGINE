@@ -53,8 +53,6 @@ enum mp_type {
     FAST, /*Syncs by simply sending a packet to client or servers
             when sent to the server, the server will send it back to
             the clients when the timeout for that group on the server is over*/
-    /*FASTPLUS,*/ /*Like fast, but when the server gets updated information from the clients,
-                the server instantly syncs back the group to all clients [NOT IMPLEMENTED]*/ 
     IMPORTANT, /*Uses signed packets to ensure that all servers and clients recieve the
                 information, like TCP would do. This is quite slow! When messages arrive at
                 the server, the packets will be relayed to all clients*/
@@ -214,6 +212,7 @@ self.localInstances = ds_map_create();
 self.globalInstances = ds_map_create();
 //
 self.tmp_creatingNetworkInstance = false;
+self.tmp_creatingNetworkInstanceNoGroups = false;
 //Playermap for romms. Contains entry with the format <ip:port> -> <room> [Only server!]
 self.playerrooms = -1;
 //Server backup map for instance data
