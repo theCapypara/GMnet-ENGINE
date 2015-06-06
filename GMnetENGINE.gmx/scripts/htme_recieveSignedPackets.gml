@@ -51,11 +51,44 @@ if ((self.isServer && !is_undefined(ds_map_find_value(self.playermap,in_ip+":"+s
             //Get current packet id
             var expected = sender_inmap[? "n"];
             
-            //Check buffer priority lis
+            //Process missing cached packets
             var buffs = sender_inmap[? "buffs"];
             if (is_undefined(buffs)) {
                 buffs = ds_priority_create();
                 sender_inmap[? "buffs"] = buffs;
+            }
+                        
+            for (var i=0; i<5; i++) {
+                if (ds_priority_empty(buffs)) break;
+                var pr = ds_priority_find_priority(buffs,ds_priority_find_min(buffs));
+                if (pr == expected) {
+                    //Just what we wanted - process this first
+                    var prio_buff = ds_priority_delete_min(buffs);
+                    var ip = htme_playerMapIP(sender);
+                    var port = htme_playerMapPort(sender);
+                    
+                    buffer_seek(prio_buff, buffer_seek_start, 0);
+                    buffer_read(prio_buff, buffer_s8 );
+                    buffer_read(prio_buff, buffer_u32 );
+                    htme_debugger("htme_recieveSignedPackets",htme_debug.DEBUG,"SP: Processing from priority list "+sender+":"+string(expected));
+                    ds_map_replace(async_load, "buffer", prio_buff);
+                    if (self.isServer) {
+                        htme_serverNetworking();
+                    } else {
+                        htme_clientNetworking();
+                    }
+                    ds_map_replace(async_load, "buffer", in_buff);
+                    buffer_delete(prio_buff);
+                    if (ds_exists(sender_inmap,ds_type_map)) {
+                       expected = expected+1;
+                       sender_inmap[? "n"] = expected;
+                    }
+                    else exit;
+                } else if (pr <= expected) {
+                    //This was already processed.
+                    i--;
+                    ds_priority_delete_min(buffs);
+                } else break;
             }
             
             //Process packet
@@ -64,11 +97,13 @@ if ((self.isServer && !is_undefined(ds_map_find_value(self.playermap,in_ip+":"+s
                  //Just what we wanted - continue to process it
                  htme_debugger("htme_recieveSignedPackets",htme_debug.DEBUG,"SP: Processing recieved "+sender+":"+string(n));
                  if (self.isServer) {
-                     htme_serverNetworking(in_buff);
+                     htme_serverNetworking();
                  } else {
-                     htme_clientNetworking(in_buff);
+                     htme_clientNetworking();
                  }
-                 sender_inmap[? "n"] = sender_inmap[? "n"]+1;
+                 if (ds_exists(sender_inmap,ds_type_map))
+                    sender_inmap[? "n"] = sender_inmap[? "n"]+1;
+                 else exit;
             } else if (missing < 0) {
                 //Already processed
                  htme_debugger("htme_recieveSignedPackets",htme_debug.DEBUG,"SP: Doing nothing. Already processed "+sender+":"+string(n));
@@ -84,6 +119,7 @@ if ((self.isServer && !is_undefined(ds_map_find_value(self.playermap,in_ip+":"+s
                 network_send_udp( self.socketOrServer, htme_playerMapIP(sender), htme_playerMapPort(sender), self.buffer, buffer_tell(self.buffer));
                 
                 //Also add this packet to the query.
+                buffer_seek(in_buff, buffer_seek_end, 0);
                 var cache_buffer = buffer_create(buffer_tell(in_buff), buffer_fixed, 1);
                 buffer_copy(in_buff,0,buffer_tell(in_buff),cache_buffer,0);
                 buffer_seek(cache_buffer, buffer_seek_end, 0);

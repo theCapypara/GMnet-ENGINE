@@ -1,4 +1,4 @@
-///htme_serverNetworking(buffer)
+///htme_serverNetworking()
 
 /*
 **  Description:
@@ -10,7 +10,7 @@
 **      <See above>
 **
 **  Arguments:
-**      buffer     real       buffer with incoming traffic
+**      <none>
 **
 **  Returns:
 **      <nothing>
@@ -21,7 +21,7 @@ if (!self.isConnected) {exit;}
 
 //Set up some local variables.
 var in_ip = ds_map_find_value(async_load, "ip");
-var in_buff = argument0;
+var in_buff = ds_map_find_value(async_load, "buffer");
 var in_id = ds_map_find_value(async_load, "id");
 var in_port = ds_map_find_value(async_load, "port");
 
