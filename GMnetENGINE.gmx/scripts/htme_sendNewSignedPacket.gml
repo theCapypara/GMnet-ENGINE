@@ -1,4 +1,4 @@
-///htme_sendNewSignedPacket(buffer,target,[exclude]);
+///htme_sendNewSignedPacket(buffer,target,[exclude],[room]);
 
 /*
 **  Description:
@@ -22,23 +22,39 @@
 **                          When using all as target this can be used to exclude a single
 **                          player; all and noone are not allowed!
 **                          Can be empty string for none.
+**      [room]    real      If specified:
+**                          Creates signed packets for all players 
+**                          except {exclude} and players in {room} 
+**                          (only works for server)
 **  Returns:
 **      <nothing>
 **
 */
 
-var send_buff = argument[0];
+var pre_send_buff = argument[0];
 var target = argument[1];
 var exclude = "";
 if (argument_count > 2) {
     exclude = argument[2];
 }
+var rroom = -1;
+if (argument_count > 3) {
+    rroom = argument[3];
+}
+
+//We are copying the send_buffer in case it's self.buffer, because that get's overwritten!
+var send_buff = buffer_create(buffer_tell(pre_send_buff), buffer_fixed, 1);
+buffer_copy(pre_send_buff,0,buffer_tell(pre_send_buff),send_buff,0);
+buffer_seek(send_buff, buffer_seek_end, 0);
 
 htme_debugger("htme_sendNewSignedPacket",htme_debug.DEBUG,"Sending signed packet...");
 
 with (global.htme_object) {
     if (is_string(target) || !self.isServer) {
         //Single target
+        if (!self.isServer) {
+           target = self.server_ip+":"+string(self.server_port);
+        }
         htme_initSignedPacket(send_buff,target);
     } else if (target == all) {
         htme_debugger("htme_sendNewSignedPacket",htme_debug.DEBUG,"Target was all: Creating multiple packets.");
@@ -49,9 +65,14 @@ with (global.htme_object) {
             if (key == "0:0") {key = ds_map_find_next(self.playermap, key);continue; }  
             //Skip if exclude
             if (key == exclude) {key = ds_map_find_next(self.playermap, key);continue;}
+            if (rroom != -1) {
+                //Skip if not in same room
+                if (!htme_serverPlayerIsInRoom(key,rroom)) {key = ds_map_find_next(self.playermap, key);continue; } 
+            }
             htme_initSignedPacket(send_buff,key);
             key = ds_map_find_next(self.playermap, key);
         }
-        ds_list_destroy(cmd_list);
     }
 }
+
+buffer_delete(send_buff);

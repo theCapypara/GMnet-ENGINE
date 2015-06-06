@@ -46,14 +46,14 @@ if (self.isServer) {
     htme_chatSendServer(channel,message,to);
 } else {
     //Send message to server, the server will relay the message.
-    var cmd_list = ds_list_create();
-    ds_list_add(cmd_list,buffer_s8,htme_packet.CHAT_API);
-    ds_list_add(cmd_list,buffer_string,channel);
-    ds_list_add(cmd_list,buffer_string,to);
-    ds_list_add(cmd_list,buffer_string,message);
+    buffer_seek(self.buffer, buffer_seek_start, 0);
+    buffer_write(self.buffer, buffer_s8,htme_packet.CHAT_API);
+    buffer_write(self.buffer, buffer_string,channel);
+    buffer_write(self.buffer, buffer_string,to);
+    buffer_write(self.buffer, buffer_string,message);
     if (to == "")
         htme_debugger("htme_chatSend",htme_debug.CHATDEBUG,"CHAT API ["+channel+"] - Sending message "+message+" to all.");
     else
         htme_debugger("htme_chatSend",htme_debug.CHATDEBUG,"CHAT API ["+channel+"] - Sending message "+message+" to "+to+".");
-    htme_createSignedPacket(cmd_list,noone,htme_hash());
+    htme_sendNewSignedPacket(self.buffer,noone);
 }

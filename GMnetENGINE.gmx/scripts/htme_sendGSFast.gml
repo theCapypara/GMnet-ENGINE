@@ -38,12 +38,9 @@ if (argument_count > 2) {
     exclude = argument[2];
 }
 
-htme_debugger("htme_sendGSFast",htme_debug.DEBUG,"Global Sync: Syncing...");
-
-var cmd_list = ds_list_create();
+buffer_seek(self.buffer, buffer_seek_start, 0);
 //Write header
-cmd_list[| 0] = buffer_s8;
-cmd_list[| 1] = htme_packet.GLOBALSYNC;
+buffer_write(self.buffer, buffer_s8, htme_packet.GLOBALSYNC);
 var varval, vardt;
 if (is_string(variable)) {
     //SYNC SPECIFIC
@@ -51,32 +48,30 @@ if (is_string(variable)) {
     varval = ds_map_find_value(self.globalsync,varname);
     vardt = ds_map_find_value(self.globalsync_datatypes,varname);
     //Write number of variables
-    ds_list_add(cmd_list,buffer_u8,1);
+    buffer_write(self.buffer, buffer_u8,1);
     //Write variable name
-    ds_list_add(cmd_list,buffer_string,varname);
+    buffer_write(self.buffer, buffer_string,varname);
     //Write buffer type
-    ds_list_add(cmd_list,buffer_u8,vardt);
+    buffer_write(self.buffer, buffer_u8,vardt);
     //Write variable
-    ds_list_add(cmd_list,vardt,varval);
+    buffer_write(self.buffer, vardt,varval);
 } else if (variable == all) {
     //SYNC ALL
     var varname= ds_map_find_first(self.globalsync);
     //Write number of variables
-    ds_list_add(cmd_list,buffer_u8,ds_map_size(self.globalsync));
+    buffer_write(self.buffer, buffer_u8,ds_map_size(self.globalsync));
     for(var i=0; i<ds_map_size(self.globalsync); i+=1) {
         varval = ds_map_find_value(self.globalsync,varname);
         vardt = ds_map_find_value(self.globalsync_datatypes,varname);
         //Write variable name
-        ds_list_add(cmd_list,buffer_string,varname);
+        buffer_write(self.buffer, buffer_string,varname);
         //Write buffer type
-        ds_list_add(cmd_list,buffer_u8,vardt);
+        buffer_write(self.buffer, buffer_u8,vardt);
         //Write variable
-        ds_list_add(cmd_list,vardt,varval);
+        buffer_write(self.buffer, vardt,varval);
         varname = ds_map_find_next(self.globalsync, varname);
     }
 }
-
-htme_fillSignedPacketBuffer(self.buffer,cmd_list);
 
 with (global.htme_object) {
     if (is_string(target)) {

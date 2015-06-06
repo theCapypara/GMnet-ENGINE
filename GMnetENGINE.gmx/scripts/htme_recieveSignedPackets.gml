@@ -44,16 +44,39 @@ if ((self.isServer && !is_undefined(ds_map_find_value(self.playermap,in_ip+":"+s
             
             var sender = in_ip+":"+string(in_port);
             var n = buffer_read(in_buff, buffer_u32 );
-            //!!!!CHECK ID HERE!!!!
-            if (true) {
-                buffer_seek(in_buff, buffer_seek_start, 0);
-                buffer_read(in_buff, buffer_s8 ); //Move pointer again
-                buffer_read(in_buff, buffer_u16 ); //Move pointer again
-                if (self.isServer) {
-                    htme_serverNetworking();
-                } else {
-                    htme_clientNetworking();
-                }
+            
+            //Get Player Inmap
+            var sender_inmap = ds_map_find_value(self.sPcountIN,sender);
+            if (is_undefined(sender_outmap)) {
+                sender_inmap = ds_map_create();
+                sender_inmap[? "n"] = 0;
+                ds_map_add_map(self.sPcountIN,sender,sender_inmap);
+            }
+            
+            //Get current packet id
+            var expected = sender_inmap[? "n"];
+            
+            //Check buffer priority list
+            //TODO
+            
+            //Process packet
+            var missing = n-expected;
+            if (missing == 0) {
+               //Just what we wanted - continue to process it
+               if (self.isServer) {
+                   htme_serverNetworking();
+               } else {
+                   htme_clientNetworking();
+               }
+               sender_inmap[? "n"] = sender_inmap[? "n"]+1;
+            } else if (missing < 0) {
+              //Already processed
+            } else /*if (missing > 0)*/ {
+              //We are missing packets. Ask server.
+              //TODO: For now we only ask for the oldest missing packet.
+              //TODO
+              //Also add this packet to the query.
+              //TODO
             }
         break;
         case htme_packet.SIGNEDPACKET_NEW_CMD:

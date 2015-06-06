@@ -22,12 +22,7 @@
 var hash = argument0;
 
 //Creates a signed packet and sends it to the server
-cmd_map = ds_list_create();
-//Create command map
-cmd_map[| 0] = buffer_s8;
-cmd_map[| 1] = htme_packet.CLIENT_INSTANCEREMOVED;
-
-cmd_map[| 2] = buffer_string;
-cmd_map[| 3] = hash;
-htme_removeSignedPacketsByCatFilter(hash);
-htme_createSignedPacket(cmd_map,noone,hash+"__REMOVE_");
+buffer_seek(self.buffer, buffer_seek_start, 0);
+buffer_write(self.buffer, buffer_s8, htme_packet.CLIENT_INSTANCEREMOVED);
+buffer_write(self.buffer, buffer_string, hash);
+htme_sendNewSignedPacket(self.buffer,noone);

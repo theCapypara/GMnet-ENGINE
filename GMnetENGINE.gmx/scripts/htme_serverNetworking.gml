@@ -30,7 +30,7 @@ var player = ds_map_find_value(self.playermap,in_ip+":"+string(in_port));
 //Check that the packet is from a valid client
 if (!is_undefined(player)) {
     //Read command
-    code = buffer_read(in_buff, buffer_s8 );
+    var code = buffer_read(in_buff, buffer_s8 );
     switch code {
         case htme_packet.INSTANCE_VARGROUP:
             htme_debugger("htme_serverNetworking",htme_debug.DEBUG,"Got a update packet");

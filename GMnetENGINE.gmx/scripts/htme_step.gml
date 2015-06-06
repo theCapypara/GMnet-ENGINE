@@ -48,7 +48,6 @@ if (self.started) {
             htme_syncInstances();
         }
     }
-    htme_sendSignedPackets();
 }
 
 ///Process debug overlay keypresses

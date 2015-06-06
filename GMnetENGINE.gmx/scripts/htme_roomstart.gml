@@ -23,14 +23,11 @@ htme_debugger("htme_roomstart",htme_debug.DEBUG,"ROOMSTART triggered!");
 
 if (!self.isServer) {
     //Creates a signed packet and sends it to the server
-    var cmd_map = ds_list_create();
-    //Create command map
-    cmd_map[| 0] = buffer_s8;
-    cmd_map[| 1] = htme_packet.CLIENT_ROOMCHANGE;
+    buffer_seek(self.buffer, buffer_seek_start, 0);
+    buffer_write(self.buffer, buffer_s8, htme_packet.CLIENT_ROOMCHANGE);
+    buffer_write(self.buffer, buffer_u16, room);
+    htme_sendNewSignedPacket(self.buffer,noone);
     
-    cmd_map[| 2] = buffer_u16;
-    cmd_map[| 3] = room;
-    htme_createSignedPacket(cmd_map,noone,htme_hash());
     htme_forceSyncLocalInstances(self.playerhash);
 } else {
     htme_debugger("htme_roomstart",htme_debug.DEBUG,"Noting own room.");

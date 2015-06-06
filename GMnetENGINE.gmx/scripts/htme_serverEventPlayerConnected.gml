@@ -31,10 +31,10 @@ ev_map[? "ip"] = ip;
 ev_map[? "port"] = ip;
 if (!script_execute(self.serverEventHandlerConnect,ev_map)) {
     //CONNECTION REFUSED
-    htme_debugger("htme_serverEventPlayerConnected",htme_debug.INFO,"Connection for "+ip+":"+string(port)+" refused. Player will be disconnected.");
-    var cmd_list = ds_list_create();
-    ds_list_add(cmd_list,buffer_s8,htme_packet.SERVER_KICKREQ);
-    htme_createSignedPacket(cmd_list,ip+":"+string(port),"kickreq",self.global_timeout);
+    htme_debugger("htme_serverEventPlayerConnected",htme_debug.INFO,"Connection for "+ip+":"+string(port)+" refused. Player will be disconnected.");   
+    buffer_seek(self.buffer, buffer_seek_start, 0);
+    buffer_write(self.buffer, buffer_s8, htme_packet.SERVER_KICKREQ)
+    htme_sendNewSignedPacket(self.buffer,ip+":"+string(port));
     ds_map_destroy(ev_map);
     if (self.use_udphp) {
         //Remove from udphp player list
@@ -76,27 +76,21 @@ ds_list_add(self.playerlist,playerhash);
 
 
 //Tell the player he is connected.
-var cmd_map = ds_list_create();
-//Create command map
-cmd_map[| 0] = buffer_s8;
-cmd_map[| 1] = htme_packet.SERVER_GREETINGS;
-
-cmd_map[| 2] = buffer_string;
-cmd_map[| 3] = playerhash;
+buffer_seek(self.buffer, buffer_seek_start, 0);
+buffer_write(self.buffer, buffer_s8, htme_packet.SERVER_GREETINGS);
+buffer_write(self.buffer, buffer_string, playerhash);
 //Send
 htme_debugger("htme_serverEventPlayerConnected",htme_debug.DEBUG,"Create signed packet to tell player he is connected");
-htme_createSignedPacket(cmd_map,player,htme_hash())
+htme_sendNewSignedPacket(self.buffer,player);
 
 //Tell the others that he connected
-cmd_map = ds_list_create();
-//Create command map
-cmd_map[| 0] = buffer_s8;
-cmd_map[| 1] = htme_packet.SERVER_PLAYERCONNECTED;
-
-cmd_map[| 2] = buffer_string;
-cmd_map[| 3] = playerhash;
+buffer_seek(self.buffer, buffer_seek_start, 0);
+buffer_write(self.buffer, buffer_s8, htme_packet.SERVER_PLAYERCONNECTED);
+buffer_write(self.buffer, buffer_string, playerhash);
+//Send
 htme_debugger("htme_serverEventPlayerConnected",htme_debug.DEBUG,"Tell other clients the good news!");
-htme_createSignedPacket(cmd_map,all,htme_hash(),player);
+htme_sendNewSignedPacket(self.buffer,all,player);
+
 //Send global sync list
 htme_sendGS(player,all);
 

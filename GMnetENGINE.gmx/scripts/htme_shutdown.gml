@@ -11,8 +11,7 @@
 **      <See above>
 **
 **  Arguments:
-**      buffer      buffer      the outgoing buffer
-**      cmd_list    ds_list     the list of commands as described in htme_createSignedPacket
+**      <none>
 **
 **  Returns:
 **      <nothing>

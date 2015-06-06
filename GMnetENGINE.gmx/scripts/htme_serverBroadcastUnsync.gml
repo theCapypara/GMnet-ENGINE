@@ -22,20 +22,13 @@
 
 var hash = argument[0];
 
-//Creates a signed packet and sends it to the server
-cmd_map = ds_list_create();
-//Create command map
-cmd_map[| 0] = buffer_s8;
-cmd_map[| 1] = htme_packet.SERVER_INSTANCEREMOVED;
-
-cmd_map[| 2] = buffer_string;
-cmd_map[| 3] = hash;
+//Creates a signed packet and sends it
+buffer_seek(self.buffer, buffer_seek_start, 0);
+buffer_write(self.buffer, buffer_s8, htme_packet.SERVER_INSTANCEREMOVED);
+buffer_write(self.buffer, buffer_string, hash);
 
 if (argument_count > 1) {
-   //FIXME: We are throwing away all sPs currently, we should focus
-   //one the ones for one player
-   htme_removeSignedPacketsByCatFilter(hash);
-   htme_createSignedPacket(cmd_map,argument[1],hash+"__REMOVE_");
+   htme_sendNewSignedPacket(self.buffer,argument[1]);
 } else {
-  htme_createSignedPacket(cmd_map,all,hash+"__REMOVE_");
+   htme_sendNewSignedPacket(self.buffer,all);
 }

@@ -25,6 +25,7 @@ var target  = argument1;
 var target_outmap = ds_map_find_value(self.sPcountOUT,target);
 if (is_undefined(target_outmap)) {
     target_outmap = ds_map_create();
+    target_outmap[? "n"] = -1;
     ds_map_add_map(self.sPcountOUT,target,target_outmap);
 }
 
@@ -33,6 +34,7 @@ var n = target_outmap[? "n"]+1;
 //Copy and cache buffer
 var cache_buffer = buffer_create(buffer_tell(buffer), buffer_fixed, 1);
 buffer_copy(buffer,0,buffer_tell(buffer),cache_buffer,0);
+buffer_seek(cache_buffer, buffer_seek_end, 0);
 
 ds_map_add(target_outmap,n,cache_buffer);
 

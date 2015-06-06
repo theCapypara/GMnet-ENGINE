@@ -172,7 +172,6 @@
           <script>scripts\htme_serverEventPlayerDisconnected.gml</script>
           <script>scripts\htme_serverSendBufferToAllExcept.gml</script>
           <script>scripts\htme_serverSendAllInstances.gml</script>
-          <script>scripts\htme_serverCreateSPForAllCheckRoom.gml</script>
           <script>scripts\htme_serverPlayerIsInRoom.gml</script>
           <script>scripts\htme_serverBroadcastRoomChange.gml</script>
           <script>scripts\htme_serverRemoveBackup.gml</script>
@@ -183,7 +182,6 @@
         <scripts name="common">
           <scripts name="step">
             <script>scripts\htme_step.gml</script>
-            <script>scripts\htme_sendSignedPackets.gml</script>
             <script>scripts\htme_syncInstances.gml</script>
             <script>scripts\htme_syncSingleVarGroup.gml</script>
             <script>scripts\htme_forceSyncLocalInstances.gml</script>
