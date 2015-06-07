@@ -226,6 +226,8 @@ self.tmp_instanceForceCreated = false;
 //Link stores a link to all vargroups for looping over them, since this is more
 //efficient than looping over instance maps and then var group maps.
 self.grouplist = -1;
+//The same for only local instances (server)
+self.grouplist_local = -1;
 //
 self.tmp_creatingNetworkInstanceHash = "";
 //the 7 data strings (2-8)

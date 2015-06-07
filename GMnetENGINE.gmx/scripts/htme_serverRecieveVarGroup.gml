@@ -153,19 +153,14 @@ switch (datatype) {
     break;
 }
 
-//Reset buffer to see if signed buffer
-buffer_seek(in_buff, buffer_seek_start, 0);
-if (buffer_read(in_buff, buffer_s8 ) == htme_packet.SIGNEDPACKET) {
-   //Relay to all clients
-   //Simply use backup entry to get groups, i'm lazy and it's safe
-   var backupEntry = ds_map_find_value(self.serverBackup,instancehash);
-   var instance_groups = backupEntry[? "groups"];
-   var group = ds_map_find_value(instance_groups,groupname);
-   if (!is_undefined(group)) {
-      self.syncForce = true;
-      htme_syncSingleVarGroup(group,all);
-      self.syncForce = false;
-   }
+//EXPERIMENTAL: Relay instantly, instead of looping over it.
+//Relay to all clients
+//Simply use backup entry to get groups, i'm lazy and it's safe
+var backupEntry = ds_map_find_value(self.serverBackup,instancehash);
+var instance_groups = backupEntry[? "groups"];
+var group = ds_map_find_value(instance_groups,groupname);
+if (!is_undefined(group)) {
+   htme_syncSingleVarGroup(group,all);
 }
 
 //Delete the instance if it was only created in htme_recieveVarGroup because there was no backup

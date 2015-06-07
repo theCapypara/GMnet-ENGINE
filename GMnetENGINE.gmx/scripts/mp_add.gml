@@ -74,6 +74,10 @@ else
 if (global.htme_object.isServer || !global.htme_object.tmp_creatingNetworkInstance || global.htme_object.playerhash == self.htme_mp_player) {
     ds_list_add(global.htme_object.grouplist,group);
 }
+//ONLY LOCAL (even if server)
+if (!global.htme_object.tmp_creatingNetworkInstance || global.htme_object.playerhash == self.htme_mp_player) {
+    ds_list_add(global.htme_object.grouplist_local,group);
+}
 
 ds_map_add(self.htme_mp_groups,groupname,group);
 var v_id =self.id;

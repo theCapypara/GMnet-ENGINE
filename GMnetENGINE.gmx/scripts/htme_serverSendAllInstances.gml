@@ -54,8 +54,10 @@ for(var i=0; i<ds_list_size(self.grouplist); i+=1) {
     }
     
     //Skip if own instance
-    if (inst_player == target) {continue;}
-    htme_syncSingleVarGroup(group,target);
+    var phash = ds_map_find_value(self.playermap,target);
+    if (inst_player == phash) {continue;}
+    //FIXME: Only send to this player! - Sending a string as target is currently broken
+    htme_syncSingleVarGroup(group,all);
 }
 
 self.syncForce = false;

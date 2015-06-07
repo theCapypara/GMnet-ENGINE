@@ -61,11 +61,7 @@ if (instance_exists(inst)) {
 }
 
 if (is_undefined(inst_player)) {
-    htme_debugger("htme_syncSingleVarGroup",htme_debug.WARNING,"Could not sync var-group "+group[? "name"]+" of instance "+inst_hash+". MISSING PLAYER! FIXME! Removing group manually...");
-    var list_ind = ds_list_find_index(self.grouplist,group);
-    if (list_ind != -1)
-       ds_list_delete(self.grouplist,list_ind);
-    ds_map_destroy(group);
+    htme_debugger("htme_syncSingleVarGroup",htme_debug.WARNING,"Could not sync var-group "+group[? "name"]+" of instance "+inst_hash+". MISSING PLAYER! FIXME!");
     exit;
 }
 
