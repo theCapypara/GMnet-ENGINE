@@ -22,6 +22,8 @@
 var target = argument0;
 self.syncForce = true;
 
+ htme_debugger("htme_serverSendAllInstances",htme_debug.DEBUG,"Sending all instances to "+target+" due to room change.");
+
 //This will loop through all var groups.
 for(var i=0; i<ds_list_size(self.grouplist); i+=1) {
     var group = ds_list_find_value(grouplist,i);
@@ -37,21 +39,22 @@ for(var i=0; i<ds_list_size(self.grouplist); i+=1) {
             var inst_player = backupEntry[? "player"];      
         } else {
             if (is_undefined(inst_hash) || is_undefined(group[? name])) {
-                htme_debugger("htme_forceSyncLocalInstances",htme_debug.WARNING,"CORRUPTED VARGROUP! CONTENTS: "+json_encode(group));
+                htme_debugger("htme_serverSendAllInstances",htme_debug.WARNING,"CORRUPTED VARGROUP! CONTENTS: "+json_encode(group));
             } else {
-                htme_debugger("htme_forceSyncLocalInstances",htme_debug.WARNING,"Could not check var-group "+group[? "name"]+" of instance "+inst_hash+". MISSING BACKUP ENTRY!");
+                htme_debugger("htme_serverSendAllInstances",htme_debug.WARNING,"Could not check var-group "+group[? "name"]+" of instance "+inst_hash+". MISSING BACKUP ENTRY!");
             }
         }
     } else {
         if (is_undefined(inst_hash) || is_undefined(group[? name])) {
-            htme_debugger("htme_forceSyncLocalInstances",htme_debug.WARNING,"CORRUPTED VARGROUP! CONTENTS: "+json_encode(group));
+            htme_debugger("htme_serverSendAllInstances",htme_debug.WARNING,"CORRUPTED VARGROUP! CONTENTS: "+json_encode(group));
         } else {
-            htme_debugger("htme_forceSyncLocalInstances",htme_debug.WARNING,"Could not check var-group "+group[? "name"]+" of instance "+inst_hash+". MISSING INSTANCE!");
+            htme_debugger("htme_serverSendAllInstances",htme_debug.WARNING,"Could not check var-group "+group[? "name"]+" of instance "+inst_hash+". MISSING INSTANCE!");
         }
         exit;
     }
     
-    if (inst_player == self.playerhash) {continue;}
+    //Skip if own instance
+    if (inst_player == target) {continue;}
     htme_syncSingleVarGroup(group,target);
 }
 

@@ -56,10 +56,12 @@ if (!is_undefined(player)) {
              var _room = buffer_read(in_buff,buffer_u16);
              htme_debugger("htme_serverNetworking",htme_debug.INFO,"Player "+in_ip+":"+string(in_port)+" moved to room "+string(_room)+"!");
              ds_map_replace(self.playerrooms,in_ip+":"+string(in_port),_room);
+             //Tell all other players not in the room to delete their instances of this player
+             //and send all instances of this player to the other players
+             htme_serverBroadcastRoomChange(ds_map_find_value(self.playermap,in_ip+":"+string(in_port)));
              //Send all instances of this room to this player
              htme_serverSendAllInstances(in_ip+":"+string(in_port));
-             //Tell all other players not in the room to delete their instances of this player
-             htme_serverBroadcastRoomChange(ds_map_find_value(self.playermap,in_ip+":"+string(in_port)));
+             
         break;
         case htme_packet.CLIENT_BYE:
              htme_debugger("htme_serverKickClient",htme_debug.INFO,"bye "+in_ip+":"+string(in_port));
