@@ -70,6 +70,8 @@ if (self.isServer) {
    var port_ip_player = htme_ds_map_find_key(self.playermap,inst_player);
    var inst_room = ds_map_find_value(self.playerrooms,port_ip_player);
    if (is_undefined(inst_room)) inst_room = -1;
+} else {
+   var inst_room = room;
 }
 
 /** START SYNCING **/
@@ -98,6 +100,8 @@ buffer_write(self.buffer, buffer_s8, htme_packet.INSTANCE_VARGROUP);
 buffer_write(self.buffer, buffer_string, inst_hash);
 //Write player
 buffer_write(self.buffer, buffer_string, inst_player);
+//Write room
+buffer_write(self.buffer, buffer_u16, inst_room);
 //Write groupname
 buffer_write(self.buffer, buffer_string, group[? "name"]);
 //Write object id

@@ -25,6 +25,7 @@ var in_port = ds_map_find_value(async_load, "port");
 
 var instancehash = buffer_read(in_buff,buffer_string);
 var playerhash = buffer_read(in_buff,buffer_string);
+var inst_room = buffer_read(in_buff,buffer_u16);
 var groupname = buffer_read(in_buff,buffer_string);
 var object_id = buffer_read(in_buff,buffer_u16);
 var inst_stayAlive = buffer_read(in_buff,buffer_bool);
@@ -35,6 +36,12 @@ var datatype = buffer_read(in_buff,buffer_u16);
 //Check if we actually know who we are
 if (!self.isServer && self.playerhash == "") {
     htme_debugger("htme_recieveVarGroup",htme_debug.INFO,"Recieved vargroup but we are not continuing: We don't have a playerhash yet.");    
+    exit;
+}
+
+//If we are client: Check that room is the same we are in OR instance is stayAlive
+if (inst_room != room && !inst_stayAlive) {
+    htme_debugger("htme_recieveVarGroup",htme_debug.INFO,"Recieved vargroup but this instance is not in our room (and not stayAlive).");    
     exit;
 }
 
