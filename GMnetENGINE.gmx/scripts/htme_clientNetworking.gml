@@ -104,5 +104,8 @@ if (in_ip == self.server_ip) {
                  htme_chatAddToQueue(channel, message, to);
              }
         break;
+        case htme_packet.SERVER_PLEASE_RESYNC:
+             htme_forceSyncLocalInstances(self.playerhash);
+        break;
     }
 }

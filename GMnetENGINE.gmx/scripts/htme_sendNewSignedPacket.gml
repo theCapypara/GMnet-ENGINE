@@ -23,8 +23,8 @@
 **                          player; all and noone are not allowed!
 **                          Can be empty string for none.
 **      [room]    real      If specified:
-**                          Creates signed packets for all players 
-**                          except {exclude} and players in {room} 
+**                          Creates signed packets for all players in {room} 
+**                          except {exclude}
 **                          (only works for server)
 **  Returns:
 **      <nothing>

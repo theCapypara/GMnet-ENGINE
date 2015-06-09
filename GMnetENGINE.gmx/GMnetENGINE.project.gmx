@@ -178,6 +178,7 @@
           <script>scripts\htme_serverRecreateInstancesLocal.gml</script>
           <script>scripts\htme_serverBroadcastUnsync.gml</script>
           <script>scripts\htme_chatSendServer.gml</script>
+          <script>scripts\htme_serverAskPlayersToResync.gml</script>
         </scripts>
         <scripts name="common">
           <scripts name="step">
