@@ -41,6 +41,14 @@ if (self.started) {
                    self.server_port = script_execute(asset_get_index("udphp_clientGetServerPort"),self.udphp_client_id);
                 }
             }
+        } else if (self.isConnected && self.playerhash = "") {
+            //We are connected, but the playerhash is unknown. Send request to the server
+            //to get the GREETINGS message
+            buffer_seek(self.buffer, buffer_seek_start, 0);
+            buffer_write(self.buffer, buffer_s8, htme_packet.SIGNEDPACKET_NEW_CMD);
+            buffer_write(self.buffer, buffer_s8, htme_packet.SIGNEDPACKET_NEW_CMD_REQ);
+            buffer_write(self.buffer, buffer_u32, 0);
+            network_send_udp( self.socketOrServer, self.server_ip, self.server_port, self.buffer, buffer_tell(self.buffer));
         } else {
             htme_clientConnect();
         }

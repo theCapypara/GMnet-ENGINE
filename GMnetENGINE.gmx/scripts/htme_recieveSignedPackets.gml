@@ -151,7 +151,7 @@ if ((self.isServer && !is_undefined(ds_map_find_value(self.playermap,in_ip+":"+s
                        buffer_write(self.buffer, buffer_u32, n);
                        network_send_udp( self.socketOrServer, htme_playerMapIP(target), htme_playerMapPort(target), self.buffer, buffer_tell(self.buffer));
                     } else {
-                       htme_debugger("htme_recieveSignedPackets",htme_debug.WARNING,"SP: We are resending.");
+                       htme_debugger("htme_recieveSignedPackets",htme_debug.DEBUG,"SP: We are resending.");
                        htme_sendSingleSignedPacket(target,requested,n);
                     }
                 break;
