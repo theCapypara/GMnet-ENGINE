@@ -40,7 +40,7 @@ if (!self.isServer && self.playerhash == "") {
 }
 
 //If we are client: Check that room is the same we are in OR instance is stayAlive
-if (inst_room != room && !inst_stayAlive) {
+if (!self.isServer && inst_room != room && !inst_stayAlive) {
     htme_debugger("htme_recieveVarGroup",htme_debug.INFO,"Recieved vargroup but this instance is not in our room (and not stayAlive).");    
     exit;
 }
@@ -88,7 +88,7 @@ if ((is_undefined(instance) || !instance_exists(instance))) {
 }
 
 if (self.isServer) {
-   htme_serverRecieveVarGroup(instancehash,playerhash,object_id,inst_stayAlive,instance,tolerance,datatype,groupname);
+   htme_serverRecieveVarGroup(instancehash,playerhash,object_id,inst_stayAlive,instance,tolerance,datatype,groupname,inst_room);
 } else {
    htme_clientRecieveVarGroup(instancehash,playerhash,object_id,instance,tolerance,datatype);
 }
