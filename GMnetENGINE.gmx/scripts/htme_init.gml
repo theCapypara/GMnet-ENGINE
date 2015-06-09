@@ -41,10 +41,11 @@ enum htme_packet {
     CLIENT_BYE=113,
     SERVER_BROADCAST=114,
     CHAT_API=115,
-    SIGNEDPACKET=126,
-    SIGNEDPACKET_ACCEPTED=127,
+    CLIENT_GREETINGS=116,
     SIGNEDPACKET_NEW=125,
     SIGNEDPACKET_NEW_CMD=124,
+    SIGNEDPACKET=126,
+    SIGNEDPACKET_ACCEPTED=127,
     SIGNEDPACKET_NEW_CMD_REQ=1,
     SIGNEDPACKET_NEW_CMD_MISS=2
 }
@@ -164,7 +165,11 @@ self.gamename = "gmnet_engine_130"
  ***/
  
 /** VERSION **/
-self.version = 130;
+//(1.3.0 = 1300; 1.3.1 = 1301; 1.3.11 = 1311...)
+self.version = 1300;
+//The last mayor release. Servers support clients that have a version of
+//version_mayor <= client_version < version_mayor+100
+self.version_mayor = 1300;
  
 if (self.use_udphp) {
     htme_debugger("htme_init",htme_debug.INFO,"Starting GMnet PUNCH...");

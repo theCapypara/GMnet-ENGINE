@@ -64,7 +64,7 @@ if (!is_undefined(player)) {
              
         break;
         case htme_packet.CLIENT_BYE:
-             htme_debugger("htme_serverKickClient",htme_debug.INFO,"bye "+in_ip+":"+string(in_port));
+             htme_debugger("htme_serverNetworking",htme_debug.INFO,in_ip+":"+string(in_port)+" wants to disconnect");
              htme_serverKickClient(in_ip+":"+string(in_port));
         break;
         case htme_packet.CHAT_API:
