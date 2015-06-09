@@ -36,7 +36,7 @@ if (self.dbgcntx != "") {
             var player = ds_map_find_value(self.sPcountOUT,key);
             
             var str = "##---------------------------#";
-            str = str + string(ds_map_find_value(self.playermap,key));
+            str = str + string(ds_map_find_value(self.playermap,key))+"("+key+")";
             str = str + "#---------------------------#";
             
             str = str + "LAST SENT: "+string(player[? "n"])+"##";
@@ -157,7 +157,7 @@ if (self.dbgcntx != "") {
             var player = ds_map_find_value(self.sPcountIN,key);
             
             var str = "##---------------------------#";
-            str = str + string(ds_map_find_value(self.playermap,key));
+            str = str + string(ds_map_find_value(self.playermap,key))+"("+key+")";
             str = str + "#---------------------------#";
             
             str = str + "WE NEED NEXT: "+string(player[? "n"])+"##";
