@@ -149,9 +149,9 @@ if (group[? "type"] == mp_type.IMPORTANT || group[? "type"] == mp_type.SMART) {
         if (is_real(target)) {
             var port_ip_player = htme_ds_map_find_key(self.playermap,inst_player);
             if (!htme_isStayAlive(inst_hash)) {
-               htme_serverSendBufferToAllExcept(port_ip_player,inst_room);
+               htme_serverSendBufferToAllExcept(self.buffer,port_ip_player,inst_room);
             } else {
-              htme_serverSendBufferToAllExcept(port_ip_player);
+              htme_serverSendBufferToAllExcept(self.buffer,port_ip_player);
             }
         } else if (target != inst_player) {
             if (htme_serverPlayerIsInRoom(target,inst_room) || htme_isStayAlive(inst_hash)) {

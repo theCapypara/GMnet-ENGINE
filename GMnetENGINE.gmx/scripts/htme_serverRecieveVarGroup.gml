@@ -1,4 +1,4 @@
-///htme_serverRecieveVarGroup(instancehash,playerhash,object_id,inst_stayAlive,instance,tolerance,datatype,groupname);
+///htme_serverRecieveVarGroup(instancehash,playerhash,object_id,inst_stayAlive,instance,tolerance,datatype,groupname,inst_room);
 
 /*
 **  Description:
@@ -26,6 +26,7 @@ var instance = argument4;
 var tolerance = argument5;
 var datatype = argument6;
 var groupname = argument7;
+var inst_room = argument8;
 
 var in_ip = ds_map_find_value(async_load, "ip");
 var in_buff = ds_map_find_value(async_load, "buffer");
@@ -155,12 +156,31 @@ switch (datatype) {
 
 //EXPERIMENTAL: Relay instantly, instead of looping over it.
 //Relay to all clients
-//Simply use backup entry to get groups, i'm lazy and it's safe
-var backupEntry = ds_map_find_value(self.serverBackup,instancehash);
-var instance_groups = backupEntry[? "groups"];
-var group = ds_map_find_value(instance_groups,groupname);
-if (!is_undefined(group)) {
-   htme_syncSingleVarGroup(group,all);
+
+//Don't use sync functions, relay buffer instantly
+buffer_seek(in_buff, buffer_seek_start, 0);
+//Is this signed?
+if (buffer_read(in_buff, buffer_s8 ) == htme_packet.SIGNEDPACKET_NEW) {
+    //Strip id
+    buffer_read(in_buff, buffer_u32);
+    var bt = buffer_tell(in_buff);
+    buffer_seek(in_buff, buffer_seek_end, 0);
+    buffer_seek(self.buffer, buffer_seek_start, 0);
+    buffer_copy(in_buff,bt,buffer_tell(in_buff),self.buffer,0);
+    buffer_seek(self.buffer, buffer_seek_end, 0);
+    if (!htme_isStayAlive(instancehash)) {
+        htme_sendNewSignedPacket(self.buffer,all,in_ip+":"+string(in_port),inst_room);
+    } else {
+        htme_sendNewSignedPacket(self.buffer,all,in_ip+":"+string(in_port));
+    }
+} else {
+    //Send normally
+    buffer_seek(in_buff, buffer_seek_end, 0);
+    if (!htme_isStayAlive(instancehash)) {
+       htme_serverSendBufferToAllExcept(in_buff,in_ip+":"+string(in_port),inst_room);
+    } else {
+      htme_serverSendBufferToAllExcept(in_buff,in_ip+":"+string(in_port));
+    }
 }
 
 //Delete the instance if it was only created in htme_recieveVarGroup because there was no backup

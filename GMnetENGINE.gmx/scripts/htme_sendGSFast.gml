@@ -89,7 +89,7 @@ with (global.htme_object) {
         //Safety first: is Server?
         if (self.isServer) {
             htme_debugger("htme_sendGSFast",htme_debug.DEBUG,"Global Sync: Sending to all players");
-            htme_serverSendBufferToAllExcept(exclude);
+            htme_serverSendBufferToAllExcept(self.buffer,exclude);
         }
     }
 }
