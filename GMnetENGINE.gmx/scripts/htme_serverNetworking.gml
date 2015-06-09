@@ -59,13 +59,11 @@ if (!is_undefined(player)) {
              //Tell all other players not in the room to delete their instances of this player
              //and send all instances of this player to the other players
              htme_serverBroadcastRoomChange(ds_map_find_value(self.playermap,in_ip+":"+string(in_port)));
-             if (room == _room) {
-                 //Send all instances of this room to this player if server player is in this room
-                 //because in this case we can send the correct positions based on our own calculations
-                 htme_serverSendAllInstances(in_ip+":"+string(in_port));
-             } else {
-                 //Otherwise we would send our outdated serverBackup for stuff like position. Instead
-                 //ask all players in this room to resync all their instances
+             
+             htme_serverSendAllInstances(in_ip+":"+string(in_port));
+             if (room != _room) {
+                 //Refresh our backup and rebroadcast stuff like positions, because this is all
+                 //ooutdated if we are in another room.
                  htme_serverAskPlayersToResync(_room,in_ip+":"+string(in_port));
              }
              
