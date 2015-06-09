@@ -71,9 +71,9 @@ switch (self.dbgstate) {
     case vk_f7:
         htme_doChat();
     break;
-    case vk_f8:
+    /*case vk_f8:
         htme_doSignedPackets();
-    break;
+    break;*/
     case vk_f11:
         if (!self.isServer) {
             htme_clientDisconnect();
