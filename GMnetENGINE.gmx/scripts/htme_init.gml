@@ -157,11 +157,14 @@ self.lan_interval = 15*room_speed;
  *  + version
  *  Example: htme_demo120
  **/
-self.gamename = "gmnet_engine_123"
+self.gamename = "gmnet_engine_130"
 
 /*** 
  *** BELOW: INIT INTERNAL VARIABLES - DO NOT CHANGE 
  ***/
+ 
+/** VERSION **/
+self.version = 130;
  
 if (self.use_udphp) {
     htme_debugger("htme_init",htme_debug.INFO,"Starting GMnet PUNCH...");
