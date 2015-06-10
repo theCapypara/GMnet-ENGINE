@@ -30,7 +30,7 @@ var player = ds_map_find_value(self.playermap,in_ip+":"+string(in_port));
 //Check that the packet is from a valid client
 if (!is_undefined(player)) {
     //Read command
-    code = buffer_read(in_buff, buffer_s8 );
+    var code = buffer_read(in_buff, buffer_s8 );
     switch code {
         case htme_packet.INSTANCE_VARGROUP:
             htme_debugger("htme_serverNetworking",htme_debug.DEBUG,"Got a update packet");
@@ -56,12 +56,20 @@ if (!is_undefined(player)) {
              var _room = buffer_read(in_buff,buffer_u16);
              htme_debugger("htme_serverNetworking",htme_debug.INFO,"Player "+in_ip+":"+string(in_port)+" moved to room "+string(_room)+"!");
              ds_map_replace(self.playerrooms,in_ip+":"+string(in_port),_room);
-             //Send all instances of this room to this player
-             htme_serverSendAllInstances(in_ip+":"+string(in_port));
              //Tell all other players not in the room to delete their instances of this player
+             //and send all instances of this player to the other players
              htme_serverBroadcastRoomChange(ds_map_find_value(self.playermap,in_ip+":"+string(in_port)));
+             
+             htme_serverSendAllInstances(in_ip+":"+string(in_port));
+             if (room != _room) {
+                 //Refresh our backup and rebroadcast stuff like positions, because this is all
+                 //ooutdated if we are in another room.
+                 htme_serverAskPlayersToResync(_room,in_ip+":"+string(in_port));
+             }
+             
         break;
         case htme_packet.CLIENT_BYE:
+             htme_debugger("htme_serverNetworking",htme_debug.INFO,in_ip+":"+string(in_port)+" wants to disconnect");
              htme_serverKickClient(in_ip+":"+string(in_port));
         break;
         case htme_packet.CHAT_API:

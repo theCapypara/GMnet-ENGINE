@@ -20,9 +20,11 @@
 
 if (!self.isConnected) exit;
 
+//EXPERIMENTAL: Server: Relay instantly, instead of looping over it. -
+// See htme_serverRecieveVarGroup 
 //This will loop through all var groups or local var groups if client.
-for(var i=0; i<ds_list_size(self.grouplist); i+=1) {
-    var group = ds_list_find_value(grouplist,i);
+for(var i=0; i<ds_list_size(self.grouplist_local); i+=1) {
+    var group = ds_list_find_value(grouplist_local,i);
     /** CHECK COUNTER **/
     if (group[? "__counter"] <= 0) {
         //TIMEOUT REACHED! Sync this group!

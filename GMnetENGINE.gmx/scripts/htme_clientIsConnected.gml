@@ -17,5 +17,7 @@
 */
 
 with (global.htme_object) {
+    //Connection isn't finished if we don't have a playerhash.
+    if (self.playerhash == "") return false;
     return self.isConnected;
 }

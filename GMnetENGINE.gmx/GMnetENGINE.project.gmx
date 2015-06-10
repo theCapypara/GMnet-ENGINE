@@ -172,18 +172,17 @@
           <script>scripts\htme_serverEventPlayerDisconnected.gml</script>
           <script>scripts\htme_serverSendBufferToAllExcept.gml</script>
           <script>scripts\htme_serverSendAllInstances.gml</script>
-          <script>scripts\htme_serverCreateSPForAllCheckRoom.gml</script>
           <script>scripts\htme_serverPlayerIsInRoom.gml</script>
           <script>scripts\htme_serverBroadcastRoomChange.gml</script>
           <script>scripts\htme_serverRemoveBackup.gml</script>
           <script>scripts\htme_serverRecreateInstancesLocal.gml</script>
           <script>scripts\htme_serverBroadcastUnsync.gml</script>
           <script>scripts\htme_chatSendServer.gml</script>
+          <script>scripts\htme_serverAskPlayersToResync.gml</script>
         </scripts>
         <scripts name="common">
           <scripts name="step">
             <script>scripts\htme_step.gml</script>
-            <script>scripts\htme_sendSignedPackets.gml</script>
             <script>scripts\htme_syncInstances.gml</script>
             <script>scripts\htme_syncSingleVarGroup.gml</script>
             <script>scripts\htme_forceSyncLocalInstances.gml</script>
@@ -191,7 +190,6 @@
           </scripts>
           <scripts name="networking">
             <script>scripts\htme_networking.gml</script>
-            <script>scripts\htme_recieveSignedPackets.gml</script>
             <script>scripts\htme_recieveVarGroup.gml</script>
             <script>scripts\htme_RecieveVar.gml</script>
             <script>scripts\htme_recieveGS.gml</script>
@@ -226,12 +224,10 @@
           <script>scripts\htme_chatAddChannel.gml</script>
         </scripts>
         <scripts name="signed_packets">
-          <script>scripts\htme_createSignedPacket.gml</script>
-          <script>scripts\htme_createSingleSignedPacket.gml</script>
-          <script>scripts\htme_sendSignedPacket.gml</script>
-          <script>scripts\htme_fillSignedPacketBuffer.gml</script>
-          <script>scripts\htme_removeSignedPacket.gml</script>
-          <script>scripts\htme_removeSignedPacketsByCatFilter.gml</script>
+          <script>scripts\htme_sendNewSignedPacket.gml</script>
+          <script>scripts\htme_initSignedPacket.gml</script>
+          <script>scripts\htme_sendSingleSignedPacket.gml</script>
+          <script>scripts\htme_recieveSignedPackets.gml</script>
         </scripts>
       </scripts>
       <scripts name="instance comamnds">

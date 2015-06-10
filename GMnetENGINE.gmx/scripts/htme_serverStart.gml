@@ -72,6 +72,7 @@ self.playerlist = ds_list_create();
 ds_list_add(self.playerlist,self.playerhash);
 
 self.grouplist = ds_list_create();
+self.grouplist_local = ds_list_create();
 
 //Global sync map
 self.globalsync = ds_map_create();

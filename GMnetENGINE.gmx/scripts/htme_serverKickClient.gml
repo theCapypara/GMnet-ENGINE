@@ -21,6 +21,7 @@
 */
 
 if (!ds_map_exists(self.playermap,argument0)) exit;
+htme_debugger("htme_serverKickClient",htme_debug.INFO,"KICKING "+argument0);
 htme_serverEventPlayerDisconnected(argument0);
 htme_debugger("htme_serverKickClient",htme_debug.INFO,"KICKED "+argument0);
 ds_map_delete(self.playermap,argument0);

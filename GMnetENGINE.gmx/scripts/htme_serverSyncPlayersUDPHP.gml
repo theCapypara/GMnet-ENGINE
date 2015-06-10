@@ -22,17 +22,13 @@
 
 htme_debugger("htme_serverSyncPlayersUDPHP",htme_debug.DEBUG,"SERVER: Syncing player map and GMnet PUNCH player list");
 
-//This loop will loop through all players in udphp's player list
-for (var i=0;i<ds_list_size(self.udphp_playerlist);i++) {
-    var player = ds_list_find_value(self.udphp_playerlist,i);
-    //Check if in playermap, if not add.
-    if (is_undefined(ds_map_find_value(self.playermap,player))) {
-        htme_debugger("htme_serverSyncPlayersUDPHP",htme_debug.INFO,"SERVER: Registered a connection made by GMnet PUNCH.");
-        //GMnet PUNCH and GMnet CORE store the player information both as ip:port string, so we can use our functions to split it
-        //register new player
-        htme_serverEventPlayerConnected(htme_playerMapIP(player),htme_playerMapPort(player));
-    }
-}
+//Since 1.3.0 we aren't watching the PUNCH client-list anymore.
+//Instead we just wait for CLIENT_GREETINGS in htme_serverConnectNetworking
+//All invalid entries (entries that connected via PUNCH but didn't send CLIENT_GREETINGS)
+//are simply ignored.
+//For non-PUNCH connections CLIENT_REQUESTCONNECT and SERVER_CONREQACCEPT
+//are still used before sending {CLIENT/SERVER}_GREETINGS
+
 //And now we need to make sure, the map does not contain disconnected players
 var key= ds_map_find_first(self.playermap);
 //This will loop through all players in the player map

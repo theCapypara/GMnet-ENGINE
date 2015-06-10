@@ -11,8 +11,7 @@
 **      <See above>
 **
 **  Arguments:
-**      buffer      buffer      the outgoing buffer
-**      cmd_list    ds_list     the list of commands as described in htme_createSignedPacket
+**      <none>
 **
 **  Returns:
 **      <nothing>
@@ -28,5 +27,9 @@ self.clientStopped = true;
 //TODO CLEAN ALL DATA
 ds_map_clear(self.localInstances);
 ds_map_clear(self.globalInstances);
+ds_map_destroy(self.sPcountOUT);
+self.sPcountOUT = ds_map_create();
+ds_map_destroy(self.sPcountIN);
+self.sPcountIN = ds_map_create();
 if (ds_exists(self.chatQueues,ds_type_map))
     ds_map_destroy(self.chatQueues);

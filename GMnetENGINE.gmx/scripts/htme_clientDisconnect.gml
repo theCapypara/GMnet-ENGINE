@@ -23,7 +23,6 @@ if (self.isServer) {
 
 
 htme_debugger("htme_clientDisconnect",htme_debug.INFO,"Disconnecting on request.");
-var cmd_list = ds_list_create();
 buffer_seek(self.buffer, buffer_seek_start, 0);
 buffer_write(self.buffer, buffer_s8, htme_packet.CLIENT_BYE);
 network_send_udp( self.socketOrServer, self.server_ip, self.server_port, self.buffer, buffer_tell(self.buffer) );

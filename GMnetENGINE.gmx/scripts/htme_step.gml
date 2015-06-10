@@ -41,6 +41,20 @@ if (self.started) {
                    self.server_port = script_execute(asset_get_index("udphp_clientGetServerPort"),self.udphp_client_id);
                 }
             }
+        } else if (self.isConnected && self.playerhash = "") {
+            //Since 1.3.0, even if isConnected is true, the connection
+            //is not finished yet. We need to send CLIENT_GREETINGS (by flooding,
+            //signed packets aren't accepted by the server at this point), the server
+            //will answer with SERVER_GREETINGS (if we are allowed) and we will
+            //get a playerhash.
+            //If we are not accepted it will kick us.
+            buffer_seek(self.buffer, buffer_seek_start, 0);
+            buffer_write(self.buffer, buffer_s8, htme_packet.CLIENT_GREETINGS);
+            //Our engine version
+            buffer_write(self.buffer, buffer_u16, self.version);
+            //Gamename (must match)
+            buffer_write(self.buffer, buffer_string, self.gamename);
+            network_send_udp( self.socketOrServer, self.server_ip, self.server_port, self.buffer, buffer_tell(self.buffer));
         } else {
             htme_clientConnect();
         }
@@ -48,7 +62,6 @@ if (self.started) {
             htme_syncInstances();
         }
     }
-    htme_sendSignedPackets();
 }
 
 ///Process debug overlay keypresses

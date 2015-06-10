@@ -25,12 +25,25 @@ var in_port = ds_map_find_value(async_load, "port");
 
 var instancehash = buffer_read(in_buff,buffer_string);
 var playerhash = buffer_read(in_buff,buffer_string);
+var inst_room = buffer_read(in_buff,buffer_u16);
 var groupname = buffer_read(in_buff,buffer_string);
 var object_id = buffer_read(in_buff,buffer_u16);
 var inst_stayAlive = buffer_read(in_buff,buffer_bool);
 var instance = ds_map_find_value(self.globalInstances,instancehash);
 var tolerance = buffer_read(in_buff,buffer_f32);
 var datatype = buffer_read(in_buff,buffer_u16);
+
+//Check if we actually know who we are
+if (!self.isServer && self.playerhash == "") {
+    htme_debugger("htme_recieveVarGroup",htme_debug.INFO,"Recieved vargroup but we are not continuing: We don't have a playerhash yet.");    
+    exit;
+}
+
+//If we are client: Check that room is the same we are in OR instance is stayAlive
+if (!self.isServer && inst_room != room && !inst_stayAlive) {
+    htme_debugger("htme_recieveVarGroup",htme_debug.INFO,"Recieved vargroup but this instance is not in our room (and not stayAlive).");    
+    exit;
+}
 
 //Check if player is in playerlist real quick
 if (ds_list_find_index(self.playerlist,playerhash) == -1) {
@@ -53,12 +66,17 @@ if ((is_undefined(instance) || !instance_exists(instance))) {
       var backupCheck = true;
     }
     if (insameroom || inst_stayAlive || backupCheck) {
-        htme_debugger("htme_clientNetworking",htme_debug.DEBUG,"Got a new instance. Creating:");
+        htme_debugger("htme_recieveVarGroup",htme_debug.DEBUG,"Got a new instance for "+instancehash+". Creating:");
         //Create instance and entry
         self.tmp_creatingNetworkInstance = true;
+        //Do not create vargroups if simply changing room
+        if (self.isServer && !backupCheck) {
+           self.tmp_creatingNetworkInstanceNoGroups = true;
+        }
         self.tmp_creatingNetworkInstanceHash = instancehash;
         instance = instance_create(-100,-100,object_id);
         self.tmp_creatingNetworkInstance = false;
+        self.tmp_creatingNetworkInstanceNoGroups = false;
         ds_map_replace(self.globalInstances,instancehash,instance);
         with instance {
             self.htme_mp_id = instancehash;
@@ -70,7 +88,7 @@ if ((is_undefined(instance) || !instance_exists(instance))) {
 }
 
 if (self.isServer) {
-   htme_serverRecieveVarGroup(instancehash,playerhash,object_id,inst_stayAlive,instance,tolerance,datatype,groupname);
+   htme_serverRecieveVarGroup(instancehash,playerhash,object_id,inst_stayAlive,instance,tolerance,datatype,groupname,inst_room);
 } else {
    htme_clientRecieveVarGroup(instancehash,playerhash,object_id,instance,tolerance,datatype);
 }

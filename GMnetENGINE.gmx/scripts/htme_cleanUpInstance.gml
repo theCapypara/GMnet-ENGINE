@@ -26,6 +26,9 @@ with inst {
          var list_ind = ds_list_find_index(global.htme_object.grouplist,group);
          if (list_ind != -1)
             ds_list_delete(global.htme_object.grouplist,list_ind);
+         var list_ind2 = ds_list_find_index(global.htme_object.grouplist_local,group);
+         if (list_ind2 != -1)
+            ds_list_delete(global.htme_object.grouplist_local,list_ind2);
          ds_map_destroy(group);
          key = ds_map_find_next(self.htme_mp_groups, key);
      }

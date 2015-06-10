@@ -31,7 +31,7 @@ if (!script_exists(asset_get_index("htme_init"))) {
 }
 //IF YOU USE GMnet ENGINE demo project:
 else {
-   self.game = "gmnet_engine_123"
+   self.game = "gmnet_engine_130"
 }
 //IF YOU USE YOUR OWN SERVER - Change self.game!
 

@@ -59,16 +59,12 @@ for(var i=0; i<ds_map_size(mapToUse); i+=1) {
 }
 
 //Also send a proper disconnection packet
-cmd_map = ds_list_create();
-//Create command map
-cmd_map[| 0] = buffer_s8;
-cmd_map[| 1] = htme_packet.SERVER_PLAYERDISCONNECTED;
+buffer_seek(self.buffer, buffer_seek_start, 0);
+buffer_write(self.buffer, buffer_s8, htme_packet.SERVER_PLAYERDISCONNECTED)
+buffer_write(self.buffer, buffer_string, phash)
+htme_sendNewSignedPacket(self.buffer,all,argument0);
 
-cmd_map[| 2] = buffer_string;
-cmd_map[| 3] = phash;
 htme_debugger("htme_serverEventPlayerDisconnected",htme_debug.DEBUG,"Tell other clients the bad news of "+phash+"'s disconnection!");
-htme_createSignedPacket(cmd_map,all,htme_hash(),argument0);
-
 
 //Remove from playerLIST, has to be removed from map outside this event!!!
 ds_list_delete(self.playerlist,ds_list_find_index(self.playerlist,phash));
