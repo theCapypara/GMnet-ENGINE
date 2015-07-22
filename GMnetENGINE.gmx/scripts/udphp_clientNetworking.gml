@@ -34,6 +34,13 @@ var in_ip = ds_map_find_value(async_load, "ip");
 //Only continue if this is for the client
 if (in_id != client_udp and in_id != client_tcp) exit;
 
+//Failsafe, in case a map got corrupted
+if (is_undefined(client_udp) or 
+    is_undefined(client_tcp)) {
+    udphp_handleerror(udphp_dbglvl.WARNING, udphp_dbgtarget.CLIENT, 0, "Invalid client data for client "+string(client_id)+" - Stopping client.");
+    udphp_stopClient(client_id);
+    exit;
+}
 
 ///SCENARIO 1: Master Server sent an answer
 if (in_ip == global.udphp_master) {

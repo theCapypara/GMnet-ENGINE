@@ -39,6 +39,21 @@ var client_connected = ds_map_find_value(global.udphp_clients_connected,client_i
 var client_serverip = ds_map_find_value(global.udphp_clients_serverip,client_id);
 var client_serverport = ds_map_find_value(global.udphp_clients_serverport,client_id);
 
+//Failsafe, in case a map got corrupted
+if (is_undefined(client_udp) or 
+    is_undefined(client_tcp) or 
+    is_undefined(client_buffer) or 
+    is_undefined(client_timeout) or 
+    is_undefined(client_connected) or 
+    is_undefined(client_serverip) or 
+    is_undefined(client_serverport) or 
+    is_real(client_serverip) or 
+    is_string(client_serverport)) {
+    udphp_handleerror(udphp_dbglvl.WARNING, udphp_dbgtarget.CLIENT, 0, "Invalid client data for client "+string(client_id)+" - Stopping client.");
+    udphp_stopClient(client_id);
+    exit;
+}
+
 /// Connect if not already connected
 if (!client_connected) { 
     if (client_directconnect) {
