@@ -41,7 +41,6 @@ if (is_undefined(ds_map_find_value(self.playermap,in_ip+":"+string(in_port)))) {
             //We aren't logging this packet. We only log server GREETINGS
         break;
         case htme_packet.CLIENT_GREETINGS:
-            htme_debugger("htme_serverConnectNetworking",htme_debug.INFO,"CONNECTED TO CLIENT "+in_ip+":"+string(in_port)+" - We are not checking if he can stay.");
             var cversion = buffer_read(in_buff, buffer_u16);
             var cgamename = buffer_read(in_buff, buffer_string);
             //Check if compatible
