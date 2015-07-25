@@ -52,13 +52,13 @@ enum htme_packet {
 }
 
 enum mp_type {
-    FAST, /*Syncs by simply sending a packet to client or servers
+    FAST=0, /*Syncs by simply sending a packet to client or servers
             when sent to the server, the server will send it back to
             the clients when the timeout for that group on the server is over*/
-    IMPORTANT, /*Uses signed packets to ensure that all servers and clients recieve the
+    IMPORTANT=1, /*Uses signed packets to ensure that all servers and clients recieve the
                 information, like TCP would do. This is quite slow! When messages arrive at
                 the server, the packets will be relayed to all clients*/
-    SMART, /* Same as important, but only sync if a variable has changed.
+    SMART=2, /* Same as important, but only sync if a variable has changed.
               If a tolerance is set, it will also only sync if it passed the
               tolerance for reals*/
 }
@@ -112,7 +112,7 @@ htme_debugger("htme_init",htme_debug.INFO,"SETTING UP GMnet CORE");
  * More Information can be found in the manual.
  */
 
-self.use_udphp = true;
+self.use_udphp = false;
 
 /** 
  * WHEN USING GMnet PUNCH:
@@ -157,7 +157,15 @@ self.lan_interval = 15*room_speed;
 /**
  *  Shortname of this game
  *  + version
- *  Example: htme_demo120
+ *  Example: gmnet_engine_130
+ *
+ * If you are testing the demo project or simply play arround with the engine, ignore this.
+ * Otherwise, when making your game, you need to change the gamename.
+ * This string is used to identify your game. It is meant to make sure different
+ * games can't connect to each other. If incompatible games would try to connect
+ * to each other that would result in data corruption and crashes.
+ * Also change this string when releasing a new version of your game, that is incompatible
+ * with old versions of your game.
  **/
 self.gamename = "gmnet_engine_130"
 
