@@ -175,7 +175,7 @@ self.gamename = "gmnet_engine_130"
  
 /** VERSION **/
 //(1.3.0 = 1300; 1.3.1 = 1301; 1.3.11 = 1311...)
-self.version = 1300;
+self.version = 1301;
 //The last mayor release. Servers support clients that have a version of
 //version_mayor <= client_version < version_mayor+100
 self.version_mayor = 1300;
