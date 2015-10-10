@@ -28,13 +28,13 @@ htme_debugger("htme_serverEventPlayerConnected",htme_debug.DEBUG,"Handling conne
 //EVENT HANDLER - PLAYER CONNECTED
 var ev_map = ds_map_create();
 ev_map[? "ip"] = ip;
-ev_map[? "port"] = ip;
+ev_map[? "port"] = port;
 if (!script_execute(self.serverEventHandlerConnect,ev_map)) {
     //CONNECTION REFUSED
     htme_debugger("htme_serverEventPlayerConnected",htme_debug.INFO,"Connection for "+ip+":"+string(port)+" refused. Player will be disconnected.");   
     buffer_seek(self.buffer, buffer_seek_start, 0);
     buffer_write(self.buffer, buffer_s8, htme_packet.SERVER_KICKREQ)
-    htme_sendNewSignedPacket(self.buffer,ip+":"+string(port));
+    network_send_udp( self.socketOrServer, ip, port, self.buffer, buffer_tell(self.buffer) );
     ds_map_destroy(ev_map);
     if (self.use_udphp) {
         //Remove from udphp player list
@@ -66,7 +66,7 @@ while (!found) {
 ds_map_destroy(checker);
 //END OF Now we extend the playerhash with the player number.
 
-htme_debugger("htme_serverEventPlayerConnected",htme_debug.INFO,"Connection for "+player+" accepted. Adding to the playermap with hash "+playerhash);;
+htme_debugger("htme_serverEventPlayerConnected",htme_debug.INFO,"CONNECTED TO CLIENT "+player+" . Adding to the playermap with hash "+playerhash);
 
 
 //Add player to server playermap.

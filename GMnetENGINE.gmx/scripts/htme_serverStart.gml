@@ -25,7 +25,7 @@ var maxclients = argument1;
 
 //Create the server socket
 htme_debugger("htme_serverStart",htme_debug.DEBUG,"STARTING SERVER");
-self.socketOrServer = network_create_server(network_socket_udp,port,maxclients);
+self.socketOrServer = network_create_socket_ext(network_socket_udp,port);
 self.port = port;
 
 //Check if server was created
