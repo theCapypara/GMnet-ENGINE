@@ -41,20 +41,24 @@ enum htme_packet {
     CLIENT_BYE=113,
     SERVER_BROADCAST=114,
     CHAT_API=115,
+    CLIENT_GREETINGS=116,
+    SERVER_PLEASE_RESYNC=117,
+    SIGNEDPACKET_NEW=125,
+    SIGNEDPACKET_NEW_CMD=124,
     SIGNEDPACKET=126,
     SIGNEDPACKET_ACCEPTED=127,
+    SIGNEDPACKET_NEW_CMD_REQ=1,
+    SIGNEDPACKET_NEW_CMD_MISS=2
 }
 
 enum mp_type {
-    FAST, /*Syncs by simply sending a packet to client or servers
+    FAST=0, /*Syncs by simply sending a packet to client or servers
             when sent to the server, the server will send it back to
             the clients when the timeout for that group on the server is over*/
-    /*FASTPLUS,*/ /*Like fast, but when the server gets updated information from the clients,
-                the server instantly syncs back the group to all clients [NOT IMPLEMENTED]*/ 
-    IMPORTANT, /*Uses signed packets to ensure that all servers and clients recieve the
+    IMPORTANT=1, /*Uses signed packets to ensure that all servers and clients recieve the
                 information, like TCP would do. This is quite slow! When messages arrive at
                 the server, the packets will be relayed to all clients*/
-    SMART, /* Same as important, but only sync if a variable has changed.
+    SMART=2, /* Same as important, but only sync if a variable has changed.
               If a tolerance is set, it will also only sync if it passed the
               tolerance for reals*/
 }
@@ -83,7 +87,7 @@ randomize();
  * will be shown. NONE disables debug messages. TRAFFIC ONLY shows traffic!
  * When GMnet PUNCH is enabled (use_udphp = true), it's debug level will be adjusted accordingly.
 */
-self.debuglevel = htme_debug.WARNING;
+self.debuglevel = htme_debug.INFO;
 
 /** 
  * Enable or disable the debug overlay. Provides you with useful debugging tools.
@@ -108,7 +112,7 @@ htme_debugger("htme_init",htme_debug.INFO,"SETTING UP GMnet CORE");
  * More Information can be found in the manual.
  */
 
-self.use_udphp = true;
+self.use_udphp = false;
 
 /** 
  * WHEN USING GMnet PUNCH:
@@ -153,13 +157,28 @@ self.lan_interval = 15*room_speed;
 /**
  *  Shortname of this game
  *  + version
- *  Example: htme_demo120
+ *  Example: gmnet_engine_130
+ *
+ * If you are testing the demo project or simply play arround with the engine, ignore this.
+ * Otherwise, when making your game, you need to change the gamename.
+ * This string is used to identify your game. It is meant to make sure different
+ * games can't connect to each other. If incompatible games would try to connect
+ * to each other that would result in data corruption and crashes.
+ * Also change this string when releasing a new version of your game, that is incompatible
+ * with old versions of your game.
  **/
-self.gamename = "htme_demo121"
+self.gamename = "gmnet_engine_130"
 
 /*** 
  *** BELOW: INIT INTERNAL VARIABLES - DO NOT CHANGE 
  ***/
+ 
+/** VERSION **/
+//(1.3.0 = 1300; 1.3.1 = 1301; 1.3.11 = 1311...)
+self.version = 1301;
+//The last mayor release. Servers support clients that have a version of
+//version_mayor <= client_version < version_mayor+100
+self.version_mayor = 1300;
  
 if (self.use_udphp) {
     htme_debugger("htme_init",htme_debug.INFO,"Starting GMnet PUNCH...");
@@ -204,18 +223,13 @@ self.clientTimeoutRecv = 0;
 //Server timeout check (ds_map) -> <ip:port> -> real
 self.serverTimeoutSend = -1;
 self.serverTimeoutRecv = -1;
-//Signed packets list <map containing ["cmd_list"->cmd_list,"target"->ip:port],"timeout"->real>
-self.signedPackets = -1;
-//Map of all signed packets <category> -> <packet> ; Only one packet per category will always exist
-self.signedPacketsCategories = -1;
-//Cache for recieved signedPackets
-self.signedPacketsInCache = ds_list_create();
 //List of locally controlled instances <hash> -> <instance_id> 
 self.localInstances = ds_map_create();
 //List of all controlled instances <hash> -> <instance_id> 
 self.globalInstances = ds_map_create();
 //
 self.tmp_creatingNetworkInstance = false;
+self.tmp_creatingNetworkInstanceNoGroups = false;
 //Playermap for romms. Contains entry with the format <ip:port> -> <room> [Only server!]
 self.playerrooms = -1;
 //Server backup map for instance data
@@ -229,6 +243,8 @@ self.tmp_instanceForceCreated = false;
 //Link stores a link to all vargroups for looping over them, since this is more
 //efficient than looping over instance maps and then var group maps.
 self.grouplist = -1;
+//The same for only local instances (server)
+self.grouplist_local = -1;
 //
 self.tmp_creatingNetworkInstanceHash = "";
 //the 7 data strings (2-8)
@@ -257,3 +273,21 @@ self.lan_intervalpnt = self.lan_interval;
 self.serverEventHandlerConnect = htme_defaultEventHandler;
 self.serverEventHandlerDisconnect = htme_defaultEventHandler;
 self.chatQueues = -1;
+//Signed Packet Count Map - Sending
+/*STRUCTURE:
+    self.sPcountOUT -> 
+                      [ip:port] -> ds_map ->
+                                            n -> real
+                                            [i] -> buffer
+*/                                              
+       
+self.sPcountOUT = ds_map_create();
+//Signed Packet Count Map - Recieving
+/*STRUCTURE:
+    self.sPcountIN -> 
+                      [ip:port] -> ds_map ->
+                                            n -> real
+                                            buffs -> ds_priority -> 
+                                                                   [i] -> buffer
+*/       
+self.sPcountIN = ds_map_create();

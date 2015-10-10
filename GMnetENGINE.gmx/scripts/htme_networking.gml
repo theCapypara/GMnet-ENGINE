@@ -23,9 +23,13 @@ if (self.started) {
         if (self.use_udphp) {
             script_execute(asset_get_index("udphp_serverNetworking"));
             htme_serverSyncPlayersUDPHP();
-        } else {
-            htme_serverConnectNetworking();
         }
+        //Since 1.3.0 clients are only connected if CLIENT_GREETINGS
+        //is recieved and valid. This is checked here. This function
+        //also handles connections without PUNCH. (Server now accepts
+        //non PUNCH connections, even if PUNCH is enabled in htme_init).
+        htme_serverConnectNetworking();
+        
         htme_serverCheckConnectionsNetworking();
         //This needs to be done here, because the Networking functions may be called by
         //the signedPacket Networking function which moves the pointer ahead one, so we

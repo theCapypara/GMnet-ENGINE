@@ -29,20 +29,36 @@ buffer_seek(in_buff, buffer_seek_start, 0);
 //SCENARIO: Client that is not yet on the players list connected.
 if (is_undefined(ds_map_find_value(self.playermap,in_ip+":"+string(in_port)))) {
     //Read command
-    switch buffer_read(in_buff, buffer_s8 ) {
+    switch buffer_read(in_buff, buffer_s8) {
         case htme_packet.CLIENT_REQUESTCONNECT:
-            //Also tell him he's connected.
+            //This is used for non-PUNCH connections to acknowledge the connection
+            //on both ends. The actual connection is created by recieving CLIENT_GREETINGS
+            //since 1.3.0. This is sent by the client,
+            //no matter how it connected.
             buffer_seek(buffer, buffer_seek_start, 0);
             buffer_write(buffer, buffer_s8, htme_packet.SERVER_CONREQACCEPT);
-            //We are sending the player hash of the local player with every packet, so we
-            //don't need to do that here, especially since when using GMnet PUNCH, this can't be
-            //done yet anyway
             network_send_udp(self.socketOrServer,in_ip,in_port,buffer,buffer_tell(buffer));
-            htme_debugger("htme_serverConnectNetworking",htme_debug.TRAFFIC,"Got packet htme_packet.CLIENT_REQUESTCONNECT from "+in_ip+":"+string(in_port));
-            htme_debugger("htme_serverConnectNetworking",htme_debug.TRAFFIC,"Sent packet htme_packet.SERVER_CONREQACCEPT to "+in_ip+":"+string(in_port));
-            htme_debugger("htme_serverConnectNetworking",htme_debug.INFO,"CONNECTED TO CLIENT "+in_ip+":"+string(in_port));
-            //Register a new player
-            htme_serverEventPlayerConnected(in_ip,in_port);
+            //We aren't logging this packet. We only log server GREETINGS
         break;
+        case htme_packet.CLIENT_GREETINGS:
+            var cversion = buffer_read(in_buff, buffer_u16);
+            var cgamename = buffer_read(in_buff, buffer_string);
+            //Check if compatible
+            if (self.gamename != cgamename || cversion < self.version_mayor || cversion >= self.version_mayor+100) {
+                htme_debugger("htme_serverConnectNetworking",htme_debug.INFO,in_ip+":"+string(in_port)+" - Client kicked. Not compatible.");
+                //CONNECTION REFUSED
+                buffer_seek(self.buffer, buffer_seek_start, 0);
+                buffer_write(self.buffer, buffer_s8, htme_packet.SERVER_KICKREQ)
+                network_send_udp( self.socketOrServer, in_ip, in_port, self.buffer, buffer_tell(self.buffer) );
+                if (self.use_udphp) {
+                    //Remove from udphp player list
+                    var pos = ds_list_find_index(self.udphp_playerlist,in_ip+":"+string(in_port));
+                    if (pos != -1)
+                        ds_list_delete(self.udphp_playerlist,pos);
+                }
+                exit;
+            }
+            //Else: Register a new player
+            htme_serverEventPlayerConnected(in_ip,in_port);
     }
 }

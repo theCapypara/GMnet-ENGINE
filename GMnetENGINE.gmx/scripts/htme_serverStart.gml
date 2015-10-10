@@ -25,7 +25,7 @@ var maxclients = argument1;
 
 //Create the server socket
 htme_debugger("htme_serverStart",htme_debug.DEBUG,"STARTING SERVER");
-self.socketOrServer = network_create_server(network_socket_udp,port,maxclients);
+self.socketOrServer = network_create_socket_ext(network_socket_udp,port);
 self.port = port;
 
 //Check if server was created
@@ -72,6 +72,7 @@ self.playerlist = ds_list_create();
 ds_list_add(self.playerlist,self.playerhash);
 
 self.grouplist = ds_list_create();
+self.grouplist_local = ds_list_create();
 
 //Global sync map
 self.globalsync = ds_map_create();

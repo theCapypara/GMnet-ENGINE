@@ -46,7 +46,6 @@ for(var i=0; i<ds_map_size(self.playermap); i+=1) {
         htme_debugger("htme_serverCheckConnections",htme_debug.DEBUG,"SERVER: pinging "+ip+":"+string(port)+"...");
         buffer_seek(self.buffer, buffer_seek_start, 0);
         buffer_write(self.buffer, buffer_s8, htme_packet.PING );
-        htme_debugger("htme_clientCheckConnection",htme_debug.TRAFFIC,"Sending packet htme_packet.PING");
         network_send_udp( self.socketOrServer, ip, port, self.buffer, buffer_tell(self.buffer) );
     }
     if (timeoutSend < -self.global_timeout/4) {

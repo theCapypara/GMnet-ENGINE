@@ -34,7 +34,6 @@ if (in_ip == self.server_ip) {
         case htme_packet.PING:
             //Got a ping! Reset if our counter is negative
             self.clientTimeoutRecv = self.global_timeout;
-            htme_debugger("htme_clientCheckConnectionNetworking",htme_debug.TRAFFIC,"Got packet htme_packet.PING");
             htme_debugger("htme_clientCheckConnectionNetworking",htme_debug.DEBUG,"Ping recieved.");
         break;
     }

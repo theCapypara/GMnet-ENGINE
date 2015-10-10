@@ -61,6 +61,7 @@ self.signedPacketsCategories = ds_map_create();
 self.playerlist = ds_list_create();
 
 self.grouplist = ds_list_create();
+self.grouplist_local = ds_list_create();
 
 //Global sync map
 self.globalsync = ds_map_create();

@@ -124,7 +124,8 @@ if (self.dbgcntx2 != "") {
     for(var j=0; j<ds_map_size(inst_groups); j+=1) {
        var group = ds_map_find_value(inst_groups,inner_key);
        str = str + "--------#" + group[? "name"] +":#--------#" 
-       str = str + "Syncing in " + string(group[? "__counter"]) + "#";
+       if (isLocal)
+          str = str + "Syncing in " + string(group[? "__counter"]) + "#";
        var synctype = "";
        switch (group[? "type"]) {
            case mp_type.FAST:

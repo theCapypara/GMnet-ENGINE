@@ -7,6 +7,7 @@
 **      Tell all players to delete the instances of player {hash} if they are
 **      not inside the same room. This gets send to all players not in the same
 **      room and simply sends them SERVER_INSTANCEREMOVE packets
+**      Also resends all instances to all players in the same room
 **  
 **  Usage:
 **      <See above>
@@ -49,7 +50,7 @@ for(var i=0; i<ds_map_size(mapToUse); i+=1) {
                   //Server: 
                   with inst {instance_destroy();}
                } else {
-                 //Client this other player to unsync this instance
+                 //Client: unsync this instance
                  htme_serverBroadcastUnsync(key,inner_key);
                }
             }
@@ -59,4 +60,4 @@ for(var i=0; i<ds_map_size(mapToUse); i+=1) {
     key = ds_map_find_next(mapToUse, key);
 }
 
-htme_forceSyncLocalInstances(self.playerhash);
+htme_forceSyncLocalInstances(phash);

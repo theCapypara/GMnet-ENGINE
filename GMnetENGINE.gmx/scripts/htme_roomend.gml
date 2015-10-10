@@ -64,3 +64,5 @@ for(var i=0; i<ds_map_size(m); i+=1) {
     
     insthash = ds_map_find_next(m, insthash);
 }
+
+htme_forceSyncLocalInstances(self.playerhash);

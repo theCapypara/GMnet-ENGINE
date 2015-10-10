@@ -31,6 +31,16 @@ var variables = argument1;
 var datatype = argument2;
 var interval = argument3;
 
+//Alternative group creation on server (if serverBackup already exists):
+if (global.htme_object.tmp_creatingNetworkInstanceNoGroups) {
+    var bE = ds_map_find_value(global.htme_object.serverBackup,global.htme_object.tmp_creatingNetworkInstanceHash);
+    var groups = bE[? "groups"]
+    var group = ds_map_find_value(groups,groupname);
+    group[? "instance"] = self.id;
+    ds_map_add(self.htme_mp_groups,groupname,group);
+    exit;
+}
+
 var group = ds_map_create();
 /** PROCESS VARIABLES **/
 group[? "variables"] = ds_list_create();
@@ -63,6 +73,10 @@ else
 //BUT ONLY GLOBALLY IF SERVER!
 if (global.htme_object.isServer || !global.htme_object.tmp_creatingNetworkInstance || global.htme_object.playerhash == self.htme_mp_player) {
     ds_list_add(global.htme_object.grouplist,group);
+}
+//ONLY LOCAL (even if server)
+if (!global.htme_object.tmp_creatingNetworkInstance || global.htme_object.playerhash == self.htme_mp_player) {
+    ds_list_add(global.htme_object.grouplist_local,group);
 }
 
 ds_map_add(self.htme_mp_groups,groupname,group);

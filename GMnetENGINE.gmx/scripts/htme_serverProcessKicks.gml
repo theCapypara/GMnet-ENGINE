@@ -28,5 +28,5 @@ for(var i=0; i<ds_map_size(self.kickmap); i+=1) {
     else {
         ds_map_replace(self.kickmap, key, oldval-1);
     }
-    key = ds_map_find_next(self.playermap, key);
+    key = ds_map_find_next(self.kickmap, key);
 }

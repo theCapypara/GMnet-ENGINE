@@ -25,7 +25,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>self.game = "htme_demo121"
+            <string>self.game = "gmnet_engine_130"
 //IF YOU USE YOUR OWN SERVER - Change self.game!
 
 ///Recieve lobby data from the master server

@@ -1,4 +1,4 @@
-///htme_serverRecieveVarGroup(instancehash,playerhash,object_id,inst_stayAlive,instance,tolerance,datatype,groupname,dbg_contents);
+///htme_serverRecieveVarGroup(instancehash,playerhash,object_id,inst_stayAlive,instance,tolerance,datatype,groupname,inst_room);
 
 /*
 **  Description:
@@ -26,7 +26,7 @@ var instance = argument4;
 var tolerance = argument5;
 var datatype = argument6;
 var groupname = argument7;
-var dbg_contents = argument8;
+var inst_room = argument8;
 
 var in_ip = ds_map_find_value(async_load, "ip");
 var in_buff = ds_map_find_value(async_load, "buffer");
@@ -142,11 +142,9 @@ switch (datatype) {
         //Simple datatype
         var backupVars = backupEntry[? "backupVars"];
         var length = buffer_read(in_buff,buffer_u8);
-        dbg_contents += "length: "+string(length)+",";
         for (var l=0;l<length;l++) {
             var vname = buffer_read(in_buff,buffer_string);
             var vval = buffer_read(in_buff,datatype);
-            dbg_contents += vname+": "+string(vval)+",";
             //Check tolerance
             var checkedval = htme_RecieveVar(ds_map_find_value(backupVars,vname),vval,tolerance,datatype);
             with (instance) { ds_map_replace(self.htme_mp_vars,vname,checkedval);}
@@ -156,19 +154,33 @@ switch (datatype) {
     break;
 }
 
-//Reset buffer to see if signed buffer
+//EXPERIMENTAL: Relay instantly, instead of looping over it.
+//Relay to all clients
+
+//Don't use sync functions, relay buffer instantly
 buffer_seek(in_buff, buffer_seek_start, 0);
-if (buffer_read(in_buff, buffer_s8 ) == htme_packet.SIGNEDPACKET) {
-   //Relay to all clients
-   //Simply use backup entry to get groups, i'm lazy and it's safe
-   var backupEntry = ds_map_find_value(self.serverBackup,instancehash);
-   var instance_groups = backupEntry[? "groups"];
-   var group = ds_map_find_value(instance_groups,groupname);
-   if (!is_undefined(group)) {
-      self.syncForce = true;
-      htme_syncSingleVarGroup(group,all,instance,instancehash,object_id,inst_stayAlive,playerhash);
-      self.syncForce = false;
-   }
+//Is this signed?
+if (buffer_read(in_buff, buffer_s8 ) == htme_packet.SIGNEDPACKET_NEW) {
+    //Strip id
+    buffer_read(in_buff, buffer_u32);
+    var bt = buffer_tell(in_buff);
+    buffer_seek(in_buff, buffer_seek_end, 0);
+    buffer_seek(self.buffer, buffer_seek_start, 0);
+    buffer_copy(in_buff,bt,buffer_tell(in_buff),self.buffer,0);
+    buffer_seek(self.buffer, buffer_seek_end, 0);
+    if (!htme_isStayAlive(instancehash)) {
+        htme_sendNewSignedPacket(self.buffer,all,in_ip+":"+string(in_port),inst_room);
+    } else {
+        htme_sendNewSignedPacket(self.buffer,all,in_ip+":"+string(in_port));
+    }
+} else {
+    //Send normally
+    buffer_seek(in_buff, buffer_seek_end, 0);
+    if (!htme_isStayAlive(instancehash)) {
+       htme_serverSendBufferToAllExcept(in_buff,in_ip+":"+string(in_port),inst_room);
+    } else {
+      htme_serverSendBufferToAllExcept(in_buff,in_ip+":"+string(in_port));
+    }
 }
 
 //Delete the instance if it was only created in htme_recieveVarGroup because there was no backup

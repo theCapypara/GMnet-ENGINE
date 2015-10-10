@@ -38,7 +38,6 @@ if (!is_undefined(player)) {
             } else {
                 ds_map_replace(self.serverTimeoutRecv,in_ip+":"+string(in_port), self.global_timeout);
             }
-            htme_debugger("htme_serverCheckConnectionsNetworking",htme_debug.TRAFFIC,"Got packet htme_packet.PING from "+in_ip+":"+string(in_port));
             htme_debugger("htme_serverCheckConnectionsNetworking",htme_debug.DEBUG,"Ping recieved from"+in_ip+":"+string(in_port)+".");
         break;
     }

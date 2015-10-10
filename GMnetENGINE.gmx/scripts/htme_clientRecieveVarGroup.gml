@@ -1,4 +1,4 @@
-///htme_clientRecieveVarGroup(instancehash,playerhash,object_id,instance,tolerance,datatype,dbg_contents);
+///htme_clientRecieveVarGroup(instancehash,playerhash,object_id,instance,tolerance,datatype);
 
 /*
 **  Description:
@@ -23,7 +23,6 @@ var object_id = argument2;
 var instance = argument3;
 var tolerance = argument4;
 var datatype = argument5;
-var dbg_contents = argument6;
 
 var in_ip = ds_map_find_value(async_load, "ip");
 var in_buff = ds_map_find_value(async_load, "buffer");
@@ -77,11 +76,9 @@ switch (datatype) {
     default:
         //Simple datatype
         var length = buffer_read(in_buff,buffer_u8);
-        dbg_contents += "length: "+string(length)+",";
         for (var l=0;l<length;l++) {
             var vname = buffer_read(in_buff,buffer_string);
             var vval = buffer_read(in_buff,datatype);
-            dbg_contents += vname+": "+string(vval)+",";
             //Check tolerance
             var checkedval = htme_RecieveVar(ds_map_find_value((instance).htme_mp_vars,vname),vval,tolerance,datatype);
             ds_map_replace((instance).htme_mp_vars,vname,checkedval);

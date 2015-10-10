@@ -68,23 +68,23 @@ draw_text(self.dbg_right-20,offs,str);
 if (self.dbgstate = vk_f7) draw_set_colour(self.dbgcolor);
 offs = offs + string_height(str);
 
-str = "SIGNED PACKET QUEUE (F8) #========#";
+str = "SIGNED PACKETS SENT (F8) #========#";
 if (self.dbgstate = vk_f8) draw_set_colour(self.dbgcolor_a);
 draw_text(self.dbg_right-20,offs,str);
 if (self.dbgstate = vk_f8) draw_set_colour(self.dbgcolor);
 offs = offs + string_height(str);
 
-str = "EVENT LOG (F9) #========#";
+str = "SIGNED PACKETS INBOX (F9) #========#";
 if (self.dbgstate = vk_f9) draw_set_colour(self.dbgcolor_a);
 draw_text(self.dbg_right-20,offs,str);
 if (self.dbgstate = vk_f9) draw_set_colour(self.dbgcolor);
 offs = offs + string_height(str);
-
+/*
 str = "TOOLKIT (F10) #========#";
 if (self.dbgstate = vk_f10) draw_set_colour(self.dbgcolor_a);
 draw_text(self.dbg_right-20,offs,str);
 if (self.dbgstate = vk_f10) draw_set_colour(self.dbgcolor);
-offs = offs + string_height(str);
+offs = offs + string_height(str);*/
 
 if (!self.isServer) {
     str = "DISCONNECT (F11) #========#";
@@ -94,7 +94,7 @@ if (!self.isServer) {
     offs = offs + string_height(str);
 }
 
-str = "TOGGLE OVERLAY (F12) #========";
+str = "TOGGLE GMnet CORE OVERLAY (F12) #========";
 draw_text(self.dbg_right-20,offs,str);
 
 draw_set_halign(fa_left);

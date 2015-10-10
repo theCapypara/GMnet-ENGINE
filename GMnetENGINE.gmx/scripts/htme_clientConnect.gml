@@ -26,7 +26,6 @@ if (!self.isConnected) {
     //add us to the list of players and send an answer.
     buffer_seek(self.buffer, buffer_seek_start, 0);
     buffer_write(self.buffer, buffer_s8, htme_packet.CLIENT_REQUESTCONNECT );
-    htme_debugger("htme_clientCheckConnection",htme_debug.TRAFFIC,"Sending packet htme_packet.CLIENT_REQUESTCONNECT");
     network_send_udp( self.socketOrServer, self.server_ip, self.server_port, self.buffer, buffer_tell(self.buffer) );
     if (self.client_timeout > self.global_timeout) {
         //When the timeout was exceeded, give up and stop client

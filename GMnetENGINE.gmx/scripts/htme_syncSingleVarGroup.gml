@@ -1,4 +1,4 @@
-///htme_syncSingleVarGroup(group,target,instance,inst_hash,inst_object,inst_stayAlive,inst_player)
+///htme_syncSingleVarGroup(group,target)
 
 /*
 **  Description:
@@ -8,10 +8,12 @@
 **      Only use internally
 **  
 **  Usage:
-**      <See above>
+**       <see above>
 **
 **  Arguments:
-**      <undocumented>
+**      group     ds_map            vargroup to sync
+**      target    string/real       playerhash to send to or real "all" for all
+**                                  (Client will always send to server)
 **
 **  Returns:
 **      <Nothing>
@@ -20,17 +22,56 @@
 
 var group = argument0;
 var target = argument1;
-var instance = argument2;
-var inst_hash = argument3;
-var inst_object = argument4;   
-var inst_stayAlive = argument5;
-var inst_player = argument6;
-var dbg_contents = "";
+
+//Check if we actually know who we are
+if (!self.isServer && self.playerhash == "") {
+    htme_debugger("htme_syncSingleVarGroup",htme_debug.INFO,"Tried to send vargroup but we are not continuing: We don't have a playerhash yet.");    
+    exit;
+}
+
+/**RETRIEVE INFORMATION**/
+var inst_hash = group[? "instancehash"];
+var inst = group[? "instance"];
+if (instance_exists(inst)) {
+    var inst_groups = (inst).htme_mp_groups;
+    var inst_object = (inst).htme_mp_object;
+    var inst_player = (inst).htme_mp_player;   
+    var inst_stayAlive =  (inst).htme_mp_stayAlive;
+} else if (self.isServer) {
+    var backupEntry = ds_map_find_value(self.serverBackup,inst_hash);
+    if (ds_exists(backupEntry,ds_type_map)) {
+        var inst_groups = backupEntry[? "groups"];
+        var inst_object = backupEntry[? "object"];
+        var inst_player = backupEntry[? "player"];      
+        var inst_stayAlive = backupEntry[? "stayAlive"];
+    } else {
+        if (is_undefined(inst_hash) || is_undefined(group[? name])) {
+            htme_debugger("htme_syncSingleVarGroup",htme_debug.WARNING,"CORRUPTED VARGROUP! CONTENTS: "+json_encode(group));
+        } else {
+            htme_debugger("htme_syncSingleVarGroup",htme_debug.WARNING,"Could not sync var-group "+group[? "name"]+" of instance "+inst_hash+". MISSING BACKUP ENTRY!");
+        }
+    }
+} else {
+    if (is_undefined(inst_hash) || is_undefined(group[? name])) {
+        htme_debugger("htme_syncSingleVarGroup",htme_debug.WARNING,"CORRUPTED VARGROUP! CONTENTS: "+json_encode(group));
+    } else {
+        htme_debugger("htme_syncSingleVarGroup",htme_debug.WARNING,"Could not sync var-group "+group[? "name"]+" of instance "+inst_hash+". MISSING INSTANCE!");
+    }
+    exit;
+}
+
+if (is_undefined(inst_player)) {
+    htme_debugger("htme_syncSingleVarGroup",htme_debug.WARNING,"Could not sync var-group "+group[? "name"]+" of instance "+inst_hash+". MISSING PLAYER! FIXME!");
+    exit;
+}
+
 /** GET ROOM OF PLAYER THAT CONTROLS INSTANCE **/
 if (self.isServer) {
    var port_ip_player = htme_ds_map_find_key(self.playermap,inst_player);
    var inst_room = ds_map_find_value(self.playerrooms,port_ip_player);
    if (is_undefined(inst_room)) inst_room = -1;
+} else {
+   var inst_room = room;
 }
 
 /** START SYNCING **/
@@ -52,51 +93,36 @@ htme_debugger("htme_syncSingleVarGroup",htme_debug.DEBUG,"Syncing a var group...
  * }
  * var_name and Number of vars only for default datatypes!
  **/
- var cmd_list = ds_list_create();
+buffer_seek(self.buffer, buffer_seek_start, 0);
 //Write header
-cmd_list[| 0] = buffer_s8;
-cmd_list[| 1] = htme_packet.INSTANCE_VARGROUP;
+buffer_write(self.buffer, buffer_s8, htme_packet.INSTANCE_VARGROUP);
 //Write instance hash
-cmd_list[| 2] = buffer_string;
-cmd_list[| 3] = inst_hash;
-dbg_contents += "instancehash: "+inst_hash+",";
+buffer_write(self.buffer, buffer_string, inst_hash);
 //Write player
-cmd_list[| 4] = buffer_string;
-cmd_list[| 5] = inst_player;
-dbg_contents += "playerhash: "+inst_player+",";
+buffer_write(self.buffer, buffer_string, inst_player);
+//Write room
+buffer_write(self.buffer, buffer_u16, inst_room);
 //Write groupname
-cmd_list[| 6] = buffer_string;
-cmd_list[| 7] = group[? "name"];
-dbg_contents += "groupname: "+group[? "name"]+",";
+buffer_write(self.buffer, buffer_string, group[? "name"]);
 //Write object id
-cmd_list[| 8] = buffer_u16;
-cmd_list[| 9] = inst_object;
-dbg_contents += "inst_object: "+string(inst_object)+",";
+buffer_write(self.buffer, buffer_u16, inst_object);
 //Write stayAlive
-cmd_list[| 10] = buffer_bool;
-cmd_list[| 11] = inst_stayAlive;
-dbg_contents += "inst_stayAlive: "+string(inst_stayAlive)+",";
+buffer_write(self.buffer,buffer_bool, inst_stayAlive);
 //Write tolerance
-cmd_list[| 12] = buffer_f32;
-cmd_list[| 13] = group[? "tolerance"];
-dbg_contents += "tolerance: "+string(group[? "tolerance"])+",";
+buffer_write(self.buffer,buffer_f32, group[? "tolerance"]);
 //Write datatype
-cmd_list[| 14] = buffer_u16; 
-cmd_list[| 15] = group[? "datatype"];
-dbg_contents += "datatype: "+string(group[? "datatype"])+",";
-if (self.isServer) {
-   if (!htme_serverSyncSingleVarGroup(group,target,instance,inst_hash,inst_object,inst_player,cmd_list,dbg_contents)) {
-      ds_list_destroy(cmd_list)
+buffer_write(self.buffer,buffer_u16, group[? "datatype"]);
+
+//Server: Sync in clientmode if local instance
+if (self.isServer && inst_player != self.playerhash) {
+   if (!htme_serverSyncSingleVarGroup(group,self.buffer)) {
       exit;
    }
 } else {
-   if (!htme_clientSyncSingleVarGroup(group,target,instance,inst_hash,inst_object,inst_player,cmd_list,dbg_contents)) {
-    ds_list_destroy(cmd_list);
+   if (!htme_clientSyncSingleVarGroup(group,self.buffer)) {
     exit;
    }
 }
-
-var cat = inst_hash+"_"+group[? "name"]
 
 /** Check type of delivery **/
 if (group[? "type"] == mp_type.IMPORTANT || group[? "type"] == mp_type.SMART) {
@@ -105,43 +131,36 @@ if (group[? "type"] == mp_type.IMPORTANT || group[? "type"] == mp_type.SMART) {
         if (is_real(target)) {
             var port_ip_player = htme_ds_map_find_key(self.playermap,inst_player);
             if (!htme_isStayAlive(inst_hash)) {
-               htme_serverCreateSPForAllCheckRoom(cmd_list,port_ip_player,inst_room,cat,group[? "interval"]/2);
+               htme_sendNewSignedPacket(self.buffer,all,port_ip_player,inst_room);
             } else {
-              htme_createSignedPacket(cmd_list,all,cat,port_ip_player,group[? "interval"]/2);
+              htme_sendNewSignedPacket(self.buffer,all,port_ip_player);
             }
-            htme_debugger("htme_syncSingleVarGroup",htme_debug.DEBUG,"Creating signed packet htme_packet.htme_packet.INSTANCE_VARGROUP to all except "+inst_player+" with contents {"+dbg_contents+"}");
         } else if (target != inst_player) {
             if (htme_serverPlayerIsInRoom(target,inst_room) || htme_isStayAlive(inst_hash)) {
-                htme_debugger("htme_syncSingleVarGroup",htme_debug.TRAFFIC,"Creating signed packet htme_packet.htme_packet.INSTANCE_VARGROUP to "+target+" with contents {"+dbg_contents+"}");
-                htme_createSignedPacket(cmd_list,target,cat,"",group[? "interval"]/2);
+                htme_sendNewSignedPacket(self.buffer,target);
             }
         }
     } else {
-        htme_debugger("htme_syncSingleVarGroup",htme_debug.DEBUG,"Creating signed packet htme_packet.htme_packet.INSTANCE_VARGROUP to server with contents {"+dbg_contents+"}");
-        htme_createSignedPacket(cmd_list,noone,cat,"",group[? "interval"]/2);
+        htme_sendNewSignedPacket(self.buffer,noone);
     }
 } else {
     //Send normally
-    htme_fillSignedPacketBuffer(self.buffer,cmd_list);
-    ds_list_destroy(cmd_list);
     if (self.isServer) {
         if (is_real(target)) {
             var port_ip_player = htme_ds_map_find_key(self.playermap,inst_player);
             if (!htme_isStayAlive(inst_hash)) {
-               htme_serverSendBufferToAllExcept(port_ip_player,inst_room);
+               htme_serverSendBufferToAllExcept(self.buffer,port_ip_player,inst_room);
             } else {
-              htme_serverSendBufferToAllExcept(port_ip_player);
+              htme_serverSendBufferToAllExcept(self.buffer,port_ip_player);
             }
         } else if (target != inst_player) {
             if (htme_serverPlayerIsInRoom(target,inst_room) || htme_isStayAlive(inst_hash)) {
                 var ip = htme_playerMapIP(target);
                 var port = htme_playerMapPort(target);
-                htme_debugger("htme_syncSingleVarGroup",htme_debug.TRAFFIC,"Sending packet htme_packet.htme_packet.INSTANCE_VARGROUP to "+target+" with contents {"+dbg_contents+"}");
                 network_send_udp( self.socketOrServer, ip, port, self.buffer, buffer_tell(self.buffer) );
             }
         }
     } else {
-        htme_debugger("htme_syncSingleVarGroup",htme_debug.TRAFFIC,"Sending packet htme_packet.htme_packet.INSTANCE_VARGROUP to server with contents {"+dbg_contents+"}");
         network_send_udp( self.socketOrServer, self.server_ip, self.server_port, self.buffer, buffer_tell(self.buffer) );
     }
 }
