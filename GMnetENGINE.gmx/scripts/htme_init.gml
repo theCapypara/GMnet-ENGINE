@@ -1,11 +1,29 @@
 ///htme_init()
 
+/* 
+**   _    _            _ 
+**  | |  | |          | |
+**  | |__| | ___ _   _| |
+**  |  __  |/ _ \ | | | |
+**  | |  | |  __/ |_| |_|
+**  |_|  |_|\___|\__, (_)
+**                __/ |  
+**               |___/   
+**            
+**  CONFIGURATION HAS MOVED!
+**  The configuration is now located in htme_config.
+**  Please don't make chanegs to this file anymore.
+**  
+**  htme_config normally doesn't need to be updated when 
+**  you update GMnet ENGINE.
+**  If it does, you will be warned when starting your game.
+*/
+
 /*
 **  Description:
 **      PRIVATE "METHOD" OF obj_htme! That means this script MUST be called with obj_htme!
 **
 **      This will load all variables and settings required by GMnet CORE/ENGINE.
-**      You will find the whole configuration here.
 **  
 **  Usage:
 **      <See above>
@@ -17,6 +35,39 @@
 **      <Nothing>
 **
 */
+
+/*=================
+ *** BELOW: INTERNAL VARIABLES - DO NOT CHANGE 
+ =================*/
+ 
+/** 
+ * ID of the Object that controls the engine. You normally don't have to change this.
+ * @type real
+ */
+global.htme_object = self.id;
+
+/** 
+ * This will randomize the random functions. If you need a certain hash change this.
+ */
+randomize();
+
+
+htme_config();
+htme_debugger("htme_init",htme_debug.INFO,"SETTING UP GMnet CORE");
+htme_debugger("htme_init",htme_debug.DEBUG,"Loaded configuration");
+
+var currentConfigVersion = 2;
+
+if (self.config_version != currentConfigVersion) {
+   show_message("You need to update your GMnet configuration.#
+       Plese have a look at the changelog in the manual or on the marketplace page for more information.");
+   htme_debugger("htme_init",htme_debug.DEBUG,"Config Version check NOT successful");
+   //Destroy event crashes game if this variable isn't set
+   self.isConnected = false;
+   instance_destroy();
+   exit;
+}
+htme_debugger("htme_init",htme_debug.DEBUG,"Config Version check successful");
 
 /***
  *** ENUMS - CONFIGURATION CAN BE FOUND BELOW! 
@@ -72,106 +123,6 @@ enum mp_type {
 enum mp_buffer_type {
     BUILTINBASIC=100,BUILTINPHYSICS=101,BUILTINPOSITION=102
 }
-
-/***
- *** CONFIGURATION
- ***/
-
-/** 
- * This will randomize the random functions. If you need a certain hash change this.
-*/
-randomize();
-
-/** 
- * Set the level of debug. The debug messages of this level and higher
- * will be shown. NONE disables debug messages. TRAFFIC ONLY shows traffic!
- * When GMnet PUNCH is enabled (use_udphp = true), it's debug level will be adjusted accordingly.
-*/
-self.debuglevel = htme_debug.INFO;
-
-/** 
- * Enable or disable the debug overlay. Provides you with useful debugging tools.
- * Use htme_debugOverlayEnabled() to check if the overlay is on, to draw your own
- * debug information. 
- * Make sure you updated obj_htme to at least V. 1.2.0
-*/
-self.debugoverlay = true;
-
-/** 
- * ID of the Object that controls the engine. You normally don't have to change this.
- * @type real
- */
-global.htme_object = self.id;
-
-htme_debugger("htme_init",htme_debug.INFO,"SETTING UP GMnet CORE");
-
-/** 
- * Use GMnet PUNCH? Set to true if GMnet PUNCH is installed and should be used to make the conection.
- * GMnet PUNCH is installed if you use GMnet ENGINE and needs to be installed manually
- * when using GMnet CORE.
- * More Information can be found in the manual.
- */
-
-self.use_udphp = false;
-
-/** 
- * WHEN USING GMnet PUNCH:
- * IP of the master/mediation server 
- * THERE CAN BE NO GAME SERVER RUNNING ON THIS IP!!
- * Use 95.85.63.183 if you have no server. It is only for debugging!
- * @type string
- */
-self.udphp_master_ip = "95.85.63.183";
-
-/** 
- * WHEN USING GMnet PUNCH:
- * Port of the master/mediation server 
- * @type real
- */
-self.udphp_master_port = 6510;
-
-/** 
- * WHEN USING GMnet PUNCH:
- * The server should reconnect to the master server every x steps.
- * The server will only reconnect if it's no longer connected.
- * @type real
- */
-self.udphp_rctintv = 3*60*room_speed;
-
-/** 
- * The timeout after which the client gives up to connect.
- * This will also specify when server and client should timeout when the are not responding
- * to each others requests (ping timeout)
- * When using udphp:
- * The timeout after which the server and client give up to connect to each other.
- * @type real
- */
-self.global_timeout = 5*room_speed;
-
-/** 
- * Interval the servers broadcast data to the LAN, for the LAN lobby
- * @type real
- */
-self.lan_interval = 15*room_speed;
-
-/**
- *  Shortname of this game
- *  + version
- *  Example: gmnet_engine_130
- *
- * If you are testing the demo project or simply play arround with the engine, ignore this.
- * Otherwise, when making your game, you need to change the gamename.
- * This string is used to identify your game. It is meant to make sure different
- * games can't connect to each other. If incompatible games would try to connect
- * to each other that would result in data corruption and crashes.
- * Also change this string when releasing a new version of your game, that is incompatible
- * with old versions of your game.
- **/
-self.gamename = "gmnet_engine_130"
-
-/*** 
- *** BELOW: INIT INTERNAL VARIABLES - DO NOT CHANGE 
- ***/
  
 /** VERSION **/
 //(1.3.0 = 1300; 1.3.1 = 1301; 1.3.11 = 1311...)

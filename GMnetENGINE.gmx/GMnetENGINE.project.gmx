@@ -88,6 +88,7 @@
       <script>scripts\udphp_config.gml</script>
     </scripts>
     <scripts name="htme">
+      <script>scripts\htme_config.gml</script>
       <script>scripts\htme_init.gml</script>
       <scripts name="internal">
         <script>scripts\htme_debugger.gml</script>
