@@ -49,6 +49,7 @@ for(var i=0; i<ds_map_size(m); i+=1) {
            /* (1) */
            htme_debugger("htme_roomend",htme_debug.DEBUG,"Unregistered a global instance "+insthash+"!");
            if (!self.isServer) {
+              ds_map_delete(self.globalInstances,insthash);
               ds_map_delete(m,insthash);
            }
            /* (2) */ 

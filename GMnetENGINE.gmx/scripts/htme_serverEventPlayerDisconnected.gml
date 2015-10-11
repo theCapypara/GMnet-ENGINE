@@ -53,6 +53,7 @@ for(var i=0; i<ds_map_size(mapToUse); i+=1) {
        htme_serverRemoveBackup(key);
        with (inst) {instance_destroy();}
        ds_map_delete(self.globalInstances,key);
+       ds_map_delete(mapToUse,key);
        //We need to reset the key
        key = ds_map_find_first(mapToUse);
     } else {
