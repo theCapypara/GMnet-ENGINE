@@ -56,7 +56,7 @@ htme_config();
 htme_debugger("htme_init",htme_debug.INFO,"SETTING UP GMnet CORE");
 htme_debugger("htme_init",htme_debug.DEBUG,"Loaded configuration");
 
-var currentConfigVersion = 2;
+var currentConfigVersion = 1;
 
 if (self.config_version != currentConfigVersion) {
    show_message("You need to update your GMnet configuration.#
