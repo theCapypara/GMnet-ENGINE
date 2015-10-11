@@ -45,14 +45,14 @@ if (instance_exists(inst)) {
         var inst_player = backupEntry[? "player"];      
         var inst_stayAlive = backupEntry[? "stayAlive"];
     } else {
-        if (is_undefined(inst_hash) || is_undefined(group[? name])) {
+        if (is_undefined(inst_hash) || is_undefined(group[? "name"])) {
             htme_debugger("htme_syncSingleVarGroup",htme_debug.WARNING,"CORRUPTED VARGROUP! CONTENTS: "+json_encode(group));
         } else {
             htme_debugger("htme_syncSingleVarGroup",htme_debug.WARNING,"Could not sync var-group "+group[? "name"]+" of instance "+inst_hash+". MISSING BACKUP ENTRY!");
         }
     }
 } else {
-    if (is_undefined(inst_hash) || is_undefined(group[? name])) {
+    if (is_undefined(inst_hash) || is_undefined(group[? "name"])) {
         htme_debugger("htme_syncSingleVarGroup",htme_debug.WARNING,"CORRUPTED VARGROUP! CONTENTS: "+json_encode(group));
     } else {
         htme_debugger("htme_syncSingleVarGroup",htme_debug.WARNING,"Could not sync var-group "+group[? "name"]+" of instance "+inst_hash+". MISSING INSTANCE!");
