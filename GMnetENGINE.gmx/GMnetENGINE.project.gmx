@@ -135,6 +135,7 @@
         </scripts>
         <script>scripts\htme_clientStart.gml</script>
         <script>scripts\htme_serverStart.gml</script>
+        <script>scripts\htme_syncGroupNow.gml</script>
       </scripts>
       <scripts name="logic">
         <scripts name="client">

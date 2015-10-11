@@ -40,7 +40,6 @@ for(var i=0; i<ds_list_size(self.grouplist); i+=1) {
         if (ds_exists(backupEntry,ds_type_map)) {
             var inst_player = backupEntry[? "player"];      
         } else {
-            show_debug_message("SHOW NAME: " + string(name))
             if (is_undefined(inst_hash) || is_undefined(group[? "name"])) {
                 htme_debugger("htme_forceSyncLocalInstances",htme_debug.WARNING,"CORRUPTED VARGROUP! CONTENTS: "+json_encode(group));
             } else {
@@ -48,7 +47,6 @@ for(var i=0; i<ds_list_size(self.grouplist); i+=1) {
             }
         }
     } else {
-        show_debug_message("SHOW NAME: " + string(name))
         if (is_undefined(inst_hash) || is_undefined(group[? "name"])) {
             htme_debugger("htme_forceSyncLocalInstances",htme_debug.WARNING,"CORRUPTED VARGROUP! CONTENTS: "+json_encode(group));
         } else {

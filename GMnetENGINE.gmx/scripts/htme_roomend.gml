@@ -39,8 +39,7 @@ var insthash=ds_map_find_first(m);
 //This will loop through all global instances
 for(var i=0; i<ds_map_size(m); i+=1) {
     var instid = ds_map_find_value(m,insthash);
-    if is_undefined(instid)=false
-    {
+    if (!is_undefined(instid)) {
         if (!instance_exists(instid)) {insthash = ds_map_find_next(m, insthash);continue;}
         //Do nothing if stay alive
         if (htme_isStayAlive(insthash)) {insthash = ds_map_find_next(m, insthash);continue;}
@@ -66,8 +65,7 @@ for(var i=0; i<ds_map_size(m); i+=1) {
            with (instid) {mp_unsync();}
         }
     }
-    else
-    {
+    else {
         show_debug_message("Undefined found in globalInstances");
     }
     insthash = ds_map_find_next(m, insthash);
