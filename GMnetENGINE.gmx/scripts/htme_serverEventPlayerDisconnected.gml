@@ -32,7 +32,9 @@ ev_map[? "hash"] = phash;
 script_execute(self.serverEventHandlerDisconnect,ev_map);
 ds_map_destroy(ev_map);
 
-var mapToUse = self.globalInstances;
+var mapToUse=ds_map_create();
+ds_map_copy(mapToUse,self.globalInstances);
+
 var key= ds_map_find_first(mapToUse);
 //This will loop through all global instances
 for(var i=0; i<ds_map_size(mapToUse); i+=1) {
@@ -68,3 +70,6 @@ htme_debugger("htme_serverEventPlayerDisconnected",htme_debug.DEBUG,"Tell other 
 
 //Remove from playerLIST, has to be removed from map outside this event!!!
 ds_list_delete(self.playerlist,ds_list_find_index(self.playerlist,phash));
+
+// Clean
+ds_map_destroy(mapToUse);

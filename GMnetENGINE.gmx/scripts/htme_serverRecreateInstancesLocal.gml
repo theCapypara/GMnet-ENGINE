@@ -21,7 +21,9 @@
 
 htme_debugger("htme_serverRecreateInstancesLocal",htme_debug.DEBUG,"Recreating local missing instances...");
 
-var mapToUse = self.globalInstances;
+//var mapToUse = self.globalInstances;
+var mapToUse=ds_map_create();
+ds_map_copy(mapToUse,self.globalInstances);
 
 var key= ds_map_find_first(mapToUse);
 //This will loop through all global instances
@@ -76,3 +78,6 @@ for(var i=0; i<ds_map_size(mapToUse); i+=1) {
 
     key = ds_map_find_next(mapToUse, key);
 }
+
+// Clean
+ds_map_destroy(mapToUse);
