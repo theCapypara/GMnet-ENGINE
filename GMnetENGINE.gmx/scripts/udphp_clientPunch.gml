@@ -65,7 +65,13 @@ if (!client_connected) {
         buffer_seek(client_buffer, buffer_seek_start, 0);
         buffer_write(client_buffer, buffer_s8, udphp_packet.KNOCKKNOCK );
         network_send_udp( client_udp, client_serverip, client_serverport, client_buffer, buffer_tell(client_buffer) );
-        if (client_timeout > global_timeout) {
+        if (client_timeout = floor(global_timeout*0.5))
+        {
+            // Try connect with provided port and hope the server got portforward
+            ds_map_replace(global.udphp_clients_serverport,client_id,global.htme_object.server_port);
+        }
+        else if (client_timeout > global_timeout)
+        {
             //When the timeout was exceeded, give up and return false to indicate the connection has failed
             udphp_handleerror(udphp_dbglvl.ERROR, udphp_dbgtarget.CLIENT, client_id, "Could not connect to server!")
             //Client get's toppped. Return false, instance must be destroyed now
