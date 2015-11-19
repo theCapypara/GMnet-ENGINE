@@ -68,25 +68,21 @@ if (!client_connected) {
         if (client_timeout = floor(global_timeout*0.5))
         {
             // Try connect with provided port and hope the server got portforward
-            // When use direct connect global.htme_object.server_port is set by you
-            // When use lobby you must set the global.htme_object.server_port to whatever port you want to test
-            //     Tip: Send the server port in data to the master server when you htme_serverStart()
-            //          htme_setData(3,string(global.htme_object.port));
-            //          and get it when in the lobby script for the client
-            //          global.htme_object.server_port = real(entry[? "data3"]);
+            // The port may be provided by the server to the master and to us if
+            // global.htme_object.udphp_provide_server_port=true in config
             // Check if port is provided
             if global.htme_object.server_port>0
             {
                 // Change port on client
-                udphp_handleerror(udphp_dbglvl.WARNING, udphp_dbgtarget.CLIENT, client_id, "Try connect using server port: " + string(global.htme_object.server_port));
+                udphp_handleerror(udphp_dbglvl.WARNING, udphp_dbgtarget.CLIENT, client_id, "No response. Try connect using server port: " + string(global.htme_object.server_port));
                 ds_map_replace(global.udphp_clients_serverport,client_id,global.htme_object.server_port);
             }
         }
         else if (client_timeout = floor(global_timeout*0.75))
         {    
-            // Try connect with master port and hope the server got portforward
+            // Try connect with master port and hope the server got same port and use portforward
             // Change port on client
-            udphp_handleerror(udphp_dbglvl.WARNING, udphp_dbgtarget.CLIENT, client_id, "Try connect using server port: " + string(global.htme_object.udphp_master_port));
+            udphp_handleerror(udphp_dbglvl.WARNING, udphp_dbgtarget.CLIENT, client_id, "No responce. Try connect using master server port: " + string(global.htme_object.udphp_master_port));
             ds_map_replace(global.udphp_clients_serverport,client_id,global.htme_object.udphp_master_port);
         }           
         else if (client_timeout > global_timeout)

@@ -46,6 +46,11 @@ self.udphp_master_ip = "95.85.63.183";
  */
 self.udphp_master_port = 6510;
 
+// Send port to client on online server
+// You can manually port forward the server port to enable clients to connect
+// Note that this will use data8 to provide the port so dont set it yourself
+self.udphp_provide_server_port=true;
+
 /** 
  * WHEN USING GMnet PUNCH:
  * The server should reconnect to the master server every x steps.

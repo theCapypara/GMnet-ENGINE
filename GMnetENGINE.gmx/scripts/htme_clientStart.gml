@@ -37,6 +37,31 @@ if( self.socketOrServer<0 ){
     return false;
 }
 
+// Get server port from list
+if server_port=0 and udphp_provide_server_port
+{
+    var l = global.udphp_downloadlist;
+    if (ds_exists(l,ds_type_list)) 
+    {
+        for (var i=0; i<ds_list_size(l); i+=1)
+        {
+            var entry = l[| 0];
+            var ip = entry[? "ip"];
+            var port_provided = entry[? "data8"];
+            // Check if right ip
+            // This assume that all servers got different ip
+            if ip=server_ip
+            {
+                if port_provided!="" 
+                {
+                    server_port=real(port_provided);
+                    break;
+                }
+            }
+        }
+    }
+}
+
 //Set up ip and port of server
 self.server_ip = server_ip;
 self.server_port = server_port;
