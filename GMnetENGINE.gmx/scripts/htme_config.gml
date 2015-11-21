@@ -22,7 +22,7 @@ self.debugoverlay = true;
  * 2: network_create_socket(network_socket_udp); For tests
  * 3: network_create_server(network_socket_udp,port,maxclients); <=1.4.1567
  */
-self.gmversionpick=3;
+self.gmversionpick=1;
 
 /** 
  * Use GMnet PUNCH? Set to true if GMnet PUNCH is installed and should be used to make the conection.

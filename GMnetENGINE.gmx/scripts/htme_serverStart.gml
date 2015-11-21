@@ -28,7 +28,7 @@ htme_debugger("htme_serverStart",htme_debug.DEBUG,"STARTING SERVER");
 switch (gmversionpick)
 {
     // You maybe dont got network_create_socket_ext just add // in front of it
-    //case 1: self.socketOrServer = network_create_socket_ext(network_socket_udp,port); break;
+    case 1: self.socketOrServer = network_create_socket_ext(network_socket_udp,port); break;
     case 2: self.socketOrServer = network_create_socket(network_socket_udp); break;
     case 3: self.socketOrServer = network_create_server(network_socket_udp,port,maxclients); break;
     default: show_message("Go to script: htme_serverStart and decomment the one you use!");  
