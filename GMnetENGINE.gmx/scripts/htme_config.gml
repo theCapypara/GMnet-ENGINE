@@ -16,9 +16,12 @@ self.debuglevel = htme_debug.INFO;
 */
 self.debugoverlay = true;
 
-// 1: network_create_socket_ext(network_socket_udp,port); >1.4.1567
-// 2: network_create_socket(network_socket_udp); For tests
-// 3: network_create_server(network_socket_udp,port,maxclients); <=1.4.1567
+/** 
+ * Use different versions of Game Maker Studio
+ * 1: network_create_socket_ext(network_socket_udp,port); >1.4.1567
+ * 2: network_create_socket(network_socket_udp); For tests
+ * 3: network_create_server(network_socket_udp,port,maxclients); <=1.4.1567
+ */
 self.gmversionpick=3;
 
 /** 
@@ -68,6 +71,15 @@ self.udphp_rctintv = 3*60*room_speed;
  * @type real
  */
 self.global_timeout = 5*room_speed;
+
+/** 
+ * The time the punch stage will wait before try next port
+ * Increase self.global_timeout to test more ports if you have problem connecting with punch
+ * If you experience overload in the router set the value to room_speed*2 or above.
+ * But this will decrease the chances you connect to the server
+ * @type real
+ */
+self.global_punch_stage_timeout=room_speed; // must wait 1 sec before next try else the Messages wont be sent or the target router will stop them
 
 /** 
  * Interval the servers broadcast data to the LAN, for the LAN lobby

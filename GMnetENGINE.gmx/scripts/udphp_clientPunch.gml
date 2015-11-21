@@ -63,9 +63,22 @@ if (!client_connected) {
         //Send a packet to the server to punch the hole. If this reaches the server, he will
         //add us to the list of players and send an answer.
         buffer_seek(client_buffer, buffer_seek_start, 0);
-        buffer_write(client_buffer, buffer_s8, udphp_packet.KNOCKKNOCK );
-        network_send_udp( client_udp, client_serverip, client_serverport, client_buffer, buffer_tell(client_buffer) );
-        if (client_timeout = floor(global_timeout*0.5))
+        buffer_write(client_buffer, buffer_s8, udphp_packet.KNOCKKNOCK );        
+        // Handle punch states
+        udphp_punchstate(client_id,client_udp,client_serverip,client_serverport,client_buffer);
+        // Change punch stages depending on the total timeout
+        if (client_timeout = floor(global_timeout*0.25) and global.udphp_punch_stage!="Try sequence external server port")
+        {
+            // Try change the external server port
+            // If the server NAT changed the port to a sequencent port nearby the received port from master server
+            // Some NAT change the external port when external ip change in the send network message.
+            // Reset some variables we use
+            global.udphp_punch_stage_sub1="";
+            global.udphp_punch_stage_counter=0;            
+            // Only config this once
+            global.udphp_punch_stage="Try sequence external server port";            
+        }   
+        else if (client_timeout = floor(global_timeout*0.40) and global.udphp_punch_stage!="Try server port or provided server port")
         {
             // Try connect with provided port and hope the server got portforward
             // The port may be provided by the server to the master and to us if
@@ -76,15 +89,31 @@ if (!client_connected) {
                 // Change port on client
                 udphp_handleerror(udphp_dbglvl.WARNING, udphp_dbgtarget.CLIENT, client_id, "No response. Try connect using server port: " + string(global.htme_object.server_port));
                 ds_map_replace(global.udphp_clients_serverport,client_id,global.htme_object.server_port);
-            }
-        }
-        else if (client_timeout = floor(global_timeout*0.75))
+            }           
+            // Only config this once
+            global.udphp_punch_stage="Try server port or provided server port";            
+        }        
+        else if (client_timeout = floor(global_timeout*0.45) and global.udphp_punch_stage!="Try master server port")
         {    
-            // Try connect with master port and hope the server got same port and use portforward
+            // Try connect with master port and hope the server got the same port and use portforward
             // Change port on client
             udphp_handleerror(udphp_dbglvl.WARNING, udphp_dbgtarget.CLIENT, client_id, "No responce. Try connect using master server port: " + string(global.htme_object.udphp_master_port));
             ds_map_replace(global.udphp_clients_serverport,client_id,global.htme_object.udphp_master_port);
-        }           
+            // Only config this once
+            global.udphp_punch_stage="Try master server port";
+        }   
+        else if (client_timeout = floor(global_timeout*0.50) and global.udphp_punch_stage!="Try predict external server port")
+        {
+            // Try change the external server port
+            // If the server NAT changed the port to a random port
+            // We can use the last port from the master server as a max and min to predict the next port
+            // Some NAT change the external port when external ip change in the send network message.
+            // Reset some variables we use
+            global.udphp_punch_stage_sub1="";
+            global.udphp_punch_stage_counter=0;            
+            // Only config this once
+            global.udphp_punch_stage="Try predict external server port";            
+        }                  
         else if (client_timeout > global_timeout)
         {
             //When the timeout was exceeded, give up and return false to indicate the connection has failed

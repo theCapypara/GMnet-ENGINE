@@ -86,6 +86,13 @@ global.udphp_clients_connected = ds_map_create();
 global.udphp_clients_serverip = ds_map_create();
 global.udphp_clients_serverport = ds_map_create();
 global.udphp_version = "1.2.3";
+global.udphp_punch_stage = "";
+global.udphp_punch_stage_sub1 = "";
+global.udphp_punch_stage_external_server_port=0;
+global.udphp_punch_stage_counter=0;
+global.udphp_punch_stage_timeout=0;
+global.udphp_punch_stage_predict_value1=0
+global.udphp_punch_stage_predict_value2=0
 
 global.udphp_downloadlist_refreshing = false;
 global.udphp_downloadlist_topmap = -1;
