@@ -91,17 +91,8 @@ if (!client_connected) {
             }           
             // Only config this once
             global.udphp_punch_stage="Try server port or provided server port";            
-        }        
-        else if (client_timeout = floor(global_timeout*0.45) and global.udphp_punch_stage!="Try master server port")
-        {    
-            // Try connect with master port and hope the server got the same port and use portforward
-            // Change port on client
-            udphp_handleerror(udphp_dbglvl.WARNING, udphp_dbgtarget.CLIENT, client_id, "No responce. Try connect using master server port: " + string(global.htme_object.udphp_master_port));
-            ds_map_replace(global.udphp_clients_serverport,client_id,global.htme_object.udphp_master_port);
-            // Only config this once
-            global.udphp_punch_stage="Try master server port";
-        }   
-        else if (client_timeout = floor(global_timeout*0.50) and global.udphp_punch_stage!="Try predict external server port")
+        }
+        else if (client_timeout = floor(global_timeout*0.45) and global.udphp_punch_stage!="Try predict external server port")
         {
             // Try change the external server port
             // If the server NAT changed the port to a random port
