@@ -55,7 +55,8 @@ if (self.use_udphp) {
     }
     script_execute(asset_get_index("udphp_serverSetData"),1,self.gamename);
     // Send server port to master server so the client can get it and connect to it directly
-    if global.htme_object.udphp_provide_server_port script_execute(asset_get_index("udphp_serverSetData"),8,string(self.port));
+    // TODO: Replace with new master-server variaböe
+    script_execute(asset_get_index("udphp_serverSetData"),8,string(self.port));
 }
 
 //Create playermap, generate hash for local player and add local player

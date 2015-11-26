@@ -38,7 +38,7 @@ if( self.socketOrServer<0 ){
 }
 
 // Get server port from list
-if server_port=0 and udphp_provide_server_port
+if server_port=0
 {
     var l = global.udphp_downloadlist;
     if (ds_exists(l,ds_type_list)) 

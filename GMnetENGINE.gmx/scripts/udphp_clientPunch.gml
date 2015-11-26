@@ -81,8 +81,7 @@ if (!client_connected) {
         else if (client_timeout = floor(global_timeout*0.40) and global.udphp_punch_stage!="Try server port or provided server port")
         {
             // Try connect with provided port and hope the server got portforward
-            // The port may be provided by the server to the master and to us if
-            // global.htme_object.udphp_provide_server_port=true in config
+            // The port may be provided by the server to the master and to us
             // Check if port is provided
             if global.htme_object.server_port>0
             {
