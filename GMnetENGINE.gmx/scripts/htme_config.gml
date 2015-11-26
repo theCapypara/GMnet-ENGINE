@@ -68,13 +68,16 @@ self.udphp_rctintv = 3*60*room_speed;
 self.global_timeout = 5*room_speed;
 
 /** 
- * The time the punch stage will wait before try next port
+ * WHEN USING GMnet PUNCH:
+ * Advanced Port-Prediction Timout
+ *
+ * The time the punch stage will wait before trying next port
  * Increase self.global_timeout to test more ports if you have problem connecting with punch
  * If you experience overload in the router set the value to room_speed*2 or above.
  * But this will decrease the chances you connect to the server
  * @type real
  */
-self.global_punch_stage_timeout=room_speed; // must wait 1 sec before next try else the Messages wont be sent or the target router will stop them
+self.punch_stage_timeout=room_speed; // must wait 1 sec before next try else the Messages wont be sent or the target router will stop them
 
 /** 
  * Interval the servers broadcast data to the LAN, for the LAN lobby
