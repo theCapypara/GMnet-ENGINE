@@ -110,7 +110,7 @@ if (htme_serverStart(port,32)) {
             <kind>1</kind>
             <string>///GOTO LOBBY
 if (!obj_htme.use_udphp) {
-   show_message("You need to have GMnet PUNCH enabled in htme_init (use_udphp)!#(And have GMnet ENGINE or GMnet PUNCH)");
+   show_message("You need to have GMnet PUNCH enabled in htme_config (use_udphp)!#(And have GMnet ENGINE or GMnet PUNCH)");
 } else {
   if (room_exists(asset_get_index("udphhtme_lobby"))) {
      room_goto(asset_get_index("udphhtme_lobby"));

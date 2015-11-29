@@ -5,46 +5,38 @@ This is the repository of GMnet ENGINE - the multiplayer engine for Game Maker S
 GMnet ENGINE contains the following three products (all can be used on their own ):
 
 * ![GMnet CORE](http://parakoopa.de/GMnet/small_core.png)
-  **GMnet CORE** (all scripts with the **htme_** prefix) is the main part of the engine. It handles the actual synchronization between players. Has functions to integrate PUNCH and ACCESS.
+  **GMnet CORE** (all scripts with the **htme_** prefix) is the main part of the engine. It handles the actual synchronization between players. Has functions to integrate PUNCH.
 
 * ![GMnet PUNCH](http://parakoopa.de/GMnet/small_punch.png)
   **GMnet PUNCH** (all scripts with the **udphp_** prefix) handles NAT traversal/UDP hole punching, so players behind firewalls can communicate. It requires GMnet GATE.PUNCH (see below).
 
-* ![GMnet ACCESS](http://parakoopa.de/GMnet/small_access.png)
-**!!NOT YET INCLUDED (or even done)!!**
-**GMnet ACCESS** (all scripts with the **gmnacc_** prefix) can handle user authentification and can store and recieve data related to users. It requires GMnet GATE.ACCESS (see below).
 
-* This repo also contains a demo project for GMnet ENGINE and GMnet CORE. The demo projects for ACCESS and PUNCH can be found in the repos below
+* This repo also contains a demo project for GMnet ENGINE. The demo projects for the standalone PUNCH version can be found in the repos below
 
 **More information about GMnet ENGINE and other products can be found on the website:**  
 http://gmnet.parakoopa.de
 
-##Get GMnet ENGINE, CORE, PUNCH or ACCESS
+##Get GMnet ENGINE, CORE or PUNCH
 To get GMnet ENGINE, which combines everything visit  
 http://gmnet.parakoopa.de/engine
 
 For the other projects visit  
-http://gmnet.parakoopa.de/core (CORE)  
-http://gmnet.parakoopa.de/access (ACCESS)  
+http://gmnet.parakoopa.de/core (CORE)    
 http://gmnet.parakoopa.de/punch (PUNCH)
 
 
 ##Other repositories
 
 * [GMnet PUNCH demo project](https://github.com/Parakoopa/GMnet-PUNCH-Demo)
-* [GMnet ACCESS demo project](https://github.com/Parakoopa/GMnet-ACCESS-Demo)
-* [GMnet GATE.ACCESS](https://github.com/Parakoopa/GMnet-GATE-ACCESS)
 * [GMnet GATE.PUNCH](https://github.com/Parakoopa/GMnet-GATE-PUNCH)
-* [GMnet GATE](https://github.com/Parakoopa/GMnet-GATE) (Installer and service that combines GATE.ACCESS and GATE.PUNCH)
 * [GMnet GATE.TESTER](https://github.com/Parakoopa/GMnet-GATE-TESTER) (Web-based debugging tool for other GMnet GATE producs)
 * [Manual pages](https://github.com/Parakoopa/GMnet-manual) (Get and edit the manual pages found on http://gmnet.parakoopa.de)
 
 ## Branches & Versioning
 
-* The branch ``master`` contains the most recent versions of GMnet CORE, ACCESS and PUNCH, which are still in development. They are usally working but are not recommended for use in production.
-* The branch ``releases-core`` contains releases of GMnet CORE. All commits in this branch are tagged with a tag like ``core-VERSION``. This branch is also used for ENGINE releases that can be found on the Game Maker Martketplace. ENGINE releaes have the same version number as CORE releaes and are a combination of the release commit of CORE, and the scripts (udphp\_ and gmnacc\_) of the last commit in ``releases-access`` and ``releases-punch``.
-* The branch ``releases-access`` contains releases of GMnet ACCESS. All commits in this branch are tagged with a tag like ``access-VERSION``. The demo project repository for ACCESS also get's tagged with this tag if changed, otherwise the newest commit from this repository is used as demo project. Marketplace releases use the scripts from this commit and the according demo project.
-* The branch ``releases-punch`` contains releases of GMnet PUNCH. All commits in this branch are tagged with a tag like ``punch-VERSION``. For how to include the demo project, see ACCESS.
+* The branch ``master`` contains the most recent versions of GMnet CORE and PUNCH, which are still in development. They are usally working but are not recommended for use in production.
+* The branch ``releases-core`` contains releases of GMnet CORE. All commits in this branch are tagged with a tag like ``core-VERSION``. This branch is also used for ENGINE releases that can be found on the Game Maker Martketplace. ENGINE releaes have the same version number as CORE releaes and are a combination of the release commit of CORE, and the scripts (udphp\_ and gmnacc\_) of the last commit in ``releases-punch``.
+* The branch ``releases-punch`` contains releases of GMnet PUNCH. All commits in this branch are tagged with a tag like ``punch-VERSION``. If you export only the scripts starting with udphp_ and import them into the PUNCH demo project (see above) you get a working standalone version of PUNCH.
 * All other branches are used for testing and development and may not work.
 
 ## How to commit

@@ -46,7 +46,7 @@ if (string_copy(self.gamename,0,13) == "gmnet_engine_") {
         show_message("Warning! 
 You are using the default gamename string! 
 If you are testing the demo project or simply play arround with the engine, ignore this.
-Otherwise, when making your game, you need to change 'self.gamename' in 'htme_init'.
+Otherwise, when making your game, you need to change 'self.gamename' in 'htme_config'.
 This string is used to identify your game. It is meant to make sure different
 games can't connect to each other. If incompatible games would try to connect
 to each other that would result in data corruption and crashes.
