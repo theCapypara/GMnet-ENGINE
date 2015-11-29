@@ -1,4 +1,4 @@
-/// udphp_punchstate(client_id,client_udp,client_serverip,client_serverport,client_buffer);
+/// udphp_punchstate(client_id);
 
 /*  INTERNAL COMMAND
 **  Description:
@@ -6,7 +6,7 @@
 **      if the NAT is unfriendly for default udp hole punch.
 **  
 **  Usage:
-**      udphp_punchstate(client_id,client_udp,client_serverip,client_buffer)
+**      udphp_punchstate(client_id)
 **
 **  Returns:
 **      <nothing>
@@ -14,17 +14,17 @@
 */
 
 var client_id = argument0;
-var client_udp = argument1;
-var client_serverip = argument2;
-var client_serverport = argument3;
-var client_buffer = argument4;
+var client_udp = ds_map_find_value(global.udphp_clients_udp,client_id);
+var client_serverip = ds_map_find_value(global.udphp_clients_serverip,client_id);
+var client_serverport = ds_map_find_value(global.udphp_clients_serverport,client_id);
+var client_buffer = ds_map_find_value(global.udphp_clients_buffer,client_id);
 
 switch (global.udphp_punch_stage)
 {
-    case "Try sequence external server port":
+    case udphp_punch_states.TRY_SEQUENCE_PORT:
         switch (global.udphp_punch_stage_sub1)
         {
-            case "":
+            default:
                 // Count up port to use
                 global.udphp_punch_stage_counter+=1;
                 // Reset timeout
@@ -37,21 +37,24 @@ switch (global.udphp_punch_stage)
                 // Send message and try to connect to server
                 network_send_udp( client_udp, client_serverip, global.udphp_punch_stage_external_server_port+global.udphp_punch_stage_counter, client_buffer, buffer_tell(client_buffer) );                
                 // Try this port for some time
-                global.udphp_punch_stage_sub1="Try new external port";
+                global.udphp_punch_stage_sub1=udphp_punch_substates.SEQ_TRY_NEW;
                 break;
-            default:
+            case udphp_punch_substates.SEQ_TRY_NEW:
+                // Try new external port
                 // Send message and try to connect to server
                 network_send_udp( client_udp, client_serverip, global.udphp_punch_stage_external_server_port+global.udphp_punch_stage_counter, client_buffer, buffer_tell(client_buffer) );            
                 // Wait some to test the other port
                 global.udphp_punch_stage_timeout-=1;
                 // Timeout on this port try another one
-                if global.udphp_punch_stage_timeout<=0 global.udphp_punch_stage_sub1="";
+                if (global.udphp_punch_stage_timeout<=0) {
+                    global.udphp_punch_stage_sub1=udphp_punch_substates.DEFAULT;
+                }
         }
         break;
-    case "Try predict external server port":
+    case udphp_punch_states.TRY_PREDICTING_PORT:
         switch (global.udphp_punch_stage_sub1)
         {
-            case "":
+            default:
                 if global.udphp_punch_stage_predict_value1>global.udphp_punch_stage_predict_value2
                 {
                     var maxport=global.udphp_punch_stage_predict_value1;
@@ -96,7 +99,7 @@ switch (global.udphp_punch_stage)
                 // Set ports to try every step
                 // if more than 160 ports the messages will not be sent. This was tested. (Maybe a limit in GM or OS or the NAT)
                 global.udphp_punch_stage_burst=160;
-            case "continue":
+            case udphp_punch_substates.PRED_CONTINUE:
                 // Reset timeout
                 // The time we use to test the new port
                 // to test more ports increase the connect timeout variable in config
@@ -116,9 +119,9 @@ switch (global.udphp_punch_stage)
                     network_send_udp( client_udp, client_serverip, global.udphp_punch_stage_predict_list[global.udphp_punch_stage_counter], client_buffer, buffer_tell(client_buffer) );                     
                 }
                 udphp_handleerror(udphp_dbglvl.WARNING, udphp_dbgtarget.CLIENT, client_id, "No response. Try connect using predict server port: " + string(global.udphp_punch_stage_counter/array_length_1d(global.udphp_punch_stage_predict_list)) + "% tested");
-                global.udphp_punch_stage_sub1="Rest";
+                global.udphp_punch_stage_sub1=udphp_punch_substates.PRED_REST;
                 break;
-            default:
+            case udphp_punch_substates.PRED_REST:
                 // Wait some to test the new port
                 global.udphp_punch_stage_timeout-=1;
                 // Timeout on this port try another one
@@ -126,7 +129,7 @@ switch (global.udphp_punch_stage)
                 {
                     // Count up port to use
                     global.udphp_punch_stage_counter+=1;                      
-                    global.udphp_punch_stage_sub1="continue";
+                    global.udphp_punch_stage_sub1=udphp_punch_substates.PRED_CONTINUE;
                 }
         }    
         break;

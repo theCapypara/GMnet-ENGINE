@@ -63,6 +63,21 @@ enum udphp_packet {
     MASTER_LOBBY=-7,
 }
 
+//The value of the enum is the amount of time the state should kick in in percent
+enum udphp_punch_states {
+    DEFAULT= 0,
+    TRY_SEQUENCE_PORT= 25,
+    TRY_PREDICTING_PORT= 40,
+}
+
+enum udphp_punch_substates {
+    DEFAULT= 0,
+    SEQ_TRY_NEW= 1,
+    PRED_CONTINUE= 2,
+    PRED_REST= 3,
+    
+}
+
 var master_ip = argument0;
 var master_port = argument1;
 var reconnect_intv = argument2;
@@ -110,8 +125,8 @@ global.udphp_clients_connected = ds_map_create();
 global.udphp_clients_serverip = ds_map_create();
 global.udphp_clients_serverport = ds_map_create();
 global.udphp_version = "1.2.3";
-global.udphp_punch_stage = "";
-global.udphp_punch_stage_sub1 = "";
+global.udphp_punch_stage = udphp_punch_states.DEFAULT;
+global.udphp_punch_stage_sub1 = udphp_punch_substates.DEFAULT;
 global.udphp_punch_stage_external_server_port=0;
 global.udphp_punch_stage_counter=0;
 global.udphp_punch_stage_timeout=0;

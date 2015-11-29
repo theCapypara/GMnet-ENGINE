@@ -55,8 +55,8 @@ if (in_ip == global.udphp_master) {
             ds_map_replace(global.udphp_clients_serverip,client_id,buffer_read(in_buff, buffer_string ));
             ds_map_replace(global.udphp_clients_serverport,client_id,real(buffer_read(in_buff, buffer_string )));
             // Reset punch state
-            global.udphp_punch_stage="";
-            global.udphp_punch_stage_sub1="";
+            global.udphp_punch_stage=udphp_punch_states.DEFAULT;
+            global.udphp_punch_stage_sub1=udphp_punch_substates.DEFAULT;
             global.udphp_punch_stage_external_server_port=real(ds_map_find_value(global.udphp_clients_serverport,client_id));
             var server_global_ip=real(ds_map_find_value(global.udphp_clients_serverip,client_id));
             global.udphp_punch_stage_counter=0;
