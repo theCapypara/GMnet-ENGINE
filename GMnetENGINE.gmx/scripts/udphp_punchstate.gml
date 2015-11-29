@@ -30,7 +30,7 @@ switch (global.udphp_punch_stage)
                 // Reset timeout
                 // The time we use to test the new port
                 // to test more ports increase the connect timeout variable in config
-                global.udphp_punch_stage_timeout=global.htme_object.global_punch_stage_timeout;
+                global.udphp_punch_stage_timeout=global.udphp_punch_stage_timeout_initial;
                 // Change port on client
                 udphp_handleerror(udphp_dbglvl.WARNING, udphp_dbgtarget.CLIENT, client_id, "No response. Try connect using sequence server port: " + string(global.udphp_punch_stage_external_server_port+global.udphp_punch_stage_counter));
                 ds_map_replace(global.udphp_clients_serverport,client_id,global.udphp_punch_stage_external_server_port+global.udphp_punch_stage_counter);                
@@ -100,7 +100,7 @@ switch (global.udphp_punch_stage)
                 // Reset timeout
                 // The time we use to test the new port
                 // to test more ports increase the connect timeout variable in config
-                global.udphp_punch_stage_timeout=global.htme_object.global_punch_stage_timeout;            
+                global.udphp_punch_stage_timeout=global.udphp_punch_stage_timeout_initial;
                 var startvalue=global.udphp_punch_stage_counter;
                 var minport=global.udphp_punch_stage_predict_minport;
                 global.udphp_punch_stage_saved_value=minport;
