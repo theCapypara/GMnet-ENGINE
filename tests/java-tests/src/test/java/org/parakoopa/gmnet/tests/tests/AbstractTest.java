@@ -77,6 +77,7 @@ public abstract class AbstractTest {
          */
         @Override
         protected void before() throws Throwable {            
+            Workspace.setup();
             File toCopyProjectFile = new File(getProject());
             File toCopyProjectDir = toCopyProjectFile.getParentFile();
             

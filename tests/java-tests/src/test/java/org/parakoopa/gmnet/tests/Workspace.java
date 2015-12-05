@@ -29,26 +29,35 @@ public class Workspace {
     /**
      * The directory all files produced by the compiler will be put in.
      */
-    static final public String DIR = "C:/Users/GMnet/Documents/COMPILE_AREA";
+    public static String DIR;
     /**
      * Path to GMnet ENGINE that is going to be tested.
      */
-    static final public String GMNET_DIR = DIR+"/gmnet-git/GMnetENGINE.gmx/";
+    public static String GMNET_DIR;
     /**
      * Path to GMnet ENGINE project file that is going to be tested.
      */
-    static final public String GMNET_PROJECT_FILE = GMNET_DIR+"/GMnetENGINE.project.gmx";
+    public static String GMNET_PROJECT_FILE;
     /**
      * Path that the compiled test project will be stored in.
      */
-    static final public String COMPILED_GAME_DIR = DIR+"/compiled-game";
+    public static String COMPILED_GAME_DIR;
     
     /**
      * Path to GameMaker installation.
      */
-    protected final static String GAME_MAKER_PATH = "C:/Users/GMnet/AppData/Roaming/GameMaker-Studio/";
+    public static String GAME_MAKER_PATH;
     /**
      * Name of GameMaker executeable.
      */
-    protected final static String GAME_MAKER_EXE = "5piceIDE.exe";
+    public static String GAME_MAKER_EXE;
+
+    public static void setup() {
+        DIR                 = System.getProperty("environment");
+        GMNET_DIR           = DIR+"/gmnet-git/GMnetENGINE.gmx/";
+        GMNET_PROJECT_FILE  = GMNET_DIR+"/GMnetENGINE.project.gmx";
+        COMPILED_GAME_DIR   = DIR+"/compiled-game";
+        GAME_MAKER_PATH     = System.getProperty("gamemaker-path");
+        GAME_MAKER_EXE      = "5piceIDE.exe";
+    }
 }
