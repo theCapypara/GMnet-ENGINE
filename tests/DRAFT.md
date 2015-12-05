@@ -15,7 +15,8 @@ This means the projects will perform most of the actual testings, while SikuliX 
 Folder-Structure
 ----------------
 This folder will contain the tests, where each folder will represent one test. These test-folders will contain a GameMaker: Studio project, without the htme\_ or udphp\_ scripts installed (those will be imported on build-time).  
-The folder will also contain SikuliX script files (propably javascript based), images for checking against while testing, and other test related files.  
+The folder will also contain SikuliX script files (java), images for checking against while testing, and other test related files.  
+JUnit will be used for performing the tests.  
 
 Aside from this, this folder will also contain general files for building the project and establishing a connection to the test system.
 
