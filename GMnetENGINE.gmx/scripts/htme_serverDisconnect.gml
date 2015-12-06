@@ -29,8 +29,8 @@ for(var i=0; i<ds_map_size(self.playermap); i+=1) {
            //Send request
            htme_debugger("htme_serverDisconnect",htme_debug.INFO,"Kicking player "+player+". Player has "+string(self.global_timeout)+"steps to disconnect");
            buffer_seek(self.buffer, buffer_seek_start, 0);
-           buffer_write(self.buffer, buffer_s8, htme_packet.SERVER_KICKREQ)
-           htme_sendNewSignedPacket(self.buffer,key);
+           buffer_write(self.buffer, buffer_s8, htme_packet.SERVER_KICKREQ);
+           network_send_udp( self.socketOrServer, htme_playerMapIP(key), htme_playerMapPort(key), self.buffer, buffer_tell(self.buffer) );
            ds_map_add(self.kickmap, key, self.global_timeout);
        } else {
            htme_debugger("htme_serverDisconnect",htme_debug.WARNING,"Tried to kick a player "+player+" that had a kick already pending.");

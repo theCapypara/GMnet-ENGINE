@@ -1,0 +1,144 @@
+///udphp_clientPunch(client_id)
+
+/*
+**  Description:
+**      This script will try to connect the client, if it's not already connected
+**      Requirement: Configured client (udphp_config and udphp_createClient)
+**      This should be used in the step event of the client object.
+**      If the client doesn't exist or if the connection timed out, this will return false
+**  
+**  Usage:
+**      udphp_clientPunch(client_id)
+**
+**  Arguments:
+**      client_id     real    id of the client to check
+**
+**  Returns:
+**      false if connection times out or the client doesn't exist! Otherwise true
+**
+*/
+
+var client_id = argument0;
+
+/// CHECK IF CLIENT IS RUNNING (we can use any client-releated variable for that; we assume they don't get changed from outside)
+if (!ds_map_exists(global.udphp_clients_udp,client_id)) {
+    //Debug level is DEBUG because other than with serverPunch, calling this function is your way of finding out if the server still exists
+    udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.CLIENT, client_id, "Client not found");
+    return false;
+    exit;
+}
+
+//Set up some local variables, without them this would be a mess...
+var client_udp = ds_map_find_value(global.udphp_clients_udp,client_id);
+var client_tcp = ds_map_find_value(global.udphp_clients_tcp,client_id);
+var client_buffer = ds_map_find_value(global.udphp_clients_buffer,client_id);
+var client_timeout = ds_map_find_value(global.udphp_clients_timeout,client_id);
+var global_timeout = global.udphp_connection_timeouts;
+var client_directconnect = ds_map_find_value(global.udphp_clients_directconnect,client_id);
+var client_connected = ds_map_find_value(global.udphp_clients_connected,client_id);
+var client_serverip = ds_map_find_value(global.udphp_clients_serverip,client_id);
+var client_serverport = ds_map_find_value(global.udphp_clients_serverport,client_id);
+
+//Failsafe, in case a map got corrupted
+if (is_undefined(client_udp) or 
+    is_undefined(client_tcp) or 
+    is_undefined(client_buffer) or 
+    is_undefined(client_timeout) or 
+    is_undefined(client_connected) or 
+    is_undefined(client_serverip) or 
+    is_undefined(client_serverport) or 
+    is_real(client_serverip) or 
+    is_string(client_serverport)) {
+    udphp_handleerror(udphp_dbglvl.WARNING, udphp_dbgtarget.CLIENT, 0, "Invalid client data for client "+string(client_id)+" - Stopping client.");
+    udphp_stopClient(client_id);
+    exit;
+}
+
+/// Connect if not already connected
+if (!client_connected) { 
+    if (client_directconnect) {
+        //DIRECT CONNECT or GOT SERVER PORT (and can now connect directly)
+        udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.CLIENT, client_id, "Connecting with server "+string(client_serverip)+":"+string(client_serverport))
+        client_timeout++;
+        //Send a packet to the server to punch the hole. If this reaches the server, he will
+        //add us to the list of players and send an answer.
+        buffer_seek(client_buffer, buffer_seek_start, 0);
+        buffer_write(client_buffer, buffer_s8, udphp_packet.KNOCKKNOCK );        
+        // Handle punch states
+        udphp_punchstate(client_id);
+        
+        // Change punch stages depending on the total timeout
+        if (global.udphp_punch_stage != udphp_punch_states.TRY_SEQUENCE_PORT && 
+          client_timeout == floor(global_timeout*(udphp_punch_states.TRY_SEQUENCE_PORT/100))) {
+            // Try change the external server port
+            // If the server NAT changed the port to a sequencent port nearby the received port from master server
+            // Some NAT change the external port when external ip change in the send network message.
+            // Reset some variables we use
+            global.udphp_punch_stage_sub1= udphp_punch_substates.DEFAULT;
+            global.udphp_punch_stage_counter=0;            
+            // Only config this once
+<<<<<<< HEAD
+            global.udphp_punch_stage="Try sequence external server port";
+        }   
+        else if (client_timeout = floor(global_timeout*0.40) and global.udphp_punch_stage!="Try predict external server port")
+        {
+||||||| merged common ancestors
+            global.udphp_punch_stage="Try sequence external server port";            
+        }   
+        else if (client_timeout = floor(global_timeout*0.40) and global.udphp_punch_stage!="Try server port or provided server port")
+        {
+            // Try connect with provided port and hope the server got portforward
+            // The port may be provided by the server to the master and to us
+            // Check if port is provided
+            if global.htme_object.server_port>0
+            {
+                // Change port on client
+                udphp_handleerror(udphp_dbglvl.WARNING, udphp_dbgtarget.CLIENT, client_id, "No response. Try connect using server port: " + string(global.htme_object.server_port));
+                ds_map_replace(global.udphp_clients_serverport,client_id,global.htme_object.server_port);
+            }           
+            // Only config this once
+            global.udphp_punch_stage="Try server port or provided server port";            
+        }        
+        else if (client_timeout = floor(global_timeout*0.45) and global.udphp_punch_stage!="Try master server port")
+        {    
+            // Try connect with master port and hope the server got the same port and use portforward
+            // Change port on client
+            udphp_handleerror(udphp_dbglvl.WARNING, udphp_dbgtarget.CLIENT, client_id, "No responce. Try connect using master server port: " + string(global.htme_object.udphp_master_port));
+            ds_map_replace(global.udphp_clients_serverport,client_id,global.htme_object.udphp_master_port);
+            // Only config this once
+            global.udphp_punch_stage="Try master server port";
+        }   
+        else if (client_timeout = floor(global_timeout*0.50) and global.udphp_punch_stage!="Try predict external server port")
+        {
+=======
+            global.udphp_punch_stage = udphp_punch_states.TRY_SEQUENCE_PORT;
+            
+        } else if (global.udphp_punch_stage != udphp_punch_states.TRY_PREDICTING_PORT && 
+          client_timeout == floor((global_timeout*udphp_punch_states.TRY_PREDICTING_PORT/100))) {
+>>>>>>> 38a6a20
+            // Try change the external server port
+            // If the server NAT changed the port to a random port
+            // We can use the last port from the master server as a max and min to predict the next port
+            // Some NAT change the external port when external ip change in the send network message.
+            // Reset some variables we use
+            global.udphp_punch_stage_sub1= udphp_punch_substates.DEFAULT;
+            global.udphp_punch_stage_counter=0;            
+            // Only config this once
+            global.udphp_punch_stage=udphp_punch_states.TRY_PREDICTING_PORT;         
+        }                  
+        
+        else if (client_timeout > global_timeout) {
+            //When the timeout was exceeded, give up and return false to indicate the connection has failed
+            udphp_handleerror(udphp_dbglvl.ERROR, udphp_dbgtarget.CLIENT, client_id, "Could not connect to server!")
+            //Client get's toppped. Return false, instance must be destroyed now
+            udphp_stopClient(client_id);
+            return false;
+            exit;
+        }
+        ds_map_replace(global.udphp_clients_timeout,client_id,client_timeout);
+    } else {
+        //UDP HOLE PUNCH
+        //Do nothing, just wait in network event for connection data; There set directconnect to true and set port. Then we will land back here
+    }
+}
+return true;
