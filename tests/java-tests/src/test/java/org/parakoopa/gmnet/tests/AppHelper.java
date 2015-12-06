@@ -68,4 +68,24 @@ public class AppHelper {
         }
     return true;
     }
+
+    /**
+     * Closes an app using the titlebar, a rightclick and choosing "Close".
+     * This is more useful with Game Maker games, since calling
+     * <code>appToClose.close()</code> won't trigger any game "Destroy" events.
+     * @param appToClose 
+     */
+    public static boolean close(App appToClose) {
+        Region r = appToClose.window();
+        Screen s = new Screen();
+        try {
+            s.rightClick(new Location(r.getX()+r.getW()/2,r.getY()+5));
+            s.type(Key.UP);
+            s.type(Key.ENTER);
+            return true;
+        } catch (FindFailed ex) {
+            logger.log(Level.ERROR, null, ex);
+            return false;
+        }
+    }
 }

@@ -25,9 +25,11 @@ import java.awt.Point;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import static org.junit.Assert.*;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.parakoopa.gmnet.tests.AppHelper;
 import org.parakoopa.gmnet.tests.GMnetEngineConfiguration;
+import org.parakoopa.gmnet.tests.Workspace;
 import org.sikuli.script.App;
 import org.sikuli.script.FindFailed;
 import org.sikuli.script.Key;
@@ -51,9 +53,14 @@ import org.sikuli.script.Screen;
 public class HelloWorldTest extends AbstractTest {
     
     protected Logger logger = Logger.getLogger("GLOBAL");
+
+    @BeforeClass
+    public static void beforeClass() throws Throwable {
+        Workspace.setProjectAndConfiguration(getProject(), insertConfiguration());
+        setup();
+    }
     
-    @Override
-    protected String getProject() {
+    static protected String getProject() {
         return System.getProperty("user.dir")+"/../gamemaker-projects/HelloWorldTest.gmx/HelloWorldTest.project.gmx";
     }
     
@@ -61,8 +68,7 @@ public class HelloWorldTest extends AbstractTest {
      * Insert a show_message command to display the 'Hello World!' message.
      * @return The inserted configuration
      */
-    @Override
-    protected GMnetEngineConfiguration[] insertConfiguration() {
+    static protected GMnetEngineConfiguration[] insertConfiguration() {
         GMnetEngineConfiguration[] gec = new GMnetEngineConfiguration[1];
         gec[0] = new GMnetEngineConfiguration("helloWorld","show_message('Hello World!')");
         return gec;

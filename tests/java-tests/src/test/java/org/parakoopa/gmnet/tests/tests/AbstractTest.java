@@ -26,8 +26,6 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 import static org.junit.Assert.*;
 import org.junit.Before;
-import org.junit.Rule;
-import org.junit.rules.ExternalResource;
 import org.parakoopa.gmnet.tests.GMnetEngineConfiguration;
 import org.parakoopa.gmnet.tests.GameMakerCompiler;
 import org.parakoopa.gmnet.tests.Workspace;
@@ -36,6 +34,7 @@ import org.sikuli.script.FindFailed;
 import org.sikuli.script.Region;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
+import org.junit.After;
 
 /**
  * The abstract base class for all GMnet ENGINE tests.
@@ -43,14 +42,19 @@ import org.apache.log4j.Logger;
  */
 public abstract class AbstractTest {
     
-    protected GameMakerCompiler compiler;
-    protected Logger logger = Logger.getLogger("GLOBAL");
+    protected static GameMakerCompiler compiler;
+    protected static Logger logger = Logger.getLogger("GLOBAL");
+    
+    protected boolean hasBeenCompiledForThisClass = false;
+    private boolean isSetUp;
     
     /**
      * Path to test project .project.gmx file
      * @return Returns the path to test project .project.gmx file
      */
-    abstract protected String getProject();
+    static protected String getProject() {
+        throw new AbstractMethodError("This static method needs to be overwritten");
+    }
     /**
      * An array of configuration variables to be inserted into the game before 
      * running. They will be added to the end of htme_config in the following
@@ -60,64 +64,45 @@ public abstract class AbstractTest {
      * need to add quotes to your values.
      * @return The inserted configuration
      */
-    protected GMnetEngineConfiguration[] insertConfiguration() {
+    static protected GMnetEngineConfiguration[] insertConfiguration() {
         return new GMnetEngineConfiguration[0];
     }
-
+    
     /**
-     * ExternalResource Role that handles the game compilation.
-     * Will run before any test and after all tests are done.
+     * Handles compilation of games and general setup.
+     * @see HelloWorldTest.beforeClass() on how to call this.
+     * @throws java.lang.Throwable
      */
-    @Rule
-    public ExternalResource resource = new ExternalResource() {
-        /**
-         * Copy's the test project to an independent location and compiles it.
-         * Retry's one time on failure.
-         * @throws Throwable 
-         */
-        @Override
-        protected void before() throws Throwable {            
-            Workspace.setup();
-            File toCopyProjectFile = new File(getProject());
-            File toCopyProjectDir = toCopyProjectFile.getParentFile();
-            
-            logger.info("[ExternalResource] Copying requested project at "+toCopyProjectFile.toString());
-            File testProjectDir = new File(Workspace.DIR+"/test-project/");
-            testProjectDir.delete();
-            File testProjectProjectFile = new File(testProjectDir+"/"+toCopyProjectFile.getName());
-            
-            FileUtils.copyDirectory(toCopyProjectDir, testProjectDir);
-            
-            logger.info("[ExternalResource] Running compiler...");
-            AbstractTest.this.compiler = new GameMakerCompiler(testProjectProjectFile.toString(), insertConfiguration());
-            
-            try {
-                compiler.compile();
-            } catch (Exception ex) {
-                logger.warn("[ExternalResource] Compiler failed. Will retry once more!", ex);
-                logger.info("[ExternalResource] Copying requested project at "+toCopyProjectFile.toString());
-                // Retry once more
-                testProjectDir.delete();
-                FileUtils.copyDirectory(toCopyProjectDir, testProjectDir);
-                logger.info("[ExternalResource] Running compiler...");
-                compiler.compile();
-            }
-        };
-        /**
-         * Kills all IDEs and games currently running.
-         * @throws Throwable 
-         */
-        @Override
-        protected void after() {
-            logger.info("[ExternalResource] Cleaning up after all tests...");
-            try {
-                compiler.killIDE();
-                compiler.killGame();
-            } catch (IOException ex) {
-                logger.log(Level.ERROR, null, ex);
-            }
+    protected final static void setup() throws Throwable {
+        if (!Workspace.IS_PROJECT_SET_UP) {
+            throw new UnsupportedOperationException("Your test needs call Workspace.setProjectAndConfiguration in it's beforeClass.");
         }
-    };
+        Workspace.setup();
+        File toCopyProjectFile = new File(Workspace.PROJECT_FILE);
+        File toCopyProjectDir = toCopyProjectFile.getParentFile();
+
+        logger.info("[Setup] Copying requested project at "+toCopyProjectFile.toString());
+        File testProjectDir = new File(Workspace.DIR+"/test-project/");
+        testProjectDir.delete();
+        File testProjectProjectFile = new File(testProjectDir+"/"+toCopyProjectFile.getName());
+
+        FileUtils.copyDirectory(toCopyProjectDir, testProjectDir);
+
+        logger.info("[Setup] Running compiler...");
+        AbstractTest.compiler = new GameMakerCompiler(testProjectProjectFile.toString(), Workspace.CONFIGURATION_TO_INSERT);
+
+        try {
+            compiler.compile();
+        } catch (Exception ex) {
+            logger.warn("[Setup] Compiler failed. Will retry once more!", ex);
+            logger.info("[Setup] Copying requested project at "+toCopyProjectFile.toString());
+            // Retry once more
+            testProjectDir.delete();
+            FileUtils.copyDirectory(toCopyProjectDir, testProjectDir);
+            logger.info("[ExternalResource] Running compiler...");
+            compiler.compile();
+        }
+    }
     
     /**
      * Runs before all tests, kills the IDE and then checks if the game exists.
@@ -125,10 +110,13 @@ public abstract class AbstractTest {
      */
     @Before
     public void before() {
+        if (!Workspace.IS_SET_UP) {
+            throw new UnsupportedOperationException("Your test needs call AbstractTest.setup() in it's beforeClass.");
+        }
         logger.info("[AbstractTest] Preparing Test...");
         try {
-            this.compiler.killIDE();
-            if (!this.compiler.gameExeExists()) {
+            compiler.killIDE();
+            if (!compiler.gameExeExists()) {
                 throw new Exception("Could not run Game");
             }
         } catch (Exception ex) {
@@ -140,11 +128,12 @@ public abstract class AbstractTest {
     /**
      * Runs after all tests and kills all games running.
      */
-    @Before
-    public void after() {
+    @After
+    public void after() throws InterruptedException {
         logger.info("[AbstractTest] Cleaning up after test...");
         try {
-            this.compiler.killGame();
+            compiler.killGame();
+            Thread.sleep(500);
         } catch (IOException ex) {
             logger.log(Level.ERROR, "There was an issue cleaning up after the test.", ex);
         }
@@ -156,7 +145,7 @@ public abstract class AbstractTest {
      */
     protected App newGameInstance() {
         try {
-            App gameApp = this.compiler.runGame();
+            App gameApp = compiler.runGame();
             Thread.sleep(500);
             assertNotNull("The game must run", gameApp);
             assertTrue("The game must run", gameApp.isValid());
@@ -204,6 +193,38 @@ public abstract class AbstractTest {
         } catch (FindFailed ex) {    
             //logger.log(Level.SEVERE, "EXCEPTION during assertMatchWait.", ex);
         }
+        assertTrue(message, s);
+    }
+    
+    /**
+     * Same as assrtMatch but must be negative.
+     * @param <PSI>
+     * @param message  The message describing the assert
+     * @param region   The region to perform <code>find</code> on
+     * @param target   The target that must be found in the region.
+     */
+    protected <PSI> void assertNotMatch(String message, Region region, PSI target) {
+        boolean s = false;
+        try {
+            region.find(target);
+        } catch (FindFailed ex) {    
+            s = true;
+        }
+        assertTrue(message, s);
+    }
+    
+    
+    /**
+     * Same as assrtMatchWait but must be negative.
+     * @param <PSI>
+     * @param message  The message describing the assert
+     * @param region   The region to perform <code>wait</code> on
+     * @param target   The target that must be found in the region.
+     * @param time     Timeout in seconds
+     */
+    protected <PSI> void assertNotMatchWait(String message, Region region, PSI target, int time) {
+        boolean s = false;
+        s = region.waitVanish(target, time);
         assertTrue(message, s);
     }
 }

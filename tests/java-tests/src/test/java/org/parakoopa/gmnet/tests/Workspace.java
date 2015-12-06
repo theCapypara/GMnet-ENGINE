@@ -51,6 +51,26 @@ public class Workspace {
      * Name of GameMaker executeable.
      */
     public static String GAME_MAKER_EXE;
+    
+    public static boolean IS_PROJECT_SET_UP = false;
+    public static boolean IS_SET_UP = false;
+    
+    /**
+     * Path to project to compile.
+     * @see HelloWorldTest.beforeClass
+     */
+    public static String PROJECT_FILE;
+    /**
+     * Configuration to insert
+     * @see HelloWorldTest.beforeClass
+     */
+    public static GMnetEngineConfiguration[] CONFIGURATION_TO_INSERT;
+    
+    public static void setProjectAndConfiguration(String projectFile, GMnetEngineConfiguration[] configurationToInsert) {
+        PROJECT_FILE        = projectFile;
+        CONFIGURATION_TO_INSERT = configurationToInsert;
+        IS_PROJECT_SET_UP   = true;
+    }
 
     public static void setup() {
         DIR                 = System.getProperty("environment");
@@ -59,5 +79,6 @@ public class Workspace {
         COMPILED_GAME_DIR   = DIR+"/compiled-game";
         GAME_MAKER_PATH     = System.getProperty("gamemaker-path");
         GAME_MAKER_EXE      = "5piceIDE.exe";
+        IS_SET_UP           = true;
     }
 }
