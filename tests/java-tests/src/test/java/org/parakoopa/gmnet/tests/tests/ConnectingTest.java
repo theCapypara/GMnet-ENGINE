@@ -115,8 +115,8 @@ public class ConnectingTest extends AbstractTest {
         //Client disconnect
         AppHelper.close(gameClient);
         assertNotMatchWait("Client must be dead - There must be NO client box", 
-                gameServerRightRegion, 
-                "images/all/color_green.png", 1);
+                gameServerRightRegion,
+                r("images/all/color_green.png"), 1);
     }
     
     /**
@@ -131,17 +131,17 @@ public class ConnectingTest extends AbstractTest {
         //Server close
         AppHelper.close(gameServer);
         assertNotMatchWait("Server must be dead - There must be no client box!", 
-                gameClientRightRegion, 
-                "images/all/color_green.png", 1);
+                gameClientRightRegion,
+                r("images/all/color_green.png"), 1);
         assertNotMatch("Server must be dead - There must be no server box!", 
-                gameClientLeftRegion, 
-                "images/all/color_green.png");
+                gameClientLeftRegion,
+                r("images/all/color_green.png"));
         assertMatch("Server must be dead - There must be only red right!", 
-                gameClientRightRegion, 
-                "images/all/color_red.png");
+                gameClientRightRegion,
+                r("images/all/color_red.png"));
         assertMatch("Server must be dead - There must be only red left!", 
-                gameClientLeftRegion, 
-                "images/all/color_red.png");
+                gameClientLeftRegion,
+                r("images/all/color_red.png"));
     }
     
     protected void simpleConnect(String logName) throws InterruptedException {
@@ -163,32 +163,32 @@ public class ConnectingTest extends AbstractTest {
         s.type("n");
         //A green box on the left indicates that the server was started
         assertMatchWait("Server must be started - There must be a server box", 
-                gameServerLeftRegion, 
-                "images/all/color_green.png", 1);
+                gameServerLeftRegion,
+                r("images/all/color_green.png"), 1);
         assertNotMatch("There must be no client box", 
-                gameServerRightRegion, 
-                "images/all/color_green.png");
+                gameServerRightRegion,
+                r("images/all/color_green.png"));
 
         logger.info(logPrefix+"Connect Client");
         gameClientRegion.click();
         s.type("c");
         assertMatchWait("The client game must ask for IP", 
-                s, 
-                "images/ConnectingTest/ip.png", 1);
+                s,
+                r("images/ConnectingTest/ip.png"), 1);
         s.type("127.0.0.1"+Key.ENTER);
         //Check if connected.
         assertMatchWait("Client: Server must be started - There must be a server box", 
-                gameClientLeftRegion, 
-                "images/all/color_green.png", 6);
+                gameClientLeftRegion,
+                r("images/all/color_green.png"), 6);
         assertMatch("Client: Client must be started - There must be a client box", 
-                gameClientRightRegion, 
-                "images/all/color_green.png");
+                gameClientRightRegion,
+                r("images/all/color_green.png"));
         assertMatch("Server: Server must be started", 
-                gameServerLeftRegion, 
-                "images/all/color_green.png");
+                gameServerLeftRegion,
+                r("images/all/color_green.png"));
         assertMatch("Server: Client must be started", 
-                gameServerRightRegion, 
-                "images/all/color_green.png");
+                gameServerRightRegion,
+                r("images/all/color_green.png"));
     }
     
     /**

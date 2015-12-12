@@ -23,6 +23,7 @@ package org.parakoopa.gmnet.tests;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import net.lingala.zip4j.core.ZipFile;
@@ -81,7 +82,7 @@ public class GameMakerCompiler {
             throw new CompilingFailedException("Could not open GameMaker");
         }
         try {
-            s.wait("images/all/gamemaker_toolbar.png", 60);
+            s.wait(r("images/all/gamemaker_toolbar.png"), 60);
         } catch (FindFailed ex) {
             //Continue anyway 
             logger.warn("[GameMakerCompiler] Could not find GameMaker window.");
@@ -89,7 +90,7 @@ public class GameMakerCompiler {
         Thread.sleep(2000);
         logger.info("[GameMakerCompiler] Start compiling sequence...");
         try {
-            s.click("images/all/gamemaker_c_sprites.png");
+            s.click(r("images/all/gamemaker_c_sprites.png"));
         } catch (FindFailed ex) {
             throw new CompilingFailedException("Could not focus GameMaker window");
         }
@@ -108,7 +109,7 @@ public class GameMakerCompiler {
         s.type(Key.ENTER);
         logger.info("[GameMakerCompiler] Wait for compiler to finish...");
         try {
-            s.wait("images/all/gamemaker_c_createfinished.png", 60);
+            s.wait(r("images/all/gamemaker_c_createfinished.png"), 60);
         } catch (FindFailed ex) {
             logger.warn("[GameMakerCompiler] Could not confirm successful compilation.");
         }
@@ -259,5 +260,14 @@ public class GameMakerCompiler {
     
     protected void killProcess(String serviceName) throws IOException {
         Runtime.getRuntime().exec("taskkill /F /IM " + serviceName);
+    }
+
+    /**
+     * Builds an URL to a file in the resource folder.
+     * @param resource The resource to find
+     * @return The URL that was built
+     */
+    protected String r(String resource) {
+        return getClass().getClassLoader().getResource(resource).getFile();
     }
 }

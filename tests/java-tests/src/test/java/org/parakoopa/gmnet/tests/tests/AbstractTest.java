@@ -23,6 +23,8 @@ package org.parakoopa.gmnet.tests.tests;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+
 import org.apache.commons.io.FileUtils;
 import static org.junit.Assert.*;
 import org.junit.Before;
@@ -226,5 +228,14 @@ public abstract class AbstractTest {
         boolean s = false;
         s = region.waitVanish(target, time);
         assertTrue(message, s);
+    }
+    
+    /**
+     * Builds an URL to a file in the resource folder.
+     * @param resource The resource to find
+     * @return The URL that was built
+     */
+    protected String r(String resource) {
+        return getClass().getClassLoader().getResource(resource).getFile();
     }
 }

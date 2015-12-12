@@ -108,9 +108,9 @@ public class HelloWorldTest extends AbstractTest {
         logger.info("[HelloWorldTest] ["+playernum+"] Test HelloWorld message...");
         
         assertMatchWait("Player "+playernum+": HelloWorld message must be displayed.",
-                s, "images/HelloWorldTest/helloworld.png", 3);
+                s, r("images/HelloWorldTest/helloworld.png"), 3);
         try {
-            s.click("images/HelloWorldTest/helloworld.png");
+            s.click(r("images/HelloWorldTest/helloworld.png"));
             s.type(Key.ENTER);
         } catch (FindFailed ex) {
             fail("Player "+playernum+": HelloWorld message must be displayed.");
@@ -129,8 +129,8 @@ public class HelloWorldTest extends AbstractTest {
                 playerRegion.getH()/2
         );
         assertMatch("Player "+playernum+": The upper left corner must be green.", 
-                upLeftRegion, 
-                "images/all/color_green.png");
+                upLeftRegion,
+                r("images/all/color_green.png"));
         
         Region upRightRegion = new Region(
                 playerRegion.getX()+playerRegion.getW()/2, 
@@ -139,8 +139,8 @@ public class HelloWorldTest extends AbstractTest {
                 playerRegion.getH()/2
         );
         assertMatch("Player "+playernum+": The upper right corner must be yellow.", 
-                upRightRegion, 
-                "images/all/color_yellow.png");
+                upRightRegion,
+                r("images/all/color_yellow.png"));
         
         Region downLeftRegion = new Region(
                 playerRegion.getX(), 
@@ -149,8 +149,8 @@ public class HelloWorldTest extends AbstractTest {
                 playerRegion.getH()/2
         );
         assertMatch("Player "+playernum+": The lower left corner must be blue.", 
-                downLeftRegion, 
-                "images/all/color_blue.png");
+                downLeftRegion,
+                r("images/all/color_blue.png"));
         
         Region downRightRegion = new Region(
                 playerRegion.getX()+playerRegion.getW()/2, 
@@ -159,8 +159,8 @@ public class HelloWorldTest extends AbstractTest {
                 playerRegion.getH()/2
         );
         assertMatch("Player "+playernum+": The lower right corner must be red.", 
-                downRightRegion, 
-                "images/all/color_red.png");
+                downRightRegion,
+                r("images/all/color_red.png"));
         
     }
 }
