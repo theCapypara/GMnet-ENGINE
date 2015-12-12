@@ -25,6 +25,8 @@ import java.awt.Point;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import static org.junit.Assert.*;
+import static org.parakoopa.gmnet.tests.Workspace.r;
+
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.parakoopa.gmnet.tests.AppHelper;

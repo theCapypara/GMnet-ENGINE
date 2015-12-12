@@ -21,12 +21,10 @@
  */
 package org.parakoopa.gmnet.tests.tests;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-
 import org.apache.commons.io.FileUtils;
-import static org.junit.Assert.*;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+import org.junit.After;
 import org.junit.Before;
 import org.parakoopa.gmnet.tests.GMnetEngineConfiguration;
 import org.parakoopa.gmnet.tests.GameMakerCompiler;
@@ -34,9 +32,11 @@ import org.parakoopa.gmnet.tests.Workspace;
 import org.sikuli.script.App;
 import org.sikuli.script.FindFailed;
 import org.sikuli.script.Region;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-import org.junit.After;
+
+import java.io.File;
+import java.io.IOException;
+
+import static org.junit.Assert.*;
 
 /**
  * The abstract base class for all GMnet ENGINE tests.
@@ -144,6 +144,7 @@ public abstract class AbstractTest {
     /**
      * Start a new game instance and get the SikuliX App representation of it.
      * @return SikuliX representation of the game app.
+     * @deprecated Use an AbstractGame instead
      */
     protected App newGameInstance() {
         try {
@@ -166,7 +167,7 @@ public abstract class AbstractTest {
      * @param region   The region to perform <code>find</code> on
      * @param target   The target that must be found in the region.
      */
-    protected <PSI> void assertMatch(String message, Region region, PSI target) {
+    public static <PSI> void assertMatch(String message, Region region, PSI target) {
         boolean s = false;
         try {
             region.find(target);
@@ -187,7 +188,7 @@ public abstract class AbstractTest {
      * @param target   The target that must be found in the region.
      * @param time     Timeout in seconds
      */
-    protected <PSI> void assertMatchWait(String message, Region region, PSI target, int time) {
+    public static <PSI> void assertMatchWait(String message, Region region, PSI target, int time) {
         boolean s = false;
         try {
             region.wait(target, time);
@@ -205,7 +206,7 @@ public abstract class AbstractTest {
      * @param region   The region to perform <code>find</code> on
      * @param target   The target that must be found in the region.
      */
-    protected <PSI> void assertNotMatch(String message, Region region, PSI target) {
+    public static <PSI> void assertNotMatch(String message, Region region, PSI target) {
         boolean s = false;
         try {
             region.find(target);
@@ -224,18 +225,9 @@ public abstract class AbstractTest {
      * @param target   The target that must be found in the region.
      * @param time     Timeout in seconds
      */
-    protected <PSI> void assertNotMatchWait(String message, Region region, PSI target, int time) {
+    public static <PSI> void assertNotMatchWait(String message, Region region, PSI target, int time) {
         boolean s = false;
         s = region.waitVanish(target, time);
         assertTrue(message, s);
-    }
-    
-    /**
-     * Builds an URL to a file in the resource folder.
-     * @param resource The resource to find
-     * @return The URL that was built
-     */
-    protected String r(String resource) {
-        return getClass().getClassLoader().getResource(resource).getFile();
     }
 }

@@ -32,6 +32,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.log4j.Logger;
 import static org.parakoopa.gmnet.tests.Workspace.GAME_MAKER_EXE;
 import static org.parakoopa.gmnet.tests.Workspace.GAME_MAKER_PATH;
+import static org.parakoopa.gmnet.tests.Workspace.r;
+
 import org.sikuli.script.FindFailed;
 import org.sikuli.script.Screen;
 import org.sikuli.script.App;
@@ -44,7 +46,7 @@ import org.xml.sax.SAXException;
  */
 public class GameMakerCompiler {
         
-    protected int appOpenCounter;
+    protected static int appOpenCounter;
     protected App gameMakerApp;
     protected String projectFile;
     protected GMnetEngineConfiguration[] insertConfiguration;
@@ -56,7 +58,7 @@ public class GameMakerCompiler {
      * @param insertConfiguration   Configuration to insert into htme_config
      */
     public GameMakerCompiler(String projectFile, GMnetEngineConfiguration[] insertConfiguration) {
-        this.appOpenCounter = 0;
+        GameMakerCompiler.appOpenCounter = 0;
         this.projectFile = projectFile;
         this.insertConfiguration = insertConfiguration;
     }
@@ -162,7 +164,6 @@ public class GameMakerCompiler {
 
     /**
      * Launch Game Maker.
-     * @return
      * @throws IOException 
      */
     protected boolean openGameMaker() throws IOException {
@@ -186,7 +187,6 @@ public class GameMakerCompiler {
     /**
      * Import configuration and GMnet ENGINE files into the project.
      * @param insertConfiguration
-     * @return
      * @throws IOException
      * @throws ParserConfigurationException
      * @throws SAXException
@@ -213,7 +213,7 @@ public class GameMakerCompiler {
      * Check if game.exe is created, not empty and executeable
      * @return 
      */
-    public boolean gameExeExists() {
+    public static boolean gameExeExists() {
         File game = new File(Workspace.COMPILED_GAME_DIR+"/game.exe");
 
         return game.exists() && game.length() != 0 && game.canExecute();
@@ -231,13 +231,13 @@ public class GameMakerCompiler {
      * Run a new game instance
      * @return  SikuliX app representation
      */
-    public App runGame() {
-        logger.debug("[GameMakerCompiler] Run game...");
+    public static App runGame() {
+        Logger.getLogger("GLOBAL").debug("[GameMakerCompiler] Run game...");
         appOpenCounter = 0;
         if (!gameExeExists()) {
             return null;
         }
-        
+
         //Add random string so SikuliX does recognize two seperate games
         App gameApp = new App("+" + Workspace.COMPILED_GAME_DIR+"/game.exe");
         gameApp.open(10);
@@ -254,20 +254,12 @@ public class GameMakerCompiler {
         return gameApp;
     }
 
+
     protected String getWindowsPath(String input) {
         return new File(input).getAbsoluteFile().toString();
     }
     
     protected void killProcess(String serviceName) throws IOException {
         Runtime.getRuntime().exec("taskkill /F /IM " + serviceName);
-    }
-
-    /**
-     * Builds an URL to a file in the resource folder.
-     * @param resource The resource to find
-     * @return The URL that was built
-     */
-    protected String r(String resource) {
-        return getClass().getClassLoader().getResource(resource).getFile();
     }
 }

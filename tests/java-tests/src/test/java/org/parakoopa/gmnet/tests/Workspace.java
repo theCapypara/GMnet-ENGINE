@@ -81,4 +81,13 @@ public class Workspace {
         GAME_MAKER_EXE      = "5piceIDE.exe";
         IS_SET_UP           = true;
     }
+
+    /**
+     * Builds an URL to a file in the resource folder.
+     * @param resource The resource to find
+     * @return The URL that was built
+     */
+    public static String r(String resource) {
+        return Workspace.class.getClassLoader().getResource(resource).getFile();
+    }
 }
