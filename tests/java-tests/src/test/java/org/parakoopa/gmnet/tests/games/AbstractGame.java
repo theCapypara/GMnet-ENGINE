@@ -98,8 +98,6 @@ public abstract class AbstractGame {
         return AppHelper.close(app);
     }
 
-    public abstract void assertConnected();
-
     public void assertError(String message) {
         assertMatchWait(getClass().getName()+": "+message+" - There must be only red right!",
                 getRightRegion(),

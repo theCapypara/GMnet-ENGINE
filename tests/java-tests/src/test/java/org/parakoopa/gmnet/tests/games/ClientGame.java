@@ -42,16 +42,6 @@ public class ClientGame extends AbstractGame {
         super(moveWindowTo);
     }
 
-    @Override
-    public void assertConnected() {
-        assertMatchWait("Client: Server must be started - There must be a server box",
-                getLeftRegion(),
-                r("images/all/color_green.png"), 6);
-        assertMatch("Client: Client must be started - There must be a client box",
-                getRightRegion(),
-                r("images/all/color_green.png"));
-    }
-
     public void connect(String ip) {
         region.click();
         s.type("c");

@@ -34,6 +34,7 @@ import org.parakoopa.gmnet.tests.Workspace;
 import static org.parakoopa.gmnet.tests.Workspace.r;
 import static org.parakoopa.gmnet.tests.tests.HelloWorldTest.getProject;
 
+import org.parakoopa.gmnet.tests.games.AbstractGame;
 import org.parakoopa.gmnet.tests.games.ClientGame;
 import org.parakoopa.gmnet.tests.games.ServerGame;
 import org.sikuli.script.App;
@@ -122,8 +123,8 @@ public class ConnectingTest extends AbstractTest {
         ClientGame gameClient = new ClientGame(new Point(s.getX() + 500, s.getY()));
         gameClient.connect("127.0.0.1");
 
-        gameClient.assertConnected();
-        gameServer.assertConnected();
+        assertConnected(gameClient);
+        assertConnected(gameServer);
         //Client disconnect
         gameClient.close();
         assertNotMatchWait("Client must be dead - There must be NO client box", 
@@ -148,8 +149,8 @@ public class ConnectingTest extends AbstractTest {
         ClientGame gameClient = new ClientGame(new Point(s.getX() + 500, s.getY()));
         gameClient.connect("127.0.0.1");
 
-        gameClient.assertConnected();
-        gameServer.assertConnected();
+        assertConnected(gameClient);
+        assertConnected(gameServer);
         //Server close
         gameServer.close();
         assertNotMatchWait("Server must be dead - There must be no client box!",
@@ -177,8 +178,8 @@ public class ConnectingTest extends AbstractTest {
         ClientGame gameClient = new ClientGame(new Point(s.getX() + 500, s.getY()));
         gameClient.connectLan();
 
-        gameClient.assertConnected();
-        gameServer.assertConnected();
+        assertConnected(gameClient);
+        assertConnected(gameServer);
     }
 
     /**
@@ -234,5 +235,14 @@ public class ConnectingTest extends AbstractTest {
         assertMatch("Client: Must still be in LAN lobby - There must be aqua left!",
                 gameClient.getLeftRegion(),
                 r("images/all/color_aqua.png"));
+    }
+
+    protected void assertConnected(AbstractGame game) {
+        assertMatch(game.getClass().getName()+": Server Box must exist",
+                game.getLeftRegion(),
+                r("images/all/color_green.png"));
+        assertMatch(game.getClass().getName()+": Client Box must exist",
+                game.getRightRegion(),
+                r("images/all/color_green.png"));
     }
 }

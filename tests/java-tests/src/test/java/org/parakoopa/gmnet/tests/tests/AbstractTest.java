@@ -47,9 +47,6 @@ public abstract class AbstractTest {
     protected static GameMakerCompiler compiler;
     protected static Logger logger = Logger.getLogger("GLOBAL");
     
-    protected boolean hasBeenCompiledForThisClass = false;
-    private boolean isSetUp;
-    
     /**
      * Path to test project .project.gmx file
      * @return Returns the path to test project .project.gmx file
