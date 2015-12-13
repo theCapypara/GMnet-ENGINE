@@ -26,8 +26,13 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
+import org.junit.rules.TestRule;
+import org.junit.runner.Description;
+import org.junit.runners.model.Statement;
 import org.parakoopa.gmnet.tests.GMnetEngineConfiguration;
 import org.parakoopa.gmnet.tests.GameMakerCompiler;
+import org.parakoopa.gmnet.tests.RetryableAssertionError;
 import org.parakoopa.gmnet.tests.Workspace;
 import org.sikuli.script.App;
 import org.sikuli.script.FindFailed;
@@ -46,6 +51,46 @@ public abstract class AbstractTest {
     
     protected static GameMakerCompiler compiler;
     protected static Logger logger = Logger.getLogger("GLOBAL");
+
+
+    /**
+     * Retry if a RetryableAssertionError occurred.
+     */
+    public class Retry implements TestRule {
+        private int retryCount;
+
+        public Retry(int retryCount) {
+            this.retryCount = retryCount;
+        }
+
+        public Statement apply(Statement base, Description description) {
+            return statement(base, description);
+        }
+
+        private Statement statement(final Statement base, final Description description) {
+            return new Statement() {
+                @Override
+                public void evaluate() throws Throwable {
+                    Throwable caughtThrowable = null;
+
+                    // implement retry logic here
+                    for (int i = 0; i < retryCount; i++) {
+                        try {
+                            base.evaluate();
+                            return;
+                        } catch (RetryableAssertionError error) {
+                            caughtThrowable = error;
+                            System.err.println(description.getDisplayName() + " - retrying : run " + (i+1) + " failed");
+                        }
+                    }
+                    System.err.println(description.getDisplayName() + ": giving up after " + retryCount + " failures");
+                    throw caughtThrowable;
+                }
+            };
+        }
+    }
+    @Rule
+    public Retry retry = new Retry(3);
     
     /**
      * Path to test project .project.gmx file
@@ -69,7 +114,7 @@ public abstract class AbstractTest {
     
     /**
      * Handles compilation of games and general setup.
-     * @see HelloWorldTest.beforeClass() on how to call this.
+     * @see HelloWorldTest beforeClass on how to call this.
      * @throws java.lang.Throwable
      */
     protected final static void setup() throws Throwable {

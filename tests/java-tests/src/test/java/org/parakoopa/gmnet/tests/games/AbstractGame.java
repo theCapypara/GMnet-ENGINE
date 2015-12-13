@@ -23,6 +23,7 @@ package org.parakoopa.gmnet.tests.games;
 
 import org.parakoopa.gmnet.tests.AppHelper;
 import org.parakoopa.gmnet.tests.GameMakerCompiler;
+import org.parakoopa.gmnet.tests.RetryableAssertionError;
 import org.sikuli.script.App;
 import org.sikuli.script.Region;
 import org.sikuli.script.Screen;
@@ -58,13 +59,19 @@ public abstract class AbstractGame {
             app.waitForWindow();
             region = app.window();
         } catch (InterruptedException ex) {
-            fail("The thread must not be interrupted");
+            throw new RetryableAssertionError("The thread must not be interrupted");
+        } catch (AssertionError error) {
+            throw (RetryableAssertionError) error;
         }
     }
 
     public AbstractGame(Point moveWindowTo) throws InterruptedException {
         this();
-        assertTrue("Game window must be moved", AppHelper.moveApp(app, moveWindowTo));
+        try {
+            assertTrue("Game window must be moved", AppHelper.moveApp(app, moveWindowTo));
+        } catch (AssertionError error) {
+            throw (RetryableAssertionError) error;
+        }
         region = app.window();
     }
 
