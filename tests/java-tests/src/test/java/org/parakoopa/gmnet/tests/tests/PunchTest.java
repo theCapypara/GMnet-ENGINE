@@ -38,6 +38,7 @@ import java.io.IOException;
 
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static org.parakoopa.gmnet.tests.Workspace.r;
 
 /**
  * Test to check making connections with PUNCH.
@@ -214,12 +215,12 @@ public class PunchTest extends ConnectingTest {
         assertTrue("The master server must stop", MasterServerHelper.stop());
         assertMatchWait("The master server must be gone, server box needs to be yellow",
                 gameServer.getLeftRegion(),
-                "images/all/color_yellow.png", 60);
+                r("images/all/color_yellow.png"), 60);
 
         assertTrue("The master server must start", MasterServerHelper.start());
         assertMatchWait("The master server must be connected, server box needs to be green",
                 gameServer.getLeftRegion(),
-                "images/all/color_green.png", 60);
+                r("images/all/color_green.png"), 60);
 
         logger.info(logPrefix+"Connect Client");
         ClientGame gameClient = new ClientGame(new Point(s.getX() + 500, s.getY()));
