@@ -49,28 +49,6 @@ import org.sikuli.script.Screen;
  * This test will first try to connect a server to a client (locally),
  * after that it will try to use the LAN lobby to connect.
  * 
- * Here's the exact procedure:
- * - TEST A - testSimpleConnect
- * -- Create server
- * -- Directly connect to server
- * -- Client disconnects
- * - TEST B - testSimpleConnectServerCloses
- * -- Create server
- * -- Directly connect to server
- * -- Server closes
- * - TEST C - testLanConnect
- * -- Create server
- * -- Connect via LAN lobby
- * - TEST D - testWrongIP
- * -- Create server
- * -- Directly connect to server via wrong IP [Must fail!]
- * - TEST E - testNoServerConnect
- * -- DO NOT Create server
- * -- Directly connect to server [Must fail!]
- * - TEST F - testNoServerLanConnect
- * -- DO NOT Create server
- * -- Connect via LAN lobby [Must fail!]
- * 
  * @author Marco Köpcke <parakoopa at live.de>
  */
 public class ConnectingTest extends AbstractTest {
@@ -93,7 +71,7 @@ public class ConnectingTest extends AbstractTest {
     }
 
     /**
-     * TODO DOC
+     * Insert configuration. PUNCH is disabled.
      * @return The inserted configuration
      */
     static protected GMnetEngineConfiguration[] insertConfiguration() {
@@ -107,7 +85,10 @@ public class ConnectingTest extends AbstractTest {
     }
     
     /**
-     * See class documentation.
+     * Test procedure:
+     * -- Create server
+     * -- Directly connect to server
+     * -- Client disconnects
      * @throws java.lang.InterruptedException
      */
     @Test
@@ -133,7 +114,10 @@ public class ConnectingTest extends AbstractTest {
     }
 
     /**
-     * See class documentation.
+     * Test procedure:
+     * -- Create server
+     * -- Directly connect to server
+     * -- Server closes
      * @throws java.lang.InterruptedException
      */
     @Test
@@ -163,7 +147,9 @@ public class ConnectingTest extends AbstractTest {
     }
 
     /**
-     * See class documentation.
+     * Test procedure:
+     * -- Create server
+     * -- Connect via LAN lobby
      */
     @Test
     public void testLanConnect() throws InterruptedException {
@@ -183,7 +169,9 @@ public class ConnectingTest extends AbstractTest {
     }
 
     /**
-     * See class documentation.
+     * Test procedure:
+     * -- Create server
+     * -- Directly connect to server via wrong IP [Must fail!]
      */
     @Test
     public void testWrongIP() throws InterruptedException {
@@ -202,7 +190,9 @@ public class ConnectingTest extends AbstractTest {
     }
     
     /**
-     * See class documentation.
+     * Test procedure:
+     * -- DO NOT Create server
+     * -- Directly connect to server [Must fail!]
      */
     @Test
     public void testNoServerConnect() throws InterruptedException {
@@ -217,7 +207,9 @@ public class ConnectingTest extends AbstractTest {
     }
 
     /**
-     * See class documentation.
+     * Test procedure:
+     * -- DO NOT Create server
+     * -- Connect via LAN lobby [Must fail!]
      */
     @Test
     public void testNoServerLanConnect() throws InterruptedException {

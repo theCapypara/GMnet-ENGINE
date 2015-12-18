@@ -117,7 +117,7 @@ public abstract class AbstractTest {
      * @see HelloWorldTest beforeClass on how to call this.
      * @throws java.lang.Throwable
      */
-    protected final static void setup() throws Throwable {
+    protected static void setup() throws Throwable {
         if (!Workspace.IS_PROJECT_SET_UP) {
             throw new UnsupportedOperationException("Your test needs call Workspace.setProjectAndConfiguration in it's beforeClass.");
         }
@@ -160,7 +160,7 @@ public abstract class AbstractTest {
         logger.info("[AbstractTest] Preparing Test...");
         try {
             compiler.killIDE();
-            if (!compiler.gameExeExists()) {
+            if (!GameMakerCompiler.gameExeExists()) {
                 throw new Exception("Could not run Game");
             }
         } catch (Exception ex) {
@@ -190,7 +190,7 @@ public abstract class AbstractTest {
      */
     protected App newGameInstance() {
         try {
-            App gameApp = compiler.runGame();
+            App gameApp = GameMakerCompiler.runGame();
             Thread.sleep(500);
             assertNotNull("The game must run", gameApp);
             assertTrue("The game must run", gameApp.isValid());

@@ -21,6 +21,8 @@
  */
 package org.parakoopa.gmnet.tests;
 
+import java.net.URL;
+
 /**
  * Constants for path configuration.
  * @author Marco Köpcke <parakoopa at live.de>
@@ -54,6 +56,23 @@ public class Workspace {
     
     public static boolean IS_PROJECT_SET_UP = false;
     public static boolean IS_SET_UP = false;
+
+    /**
+     * The ip of the master server to use for PUNCH
+     */
+    public final static String MASTER_IP = "95.85.63.183";
+    /**
+     * The port of the master server
+     */
+    public final static int MASTER_PORT = 6520;
+    /**
+     * The HTTP call that starts the GMnet GATE.PUNCH master server
+     */
+    public final static String MASTER_URL_START = "https://gmnet-engine.org/test-api/start.php";
+    /**
+     * The HTTP call that stops the GMnet GATE.PUNCH master server
+     */
+    public final static String MASTER_URL_STOP = "https://gmnet-engine.org/test-api/stop.php";
     
     /**
      * Path to project to compile.
