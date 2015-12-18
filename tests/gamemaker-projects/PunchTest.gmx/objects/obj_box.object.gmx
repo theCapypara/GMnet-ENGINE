@@ -89,10 +89,12 @@ if (!htme_isServer() &amp;&amp; htme_isLocal()) {
           <argument>
             <kind>1</kind>
             <string>///If not connected to master server, set yellow box
-if(network_send_raw(global.udphp_server_tcp,buffer, buffer_tell(buffer)) &gt; 0) {
-    sprite_index = spr_green;
-} else {
-    sprite_index = spr_yellow;
+if (htme_isServer()) {
+    if(network_send_raw(global.udphp_server_tcp,buffer, buffer_tell(buffer)) &gt; 0) {
+        sprite_index = spr_green;
+    } else {
+        sprite_index = spr_yellow;
+    }
 }
 </string>
           </argument>
