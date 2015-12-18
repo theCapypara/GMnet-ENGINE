@@ -75,7 +75,7 @@ public class MasterServerHelper {
 
     public static String getPublicIp() throws IOException {
         //URLConnection con = new URL("http://icanhazip.com/").openConnection();
-        URLConnection con = new URL("https://gmnet-engine.org/test-api/ip.php").openConnection();
+        URLConnection con = new URL("http://95.85.63.183/gmnet/test-api/ip.php").openConnection();
         InputStream in = con.getInputStream();
         String encoding = con.getContentEncoding();
         encoding = encoding == null ? "UTF-8" : encoding;

@@ -68,11 +68,11 @@ public class Workspace {
     /**
      * The HTTP call that starts the GMnet GATE.PUNCH master server
      */
-    public final static String MASTER_URL_START = "https://gmnet-engine.org/test-api/start.php";
+    public final static String MASTER_URL_START = "http://95.85.63.183/gmnet/test-api/start.php";
     /**
      * The HTTP call that stops the GMnet GATE.PUNCH master server
      */
-    public final static String MASTER_URL_STOP = "https://gmnet-engine.org/test-api/stop.php";
+    public final static String MASTER_URL_STOP = "http://95.85.63.183/gmnet/test-api/stop.php";
     
     /**
      * Path to project to compile.
