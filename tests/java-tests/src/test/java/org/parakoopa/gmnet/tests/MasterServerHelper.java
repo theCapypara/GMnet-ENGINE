@@ -50,7 +50,7 @@ public class MasterServerHelper {
             InputStream in = con.getInputStream();
             String encoding = con.getContentEncoding();
             encoding = encoding == null ? "UTF-8" : encoding;
-            String body = IOUtils.toString(in, encoding);
+            String body = IOUtils.toString(in, encoding).trim();
             return body.equals("success.");
         } catch (IOException e) {
             logger.error("[MasterServerHelper] Error while trying to start master server.", e);
@@ -65,7 +65,7 @@ public class MasterServerHelper {
             InputStream in = con.getInputStream();
             String encoding = con.getContentEncoding();
             encoding = encoding == null ? "UTF-8" : encoding;
-            String body = IOUtils.toString(in, encoding);
+            String body = IOUtils.toString(in, encoding).trim();
             return body.equals("success.");
         } catch (IOException e) {
             logger.error("[MasterServerHelper] Error while trying to stop master server.", e);
@@ -79,6 +79,6 @@ public class MasterServerHelper {
         InputStream in = con.getInputStream();
         String encoding = con.getContentEncoding();
         encoding = encoding == null ? "UTF-8" : encoding;
-        return IOUtils.toString(in, encoding);
+        return IOUtils.toString(in, encoding).trim();
     }
 }
