@@ -84,7 +84,9 @@ public class Workspace {
      * @see HelloWorldTest.beforeClass
      */
     public static GMnetEngineConfiguration[] CONFIGURATION_TO_INSERT;
-    
+
+    public static int ConnectTimeoutTime = 1;
+
     public static void setProjectAndConfiguration(String projectFile, GMnetEngineConfiguration[] configurationToInsert) {
         PROJECT_FILE        = projectFile;
         CONFIGURATION_TO_INSERT = configurationToInsert;

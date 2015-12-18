@@ -24,6 +24,7 @@ package org.parakoopa.gmnet.tests.games;
 import org.parakoopa.gmnet.tests.AppHelper;
 import org.parakoopa.gmnet.tests.GameMakerCompiler;
 import org.parakoopa.gmnet.tests.RetryableAssertionError;
+import org.parakoopa.gmnet.tests.Workspace;
 import org.sikuli.script.App;
 import org.sikuli.script.Region;
 import org.sikuli.script.Screen;
@@ -108,7 +109,7 @@ public abstract class AbstractGame {
     public void assertError(String message) {
         assertMatchWait(getClass().getName()+": "+message+" - There must be only red right!",
                 getRightRegion(),
-                r("images/all/color_red.png"), 6);
+                r("images/all/color_red.png"), Workspace.ConnectTimeoutTime+6);
         assertMatch(getClass().getName()+": "+message+" - There must be only red left!",
                 getLeftRegion(),
                 r("images/all/color_red.png"));

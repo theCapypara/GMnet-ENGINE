@@ -21,6 +21,8 @@
  */
 package org.parakoopa.gmnet.tests.games;
 
+import org.parakoopa.gmnet.tests.Workspace;
+
 import java.awt.*;
 
 import static org.parakoopa.gmnet.tests.Workspace.r;

@@ -77,6 +77,8 @@ public class PunchTest extends ConnectingTest {
 
     @BeforeClass
     public static void beforeClass() throws Throwable {
+        // Increase Timeout for tests where the master server doesn't exist
+        Workspace.ConnectTimeoutTime = 7;
         Workspace.setProjectAndConfiguration(getProject(), insertConfiguration());
         setup();
     }

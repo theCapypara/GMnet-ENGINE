@@ -230,9 +230,9 @@ public class ConnectingTest extends AbstractTest {
     }
 
     protected void assertConnected(AbstractGame game) {
-        assertMatch(game.getClass().getName()+": Server Box must exist",
+        assertMatchWait(game.getClass().getName()+": Server Box must exist",
                 game.getLeftRegion(),
-                r("images/all/color_green.png"));
+                r("images/all/color_green.png"), Workspace.ConnectTimeoutTime);
         assertMatch(game.getClass().getName()+": Client Box must exist",
                 game.getRightRegion(),
                 r("images/all/color_green.png"));
