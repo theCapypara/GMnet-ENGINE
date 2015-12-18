@@ -81,7 +81,7 @@ public class PunchTest extends ConnectingTest {
     }
 
     static protected String getProject() {
-        return System.getProperty("user.dir")+"/../gamemaker-projects/ConnectionTest.gmx/PunchTest.project.gmx";
+        return System.getProperty("user.dir")+"/../gamemaker-projects/PunchTest.gmx/PunchTest.project.gmx";
     }
 
     public PunchTest() {
