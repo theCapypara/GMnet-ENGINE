@@ -49,7 +49,7 @@ public class ServerGame extends AbstractGame {
         //A green box on the left indicates that the server was started
         assertMatchWait("Server must be started - There must be a server box",
                 getLeftRegion(),
-                r("images/all/color_green.png"), 1);
+                r("images/all/color_green.png"), Workspace.ConnectTimeoutTime);
         assertNotMatch("There must be no client box",
                 getRightRegion(),
                 r("images/all/color_green.png"));

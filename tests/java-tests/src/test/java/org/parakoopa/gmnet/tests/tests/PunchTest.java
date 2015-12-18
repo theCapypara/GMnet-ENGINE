@@ -95,7 +95,7 @@ public class PunchTest extends ConnectingTest {
      * @return The inserted configuration
      */
     static protected GMnetEngineConfiguration[] insertConfiguration() {
-        GMnetEngineConfiguration[] gec = new GMnetEngineConfiguration[8];
+        GMnetEngineConfiguration[] gec = new GMnetEngineConfiguration[9];
         gec[0] = new GMnetEngineConfiguration("debugoverlay","false");
         gec[1] = new GMnetEngineConfiguration("use_udphp","true");
         gec[2] = new GMnetEngineConfiguration("udphp_master_ip","\""+ MasterServerHelper.getMasterIp()+"\"");
@@ -104,6 +104,7 @@ public class PunchTest extends ConnectingTest {
         gec[5] = new GMnetEngineConfiguration("global_timeout","5*room_speed");
         gec[6] = new GMnetEngineConfiguration("lan_interval","1*room_speed");
         gec[7] = new GMnetEngineConfiguration("gamename","\"gmnet_130_punch_test\"");
+        gec[8] = new GMnetEngineConfiguration("debuglevel","htme_debug.ERROR");
         return gec;
     }
 
