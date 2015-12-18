@@ -38,6 +38,10 @@ if (in_ip == global.udphp_master) {
             network_destroy(global.udphp_downloadServerlistSocket);
             global.udphp_downloadServerlistSocket = -1;
             global.udphp_downloadlist_refreshing = false;
+            if (!is_string(json)) {
+                udphp_handleerror(udphp_dbglvl.WARNING, udphp_dbgtarget.MAIN, 0, "Downloader: Could not download lobby data.");
+                exit;
+            }
             udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.MAIN, 0, json);
             global.udphp_downloadlist_topmap = json_decode(json);
             global.udphp_downloadlist =  global.udphp_downloadlist_topmap[? "default"];
