@@ -33,9 +33,6 @@
     <room>rooms\room_game</room>
     <room>rooms\room_fatalerror</room>
   </rooms>
-  <help>
-    <rtf>help.rtf</rtf>
-  </help>
   <TutorialState>
     <IsTutorial>0</IsTutorial>
     <TutorialName></TutorialName>
