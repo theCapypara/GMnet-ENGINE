@@ -57,7 +57,7 @@ buffer_write(buffer, buffer_string, "test"+chr(10));
         <exetype>2</exetype>
         <functionname></functionname>
         <codestring></codestring>
-        <whoName>self</whoName>
+        <whoName>obj_box</whoName>
         <relative>0</relative>
         <isnot>0</isnot>
         <arguments>
@@ -71,6 +71,22 @@ if (!htme_isServer() &amp;&amp; htme_isLocal()) {
 </string>
           </argument>
         </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>500</id>
+        <kind>0</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>0</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring>draw_self();</codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
       </action>
       <action>
         <libid>1</libid>
@@ -90,10 +106,8 @@ if (!htme_isServer() &amp;&amp; htme_isLocal()) {
             <kind>1</kind>
             <string>///If not connected to master server, set yellow box
 if (htme_isServer()) {
-    if(network_send_raw(global.udphp_server_tcp,buffer, buffer_tell(buffer)) &gt; 0) {
-        sprite_index = spr_green;
-    } else {
-        sprite_index = spr_yellow;
+    if(network_send_raw(global.udphp_server_tcp,buffer, buffer_tell(buffer)) &lt;= 0) {
+        draw_sprite_ext(spr_yellow,0,152,48,8.5,9,0,c_white,1);
     }
 }
 </string>
