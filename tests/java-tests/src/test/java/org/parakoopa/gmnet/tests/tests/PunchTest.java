@@ -239,7 +239,7 @@ public class PunchTest extends ConnectingTest {
         super.before();
         logger.info("[PunchTest] Killing master server...");
         assertTrue("Couldn't stop master server before running tests",MasterServerHelper.stop());
-        logger.info("[PunchTest] Reseting firewall...");
-        assertTrue("Couldn't reset firewall before running test",FirewallHelper.reset());
+        /*logger.info("[PunchTest] Reseting firewall...");
+        assertTrue("Couldn't reset firewall before running test",FirewallHelper.reset());*/
     }
 }
