@@ -96,7 +96,7 @@ public class PunchTest extends ConnectingTest {
         gec[0] = new GMnetEngineConfiguration("debugoverlay","false");
         gec[1] = new GMnetEngineConfiguration("use_udphp","true");
         gec[2] = new GMnetEngineConfiguration("udphp_master_ip","\""+ MasterServerHelper.getMasterIp()+"\"");
-        gec[3] = new GMnetEngineConfiguration("udphp_master_port","\""+String.valueOf(MasterServerHelper.getMasterPort())+"\"");
+        gec[3] = new GMnetEngineConfiguration("udphp_master_port",String.valueOf(MasterServerHelper.getMasterPort()));
         gec[4] = new GMnetEngineConfiguration("udphp_rctintv","30*room_speed");
         gec[5] = new GMnetEngineConfiguration("global_timeout","5*room_speed");
         gec[6] = new GMnetEngineConfiguration("lan_interval","1*room_speed");
