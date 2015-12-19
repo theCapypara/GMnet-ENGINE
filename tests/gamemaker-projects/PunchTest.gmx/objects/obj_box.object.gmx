@@ -105,7 +105,9 @@ if (!htme_isServer() &amp;&amp; htme_isLocal()) {
           <argument>
             <kind>1</kind>
             <string>///If not connected to master server, set yellow box
+// But of course only if server and alone
 if (htme_isServer()) {
+    if (ds_list_size(htme_getPlayers() &gt; 1)) exit;
     if(network_send_raw(global.udphp_server_tcp,buffer, buffer_tell(buffer)) &lt;= 0) {
         draw_sprite_ext(spr_yellow,0,152,48,8.5,9,0,c_white,1);
     }
