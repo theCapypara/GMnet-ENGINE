@@ -24,6 +24,7 @@ package org.parakoopa.gmnet.tests.tests;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.parakoopa.gmnet.tests.FirewallHelper;
 import org.parakoopa.gmnet.tests.GMnetEngineConfiguration;
@@ -172,8 +173,8 @@ public class PunchTest extends ConnectingTest {
      * -- Client must NOT be connected
      */
     @Test
+    @Ignore("Testing different NAT behaviors is not added yet.")
     public void punchConnectRestrictiveNat() throws InterruptedException, IOException {
-        fail("Test not added yet.");
         String logPrefix = "[PunchTest] [punchConnectRestrictiveNat] ";
         logger.info(logPrefix+"STARTING");
 
