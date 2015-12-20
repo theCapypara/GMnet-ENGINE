@@ -1,0 +1,8 @@
+Create an empty folder {{X}}.
+Clone this repository into the folder "gmnet-git" in {{X}}.
+cd into the folder {{X}}/gmnet-git/tests/java-tests
+
+To run all tests call
+    mvn test -Denv.DIR={{X}} -Denv.GMDIR={{Path to GameMaker}}
+
+(Please don't enter the {'s and }'s.)

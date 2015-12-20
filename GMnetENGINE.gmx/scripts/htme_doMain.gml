@@ -100,7 +100,7 @@ draw_text(self.dbg_right-20,offs,str);
 draw_set_halign(fa_left);
 
 if (self.dbgstate = vk_nokey) {
-    var headstr2 = "GMnet CORE#DEBUG OVERLAY#========#Welcome to the debug overlay.#To disable it, set self.debugoverlay to false#in htme_init.";
+    var headstr2 = "GMnet CORE#DEBUG OVERLAY#========#Welcome to the debug overlay.#To disable it, set self.debugoverlay to false#in htme_config.";
     draw_rectangle_colour(self.dbg_left,self.dbg_top,self.dbg_left+20+string_width(headstr2)+20,self.dbg_top+20+string_height(headstr2)+5,c_black,c_black,c_black,c_black,false);
     draw_text(self.dbg_left+20,self.dbg_top+20,headstr2)
 }

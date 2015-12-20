@@ -29,6 +29,8 @@
 
 if (!self.started || !self.isConnected) exit;
 
+var new_insthash = undefined;
+
 htme_debugger("htme_roomend",htme_debug.DEBUG,"ROOMEND triggered!");
 
 var m=ds_map_create();
@@ -49,6 +51,7 @@ for(var i=0; i<ds_map_size(m); i+=1) {
            /* (1) */
            htme_debugger("htme_roomend",htme_debug.DEBUG,"Unregistered a global instance "+insthash+"!");
            if (!self.isServer) {
+              var new_insthash = ds_map_find_next(m, insthash);
               ds_map_delete(self.globalInstances,insthash);
               ds_map_delete(m,insthash);
            }
@@ -57,19 +60,20 @@ for(var i=0; i<ds_map_size(m); i+=1) {
               htme_debugger("htme_roomend",htme_debug.INFO,"Destroyed a persistent global instance "+insthash+"!");
               with instid {instance_destroy();}
            }
-           //We need to reset the key
-           //TODO: Make this less sloppy
-           htme_roomend();
-           exit;
         } else if (!(instid).persistent) {
            htme_debugger("htme_roomend",htme_debug.DEBUG,"Unregistered a local instance "+insthash+"!");
            with (instid) {mp_unsync();}
         }
     }
     else {
-        show_debug_message("Undefined found in globalInstances");
+        htme_debugger("htme_roomend",htme_debug.WARNING,"Undefined found in globalInstances");
     }
-    insthash = ds_map_find_next(m, insthash);
+    if (!is_undefined(new_insthash)) {
+        insthash = new_insthash;
+        new_insthash = undefined;
+    } else {
+        insthash = ds_map_find_next(m, insthash);
+    }
 }
 
 htme_forceSyncLocalInstances(self.playerhash);

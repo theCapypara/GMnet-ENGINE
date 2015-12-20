@@ -27,7 +27,7 @@ if (self.started) {
         //Since 1.3.0 clients are only connected if CLIENT_GREETINGS
         //is recieved and valid. This is checked here. This function
         //also handles connections without PUNCH. (Server now accepts
-        //non PUNCH connections, even if PUNCH is enabled in htme_init).
+        //non PUNCH connections, even if PUNCH is enabled in htme_config).
         htme_serverConnectNetworking();
         
         htme_serverCheckConnectionsNetworking();
