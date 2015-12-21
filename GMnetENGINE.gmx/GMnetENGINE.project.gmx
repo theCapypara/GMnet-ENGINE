@@ -69,6 +69,7 @@
         <script>scripts\udphp_clientNetworking.gml</script>
         <script>scripts\udphp_stopClient.gml</script>
         <script>scripts\udphp_clientReadData.gml</script>
+        <script>scripts\udphp_punchstate.gml</script>
       </scripts>
       <scripts name="tools">
         <script>scripts\udphp_clientGetServerIP.gml</script>

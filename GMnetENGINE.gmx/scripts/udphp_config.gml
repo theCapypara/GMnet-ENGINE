@@ -26,6 +26,30 @@
 **
 */
 
+//========== CONFIGURATION ==========//
+
+/**
+ * Most of the settings can be changed by using the arguments above.
+ * However here are some more advanced settings.
+ * DO NOT change them here.
+ * Instead change the value of these variables after calling udphp_config!
+ */
+ 
+/** 
+ * PORT PREDICTION TIMEOUTS
+ * The time the punch stage will wait before trying next port
+ * Increase timeouts to test more ports if you have problem connecting with punch
+ * If you experience overload in the router set the value to room_speed*2 or above.
+ * But this will decrease the chances you connect to the server
+ *
+ * GMnet ENGINE users can change this setting in htme_config!
+ *
+ * @type real
+ */
+global.udphp_punch_stage_timeout_initial = room_speed;
+
+//====== END CONFIGURATION ==========//
+
 /* First: Setup enums */
 enum udphp_dbglvl {DEBUG,WARNING,ERROR}
 enum udphp_dbgtarget {MAIN,SERVER,CLIENT}
@@ -91,6 +115,13 @@ global.udphp_clients_connected = ds_map_create();
 global.udphp_clients_serverip = ds_map_create();
 global.udphp_clients_serverport = ds_map_create();
 global.udphp_version = "1.2.3";
+global.udphp_punch_stage = "";
+global.udphp_punch_stage_sub1 = "";
+global.udphp_punch_stage_external_server_port=0;
+global.udphp_punch_stage_counter=0;
+global.udphp_punch_stage_timeout=0;
+global.udphp_punch_stage_predict_value1=0
+global.udphp_punch_stage_predict_value2=0
 
 global.udphp_downloadlist_refreshing = false;
 global.udphp_downloadlist_topmap = -1;

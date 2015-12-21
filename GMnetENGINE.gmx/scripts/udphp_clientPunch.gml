@@ -63,9 +63,35 @@ if (!client_connected) {
         //Send a packet to the server to punch the hole. If this reaches the server, he will
         //add us to the list of players and send an answer.
         buffer_seek(client_buffer, buffer_seek_start, 0);
-        buffer_write(client_buffer, buffer_s8, udphp_packet.KNOCKKNOCK );
-        network_send_udp( client_udp, client_serverip, client_serverport, client_buffer, buffer_tell(client_buffer) );
-        if (client_timeout > global_timeout) {
+        buffer_write(client_buffer, buffer_s8, udphp_packet.KNOCKKNOCK );        
+        // Handle punch states
+        udphp_punchstate(client_id,client_udp,client_serverip,client_serverport,client_buffer);
+        // Change punch stages depending on the total timeout
+        if (client_timeout = floor(global_timeout*0.25) and global.udphp_punch_stage!="Try sequence external server port")
+        {
+            // Try change the external server port
+            // If the server NAT changed the port to a sequencent port nearby the received port from master server
+            // Some NAT change the external port when external ip change in the send network message.
+            // Reset some variables we use
+            global.udphp_punch_stage_sub1="";
+            global.udphp_punch_stage_counter=0;            
+            // Only config this once
+            global.udphp_punch_stage="Try sequence external server port";
+        }   
+        else if (client_timeout = floor(global_timeout*0.40) and global.udphp_punch_stage!="Try predict external server port")
+        {
+            // Try change the external server port
+            // If the server NAT changed the port to a random port
+            // We can use the last port from the master server as a max and min to predict the next port
+            // Some NAT change the external port when external ip change in the send network message.
+            // Reset some variables we use
+            global.udphp_punch_stage_sub1="";
+            global.udphp_punch_stage_counter=0;            
+            // Only config this once
+            global.udphp_punch_stage="Try predict external server port";            
+        }                  
+        else if (client_timeout > global_timeout)
+        {
             //When the timeout was exceeded, give up and return false to indicate the connection has failed
             udphp_handleerror(udphp_dbglvl.ERROR, udphp_dbgtarget.CLIENT, client_id, "Could not connect to server!")
             //Client get's toppped. Return false, instance must be destroyed now

@@ -54,6 +54,45 @@ if (in_ip == global.udphp_master) {
             udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.CLIENT, client_id, "Server found!");
             ds_map_replace(global.udphp_clients_serverip,client_id,buffer_read(in_buff, buffer_string ));
             ds_map_replace(global.udphp_clients_serverport,client_id,real(buffer_read(in_buff, buffer_string )));
+            // Reset punch state
+            global.udphp_punch_stage="";
+            global.udphp_punch_stage_sub1="";
+            global.udphp_punch_stage_external_server_port=real(ds_map_find_value(global.udphp_clients_serverport,client_id));
+            var server_global_ip=real(ds_map_find_value(global.udphp_clients_serverip,client_id));
+            global.udphp_punch_stage_counter=0;
+            // Load values from last time
+            ini_open("udphp_predict.ini");
+            global.udphp_punch_stage_predict_value1=ini_read_real("predict-" + string(server_global_ip),"value1",0);
+            global.udphp_punch_stage_predict_value2=ini_read_real("predict-" + string(server_global_ip),"value2",0);
+            ini_close();            
+            // predict port values
+            if global.udphp_punch_stage_predict_value1=0 
+            {
+                global.udphp_punch_stage_predict_value1=global.udphp_punch_stage_external_server_port;
+            }
+            else if global.udphp_punch_stage_predict_value2=0
+            {
+                global.udphp_punch_stage_predict_value2=global.udphp_punch_stage_external_server_port;
+            }
+            else
+            {
+                // Set new value nearest the others
+                if abs(global.udphp_punch_stage_predict_value1-global.udphp_punch_stage_external_server_port)>abs(global.udphp_punch_stage_predict_value2-global.udphp_punch_stage_external_server_port)
+                {
+                    // Value 1 is more far away set to value 2
+                    global.udphp_punch_stage_predict_value2=global.udphp_punch_stage_external_server_port;
+                }
+                else
+                {
+                    // Value 2 is more far away set to value 1
+                    global.udphp_punch_stage_predict_value1=global.udphp_punch_stage_external_server_port;
+                }
+            }
+            // Save values for next connect
+            ini_open("udphp_predict.ini");
+            ini_write_real("predict-" + string(server_global_ip),"value1",global.udphp_punch_stage_predict_value1);
+            ini_write_real("predict-" + string(server_global_ip),"value2",global.udphp_punch_stage_predict_value2);
+            ini_close();            
             ds_map_replace(global.udphp_clients_directconnect,client_id,true);
         break;
         case udphp_packet.MASTER_NOTFOUND:
