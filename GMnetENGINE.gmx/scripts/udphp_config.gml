@@ -70,6 +70,11 @@ var timeouts = argument3;
 var debug = argument4;
 var silent = argument5;
 
+/** Set timeout for master server connection
+  * TODO: Add option to specify this value
+  */
+network_set_config(network_config_connect_timeout, 4000);
+
 global.udphp_master = master_ip;
 global.udphp_master_port = master_port;
 global.udphp_debug = debug;
