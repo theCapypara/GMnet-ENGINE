@@ -23,6 +23,20 @@ with (global.htme_object) {
 var port = argument0;
 var maxclients = argument1;
 
+// Start upnp
+if upnp_enabled
+{
+    // Create a upnp handler
+    if instance_number(obj_upnp)=0 instance_create(0,0,obj_upnp);
+    if instance_number(obj_upnp)>0
+    {
+        // Set port to setup
+        obj_upnp.port_to_set=port;
+        // Start the setup
+        with obj_upnp event_user(0);
+    }
+}
+
 //Create the server socket
 htme_debugger("htme_serverStart",htme_debug.DEBUG,"STARTING SERVER");
 self.socketOrServer = network_create_socket_ext(network_socket_udp,port);

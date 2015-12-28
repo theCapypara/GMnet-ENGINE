@@ -42,6 +42,13 @@ self.udphp_master_ip = "95.85.63.183";
 self.udphp_master_port = 6510;
 
 /** 
+ * Setup the portforward on the router using upnp
+ * Works on Windows,Android
+ * @type boolean
+ */
+self.upnp_enabled = true;
+
+/** 
  * WHEN USING GMnet PUNCH:
  * The server should reconnect to the master server every x steps.
  * The server will only reconnect if it's no longer connected.
