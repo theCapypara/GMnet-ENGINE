@@ -77,15 +77,8 @@ global.udphp_tmp_data5 = "";
 global.udphp_tmp_data6 = "";
 global.udphp_tmp_data7 = "";
 global.udphp_tmp_data8 = "";
-global.udphp_clients_udp = ds_map_create();
-global.udphp_clients_tcp = ds_map_create();
-global.udphp_clients_buffer = ds_map_create();
-global.udphp_clients_timeout = ds_map_create();
-global.udphp_clients_directconnect = ds_map_create();
-global.udphp_clients_connected = ds_map_create();
-global.udphp_clients_serverip = ds_map_create();
-global.udphp_clients_serverport = ds_map_create();
-global.udphp_version = "1.2.3";
+global.udphp_clients = ds_map_create();
+global.udphp_version = "1.2.4";
 
 global.udphp_downloadlist_refreshing = false;
 global.udphp_downloadlist_topmap = -1;
