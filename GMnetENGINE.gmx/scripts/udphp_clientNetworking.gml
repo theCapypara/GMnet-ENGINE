@@ -45,11 +45,11 @@ if (in_ip == global.udphp_master) {
             client.server_ip = buffer_read(in_buff, buffer_string )
             client.server_port = real(buffer_read(in_buff, buffer_string ));
             // Reset punch state
-            global.udphp_punch_stage=udphp_punch_states.DEFAULT;
-            global.udphp_punch_stage_sub1=udphp_punch_substates.DEFAULT;
-            global.udphp_punch_stage_external_server_port=real(ds_map_find_value(global.udphp_clients_serverport,client_id));
-            var server_global_ip=real(ds_map_find_value(global.udphp_clients_serverip,client_id));
-            global.udphp_punch_stage_counter=0;
+            global.udphp_punch_stage = udphp_punch_states.DEFAULT;
+            global.udphp_punch_stage_sub1 = udphp_punch_substates.DEFAULT;
+            global.udphp_punch_stage_external_server_port = real(client.server_port);
+            var server_global_ip = client.server_ip;
+            global.udphp_punch_stage_counter = 0;
             // Load values from last time
             ini_open("udphp_predict.ini");
             global.udphp_punch_stage_predict_value1=ini_read_real("predict-" + string(server_global_ip),"value1",0);

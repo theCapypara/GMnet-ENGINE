@@ -1,4 +1,4 @@
-/// udphp_punchstate(client_id);
+/// udphp_punchstate(client);
 
 /*  INTERNAL COMMAND
 **  Description:
@@ -6,18 +6,20 @@
 **      if the NAT is unfriendly for default udp hole punch.
 **  
 **  Usage:
-**      udphp_punchstate(client_id)
+**      udphp_punchstate(client)
 **
 **  Returns:
 **      <nothing>
 **
 */
 
-var client_id = argument0;
-var client_udp = ds_map_find_value(global.udphp_clients_udp,client_id);
-var client_serverip = ds_map_find_value(global.udphp_clients_serverip,client_id);
-var client_serverport = ds_map_find_value(global.udphp_clients_serverport,client_id);
-var client_buffer = ds_map_find_value(global.udphp_clients_buffer,client_id);
+var client = argument0;
+
+/// CHECK IF CLIENT IS RUNNING (we can use any client-releated variable for that; we assume they don't get changed from outside)
+if (!instance_exists(client)) {
+    udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.CLIENT, client, "Client not found");
+    exit;
+}
 
 switch (global.udphp_punch_stage)
 {
@@ -32,17 +34,17 @@ switch (global.udphp_punch_stage)
                 // to test more ports increase the connect timeout variable in config
                 global.udphp_punch_stage_timeout=global.udphp_punch_stage_timeout_initial;
                 // Change port on client
-                udphp_handleerror(udphp_dbglvl.WARNING, udphp_dbgtarget.CLIENT, client_id, "No response. Try connect using sequence server port: " + string(global.udphp_punch_stage_external_server_port+global.udphp_punch_stage_counter));
-                ds_map_replace(global.udphp_clients_serverport,client_id,global.udphp_punch_stage_external_server_port+global.udphp_punch_stage_counter);                
+                udphp_handleerror(udphp_dbglvl.WARNING, udphp_dbgtarget.CLIENT, client, "No response. Try connect using sequence server port: " + string(global.udphp_punch_stage_external_server_port+global.udphp_punch_stage_counter));
+                client.server_port = global.udphp_punch_stage_external_server_port+global.udphp_punch_stage_counter;                
                 // Send message and try to connect to server
-                network_send_udp( client_udp, client_serverip, global.udphp_punch_stage_external_server_port+global.udphp_punch_stage_counter, client_buffer, buffer_tell(client_buffer) );                
+                network_send_udp( client.udp_socket, client.server_ip, global.udphp_punch_stage_external_server_port+global.udphp_punch_stage_counter, client.buffer, buffer_tell(client.buffer) );                
                 // Try this port for some time
                 global.udphp_punch_stage_sub1=udphp_punch_substates.SEQ_TRY_NEW;
                 break;
             case udphp_punch_substates.SEQ_TRY_NEW:
                 // Try new external port
                 // Send message and try to connect to server
-                network_send_udp( client_udp, client_serverip, global.udphp_punch_stage_external_server_port+global.udphp_punch_stage_counter, client_buffer, buffer_tell(client_buffer) );            
+                network_send_udp( client.udp_socket, client.server_ip, global.udphp_punch_stage_external_server_port+global.udphp_punch_stage_counter, client.buffer, buffer_tell(client.buffer) );            
                 // Wait some to test the other port
                 global.udphp_punch_stage_timeout-=1;
                 // Timeout on this port try another one
@@ -116,9 +118,9 @@ switch (global.udphp_punch_stage)
                     global.udphp_punch_stage_counter+=1;                    
                     // Send to new port
                     // Send message and try to connect to server
-                    network_send_udp( client_udp, client_serverip, global.udphp_punch_stage_predict_list[global.udphp_punch_stage_counter], client_buffer, buffer_tell(client_buffer) );                     
+                    network_send_udp( client.udp_socket, client.server_ip, global.udphp_punch_stage_predict_list[global.udphp_punch_stage_counter], client.buffer, buffer_tell(client.buffer) );                     
                 }
-                udphp_handleerror(udphp_dbglvl.WARNING, udphp_dbgtarget.CLIENT, client_id, "No response. Try connect using predict server port: " + string(global.udphp_punch_stage_counter/array_length_1d(global.udphp_punch_stage_predict_list)) + "% tested");
+                udphp_handleerror(udphp_dbglvl.WARNING, udphp_dbgtarget.CLIENT, client, "No response. Try connect using predict server port: " + string(global.udphp_punch_stage_counter/array_length_1d(global.udphp_punch_stage_predict_list)) + "% tested");
                 global.udphp_punch_stage_sub1=udphp_punch_substates.PRED_REST;
                 break;
             case udphp_punch_substates.PRED_REST:
@@ -136,6 +138,6 @@ switch (global.udphp_punch_stage)
     default:
         // Deafult punch
         // Send message and try to connect to server
-        network_send_udp( client_udp, client_serverip, client_serverport, client_buffer, buffer_tell(client_buffer) );
+        network_send_udp( client.udp_socket, client.server_ip, client.server_port, client.buffer, buffer_tell(client.buffer) );
 }
  
