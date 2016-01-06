@@ -18,3 +18,4 @@
 */
 
 self.htme_mp_stayAlive = true;
+if persistent=false htme_debugger("mp_stayAlive",htme_debug.WARNING,"Instance is in stay alive mode but not currently persistent!");
