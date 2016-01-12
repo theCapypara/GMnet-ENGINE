@@ -118,13 +118,6 @@ global.udphp_tmp_data7 = "";
 global.udphp_tmp_data8 = "";
 global.udphp_clients = ds_map_create();
 global.udphp_version = "1.2.4";
-global.udphp_punch_stage = udphp_punch_states.DEFAULT;
-global.udphp_punch_stage_sub1 = udphp_punch_substates.DEFAULT;
-global.udphp_punch_stage_external_server_port=0;
-global.udphp_punch_stage_counter=0;
-global.udphp_punch_stage_timeout=0;
-global.udphp_punch_stage_predict_value1=0
-global.udphp_punch_stage_predict_value2=0
 
 global.udphp_downloadlist_refreshing = false;
 global.udphp_downloadlist_topmap = -1;

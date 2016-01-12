@@ -45,43 +45,43 @@ if (in_ip == global.udphp_master) {
             client.server_ip = buffer_read(in_buff, buffer_string )
             client.server_port = real(buffer_read(in_buff, buffer_string ));
             // Reset punch state
-            global.udphp_punch_stage = udphp_punch_states.DEFAULT;
-            global.udphp_punch_stage_sub1 = udphp_punch_substates.DEFAULT;
-            global.udphp_punch_stage_external_server_port = real(client.server_port);
+            client.punch_stage = udphp_punch_states.DEFAULT;
+            client.punch_stage_sub1 = udphp_punch_substates.DEFAULT;
+            client.punch_stage_external_server_port = real(client.server_port);
             var server_global_ip = client.server_ip;
-            global.udphp_punch_stage_counter = 0;
+            client.punch_stage_counter = 0;
             // Load values from last time
             ini_open("udphp_predict.ini");
-            global.udphp_punch_stage_predict_value1=ini_read_real("predict-" + string(server_global_ip),"value1",0);
-            global.udphp_punch_stage_predict_value2=ini_read_real("predict-" + string(server_global_ip),"value2",0);
+            client.punch_stage_predict_value1=ini_read_real("predict-" + string(server_global_ip),"value1",0);
+            client.punch_stage_predict_value2=ini_read_real("predict-" + string(server_global_ip),"value2",0);
             ini_close();            
             // predict port values
-            if global.udphp_punch_stage_predict_value1=0 
+            if client.punch_stage_predict_value1=0 
             {
-                global.udphp_punch_stage_predict_value1=global.udphp_punch_stage_external_server_port;
+                client.punch_stage_predict_value1=client.punch_stage_external_server_port;
             }
-            else if global.udphp_punch_stage_predict_value2=0
+            else if client.punch_stage_predict_value2=0
             {
-                global.udphp_punch_stage_predict_value2=global.udphp_punch_stage_external_server_port;
+                client.punch_stage_predict_value2=client.punch_stage_external_server_port;
             }
             else
             {
                 // Set new value nearest the others
-                if abs(global.udphp_punch_stage_predict_value1-global.udphp_punch_stage_external_server_port)>abs(global.udphp_punch_stage_predict_value2-global.udphp_punch_stage_external_server_port)
+                if abs(client.punch_stage_predict_value1-client.punch_stage_external_server_port)>abs(client.punch_stage_predict_value2-client.punch_stage_external_server_port)
                 {
                     // Value 1 is more far away set to value 2
-                    global.udphp_punch_stage_predict_value2=global.udphp_punch_stage_external_server_port;
+                    client.punch_stage_predict_value2=client.punch_stage_external_server_port;
                 }
                 else
                 {
                     // Value 2 is more far away set to value 1
-                    global.udphp_punch_stage_predict_value1=global.udphp_punch_stage_external_server_port;
+                    client.punch_stage_predict_value1=client.punch_stage_external_server_port;
                 }
             }
             // Save values for next connect
             ini_open("udphp_predict.ini");
-            ini_write_real("predict-" + string(server_global_ip),"value1",global.udphp_punch_stage_predict_value1);
-            ini_write_real("predict-" + string(server_global_ip),"value2",global.udphp_punch_stage_predict_value2);
+            ini_write_real("predict-" + string(server_global_ip),"value1",client.punch_stage_predict_value1);
+            ini_write_real("predict-" + string(server_global_ip),"value2",client.punch_stage_predict_value2);
             ini_close();         
             client.directconnect = true;
         break;
