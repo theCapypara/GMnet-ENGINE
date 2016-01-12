@@ -45,10 +45,10 @@ self.server_port = server_port;
 if (self.use_udphp) {
    htme_debugger("htme_clientStart",htme_debug.DEBUG,"LOADING UDPHP");
    self.udphp_client_id = script_execute(asset_get_index("udphp_createClient"),self.socketOrServer,server_ip,self.buffer,false,server_port);
-   if(self.udphp_client_id) {
+   if(self.udphp_client_id <= 0) {
         //Error while starting udphp
         htme_debugger("htme_clientStart",htme_debug.ERROR,"Could not start GMnet PUNCH client instance! Check GMnet PUNCH log, increase log level if neccesary.");
-        htme_serverStop();
+        htme_clientStop();
         return false;
     }
 }
