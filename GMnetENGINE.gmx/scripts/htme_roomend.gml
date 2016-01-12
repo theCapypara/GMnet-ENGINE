@@ -51,9 +51,7 @@ for(var i=0; i<ds_map_size(m); i+=1) {
            /* (1) */
            htme_debugger("htme_roomend",htme_debug.DEBUG,"Unregistered a global instance "+insthash+"!");
            if (!self.isServer) {
-              var new_insthash = ds_map_find_next(m, insthash);
               ds_map_delete(self.globalInstances,insthash);
-              ds_map_delete(m,insthash);
            }
            /* (2) */ 
            if ((instid).persistent) {
@@ -68,12 +66,8 @@ for(var i=0; i<ds_map_size(m); i+=1) {
     else {
         htme_debugger("htme_roomend",htme_debug.WARNING,"Undefined found in globalInstances");
     }
-    if (!is_undefined(new_insthash)) {
-        insthash = new_insthash;
-        new_insthash = undefined;
-    } else {
-        insthash = ds_map_find_next(m, insthash);
-    }
+    // Get next
+    insthash = ds_map_find_next(m, insthash);
 }
 
 htme_forceSyncLocalInstances(self.playerhash);
