@@ -28,7 +28,7 @@ var buffer = global.udphp_server_buffer;
 var server_tcp = global.udphp_server_tcp;
 
 //Force re-registration
-global.udphp_server_counter = -1;
+global.udphp_server_counter = 0;
 network_destroy(server_tcp);
 
 udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.SERVER, 0, "Updated data string for master server");
