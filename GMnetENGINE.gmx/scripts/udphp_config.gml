@@ -26,6 +26,30 @@
 **
 */
 
+//========== CONFIGURATION ==========//
+
+/**
+ * Most of the settings can be changed by using the arguments above.
+ * However here are some more advanced settings.
+ * DO NOT change them here.
+ * Instead change the value of these variables after calling udphp_config!
+ */
+ 
+/** 
+ * PORT PREDICTION TIMEOUTS
+ * The time the punch stage will wait before trying next port
+ * Increase timeouts to test more ports if you have problem connecting with punch
+ * If you experience overload in the router set the value to room_speed*2 or above.
+ * But this will decrease the chances you connect to the server
+ *
+ * GMnet ENGINE users can change this setting in htme_config!
+ *
+ * @type real
+ */
+global.udphp_punch_stage_timeout_initial = room_speed;
+
+//====== END CONFIGURATION ==========//
+
 /* First: Setup enums */
 enum udphp_dbglvl {DEBUG,WARNING,ERROR}
 enum udphp_dbgtarget {MAIN,SERVER,CLIENT}
@@ -37,6 +61,21 @@ enum udphp_packet {
     DATAREQ=-5,
     DATA=-6,
     MASTER_LOBBY=-7,
+}
+
+//The value of the enum is the amount of time the state should kick in in percent
+enum udphp_punch_states {
+    DEFAULT= 0,
+    TRY_SEQUENCE_PORT= 25,
+    TRY_PREDICTING_PORT= 40,
+}
+
+enum udphp_punch_substates {
+    DEFAULT= 0,
+    SEQ_TRY_NEW= 1,
+    PRED_CONTINUE= 2,
+    PRED_REST= 3,
+    
 }
 
 var master_ip = argument0;
@@ -82,15 +121,8 @@ global.udphp_tmp_data5 = "";
 global.udphp_tmp_data6 = "";
 global.udphp_tmp_data7 = "";
 global.udphp_tmp_data8 = "";
-global.udphp_clients_udp = ds_map_create();
-global.udphp_clients_tcp = ds_map_create();
-global.udphp_clients_buffer = ds_map_create();
-global.udphp_clients_timeout = ds_map_create();
-global.udphp_clients_directconnect = ds_map_create();
-global.udphp_clients_connected = ds_map_create();
-global.udphp_clients_serverip = ds_map_create();
-global.udphp_clients_serverport = ds_map_create();
-global.udphp_version = "1.2.3";
+global.udphp_clients = ds_map_create();
+global.udphp_version = "1.2.4";
 
 global.udphp_downloadlist_refreshing = false;
 global.udphp_downloadlist_topmap = -1;

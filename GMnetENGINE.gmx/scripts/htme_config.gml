@@ -17,12 +17,20 @@ self.debuglevel = htme_debug.INFO;
 self.debugoverlay = true;
 
 /** 
+ * Use different versions of Game Maker Studio
+ * 1: network_create_socket_ext(network_socket_udp,port); >1.4.1567
+ * 2: network_create_socket(network_socket_udp); For tests
+ * 3: network_create_server(network_socket_udp,port,maxclients); <=1.4.1567
+ */
+self.gmversionpick=1;
+
+/** 
  * Use GMnet PUNCH? Set to true if GMnet PUNCH is installed and should be used to make the conection.
  * GMnet PUNCH is installed if you use GMnet ENGINE and needs to be installed manually
  * when using GMnet CORE.
  * More Information can be found in the manual.
  */
-
+ 
 self.use_udphp = false;
 
 /** 
@@ -58,6 +66,18 @@ self.udphp_rctintv = 3*60*room_speed;
  * @type real
  */
 self.global_timeout = 5*room_speed;
+
+/** 
+ * WHEN USING GMnet PUNCH:
+ * Advanced Port-Prediction Timout
+ *
+ * The time the punch stage will wait before trying next port
+ * Increase self.global_timeout to test more ports if you have problem connecting with punch
+ * If you experience overload in the router set the value to room_speed*2 or above.
+ * But this will decrease the chances you connect to the server
+ * @type real
+ */
+self.punch_stage_timeout=room_speed; // must wait 1 sec before next try else the Messages wont be sent or the target router will stop them
 
 /** 
  * Interval the servers broadcast data to the LAN, for the LAN lobby

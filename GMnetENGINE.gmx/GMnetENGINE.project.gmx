@@ -80,6 +80,7 @@
       <scripts name="internal">
         <script>scripts\udphp_string_explode.gml</script>
         <script>scripts\udphp_handleerror.gml</script>
+        <script>scripts\udphp_punchstate.gml</script>
       </scripts>
       <scripts name="lobby">
         <script>scripts\udphp_downloadNetworking.gml</script>
@@ -254,6 +255,12 @@
     </scripts>
   </scripts>
   <objects name="objects">
+    <objects name="htme">
+      <object>objects\obj_htme</object>
+    </objects>
+    <objects name="udphp">
+      <object>objects\obj_punch_client</object>
+    </objects>
     <objects name="htme_demo">
       <objects name="menu">
         <object>objects\htme_obj_waitforclient</object>
@@ -269,9 +276,6 @@
         <object>objects\htme_obj_chat</object>
       </objects>
       <object>objects\htme_obj_lanlobbydemo</object>
-    </objects>
-    <objects name="htme">
-      <object>objects\obj_htme</object>
     </objects>
     <objects name="udphp_demo">
       <object>objects\obj_udphphtme_lobby</object>

@@ -22,6 +22,6 @@ with (global.htme_object) {
 htme_debugger("htme_clientStop",htme_debug.WARNING,"STOPPING CLIENT");
 htme_shutdown();
 if (self.use_udphp) {
-    script_execute(asset_get_index("udphp_stopClient"));
+    script_execute(asset_get_index("udphp_stopClient"),self.udphp_client_id);
 }
 }
