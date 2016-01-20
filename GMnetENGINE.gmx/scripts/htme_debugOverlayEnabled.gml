@@ -16,4 +16,12 @@
 **
 */
 
-return global.htme_object.debugoverlay;
+// Check if obj_htme exists (udphp_stopClient may have destroyed it when connection falied)
+if instance_exists(global.htme_object)
+{
+    return global.htme_object.debugoverlay;
+}
+else
+{
+    return false;
+}

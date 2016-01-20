@@ -16,8 +16,16 @@
 **
 */
 
-with (global.htme_object) {
-    //Connection isn't finished if we don't have a playerhash.
-    if (self.playerhash == "") return false;
-    return self.isConnected;
+// Check if obj_htme exists (udphp_stopClient may have destroyed it when connection falied)
+if instance_exists(global.htme_object)
+{
+    with (global.htme_object) {
+        //Connection isn't finished if we don't have a playerhash.
+        if (self.playerhash == "") return false;
+        return self.isConnected;
+    }
+}
+else
+{
+    return false;
 }
