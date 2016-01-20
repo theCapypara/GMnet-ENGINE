@@ -18,6 +18,14 @@
 **
 */
 
-with (global.htme_object) {
-    return self.clientStopped;
+// Check if obj_htme exists (udphp_stopClient may have destroyed it when connection falied)
+if instance_exists(global.htme_object)
+{
+    with (global.htme_object) {
+        return self.clientStopped;
+    }
+}
+else
+{
+    return true;
 }
