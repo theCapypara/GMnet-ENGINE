@@ -41,7 +41,9 @@
       </datafile>
     </datafiles>
   </datafiles>
-  <NewExtensions/>
+  <NewExtensions>
+    <extension index="0">extensions\WinDev</extension>
+  </NewExtensions>
   <sounds name="sound"/>
   <sprites name="sprites">
     <sprites name="htme_demo">
@@ -279,6 +281,9 @@
     </objects>
     <objects name="udphp_demo">
       <object>objects\obj_udphphtme_lobby</object>
+    </objects>
+    <objects name="Dual windows">
+      <object>objects\obj_dual_instance</object>
     </objects>
   </objects>
   <rooms name="rooms">
