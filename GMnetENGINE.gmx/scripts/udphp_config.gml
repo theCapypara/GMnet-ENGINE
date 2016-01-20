@@ -39,14 +39,14 @@
  * PORT PREDICTION TIMEOUTS
  * The time the punch stage will wait before trying next port
  * Increase timeouts to test more ports if you have problem connecting with punch
- * If you experience overload in the router set the value to room_speed*2 or above.
+ * If you experience overload in the router set the value to 2 or above.
  * But this will decrease the chances you connect to the server
  *
  * GMnet ENGINE users can change this setting in htme_config!
  *
  * @type real
  */
-global.udphp_punch_stage_timeout_initial = room_speed;
+global.udphp_punch_stage_timeout_initial = 1;
 
 //====== END CONFIGURATION ==========//
 

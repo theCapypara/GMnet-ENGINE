@@ -38,6 +38,6 @@ if (self.clientTimeoutRecv < 0) {
     return false;
 }
 
-self.clientTimeoutSend--;
-self.clientTimeoutRecv--;
+self.clientTimeoutSend-=delta_time*0.000001;
+self.clientTimeoutRecv-=delta_time*0.000001;
 return true;
