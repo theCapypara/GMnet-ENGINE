@@ -43,7 +43,7 @@ if (!client.connected) {
     if (client.directconnect) {
         //DIRECT CONNECT or GOT SERVER PORT (and can now connect directly)
         udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.CLIENT, client, "Connecting with server "+string(client.server_ip)+":"+string(client.server_port))
-        client.timeout+=delta_time*0.000001;
+        client.timeout+=udphp_get_count();
         //Send a packet to the server to punch the hole. If this reaches the server, he will
         //add us to the list of players and send an answer.
         buffer_seek(client.buffer, buffer_seek_start, 0);

@@ -1,4 +1,4 @@
-///udphp_config(master_ip,master_port,reconnect_intv,timeouts,debug,silent)
+///udphp_config(master_ip,master_port,reconnect_intv,timeouts,debug,silent,delta time)
 
 /*
 **  Description:
@@ -20,6 +20,8 @@
 **      silent            boolean   If true, log nothing, alert on nothing.
 **                                  Default setting: Log debug and warning, alert on error
 **                                  (ignored if debug is set to true) 
+**      delta time        boolean   If true, use delta time insted of step time
+**                                  Default setting: false
 **
 **  Returns:
 **      <nothing>
@@ -84,6 +86,7 @@ var reconnect_intv = argument2;
 var timeouts = argument3;
 var debug = argument4;
 var silent = argument5;
+var deltatime = argument6;
 
 /** Set timeout for master server connection
   * TODO: Add option to specify this value
@@ -123,7 +126,7 @@ global.udphp_tmp_data7 = "";
 global.udphp_tmp_data8 = "";
 global.udphp_clients = ds_map_create();
 global.udphp_version = "1.2.4";
-
+global.udphp_deltatime = deltatime;
 global.udphp_downloadlist_refreshing = false;
 global.udphp_downloadlist_topmap = -1;
 global.udphp_downloadlist = -1;

@@ -31,6 +31,6 @@ for(var i=0; i<ds_list_size(self.grouplist_local); i+=1) {
         htme_syncSingleVarGroup(group,all);
         group[? "__counter"] = group[? "interval"];
     } else {
-        group[? "__counter"] = group[? "__counter"]-1;
+        group[? "__counter"] = group[? "__counter"]-htme_get_count();
     }
 }

@@ -90,7 +90,7 @@ if (global.udphp_server_counter < 1) {
         //connect directly and we will try to reconnect next time.
     }
     global.udphp_server_counter = global.udphp_server_reconnect; //reset counter
-} else global.udphp_server_counter-=delta_time*0.000001;
+} else global.udphp_server_counter-=udphp_get_count();
 
 
 
@@ -127,7 +127,7 @@ for(i=0; i<ds_map_size(incoming_requests); i+=1) {
         buffer_seek(buffer, buffer_seek_start, 0);
         buffer_write(buffer, buffer_s8, udphp_packet.KNOCKKNOCK);
         network_send_udp(server,ip,port,buffer,buffer_tell(buffer));
-        timeout+=delta_time*0.000001;
+        timeout+=udphp_get_count();
         ds_map_replace(incoming_requests,key,timeout); 
     }
     //loop releated stuff
@@ -165,7 +165,7 @@ for(i=0; i<ds_map_size(incoming_requests2); i+=1) {
         buffer_seek(buffer, buffer_seek_start, 0);
         buffer_write(buffer, buffer_s8, udphp_packet.SERVWELCOME);
         network_send_udp(global.udphp_server_udp,ip,port,buffer,buffer_tell(buffer));
-        timeout+=delta_time*0.000001;
+        timeout+=udphp_get_count();
         ds_map_replace(incoming_requests2,key,timeout); 
     }
     //loop releated stuff

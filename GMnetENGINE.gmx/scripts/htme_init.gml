@@ -137,7 +137,7 @@ if (self.use_udphp) {
     if (self.debuglevel <= htme_debug.INFO) {u_debug=false;u_silent=false;}
     if (self.debuglevel <= htme_debug.DEBUG) {u_debug=true;u_silent=false;}
     if (self.debuglevel == htme_debug.TRAFFIC) {u_debug=false;u_silent=true;}
-    script_execute(asset_get_index("udphp_config"),self.udphp_master_ip, self.udphp_master_port,self.udphp_rctintv,self.global_timeout,u_debug,u_silent);
+    script_execute(asset_get_index("udphp_config"),self.udphp_master_ip, self.udphp_master_port,self.udphp_rctintv,self.global_timeout,u_debug,u_silent,self.use_delta_time);
     //Set some additional PUNCH variables
     global.udphp_punch_stage_timeout_initial = self.punch_stage_timeout;
 }
