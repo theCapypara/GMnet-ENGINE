@@ -59,7 +59,6 @@ mp_syncAsChatHandler("Chat");
 
 //Setup variables
 self.output = ds_list_create();
-show_list(self.output,"htme_obj_chat_CREATE_EVENT",9);
 </string>
           </argument>
         </arguments>
