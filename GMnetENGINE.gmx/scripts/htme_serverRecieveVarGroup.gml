@@ -38,8 +38,10 @@ var backupEntry = ds_map_find_value(self.serverBackup,instancehash);
 if (is_undefined(backupEntry)) {
    //Create backup entry
    var backupEntry = ds_map_create();
-   backupEntry[? "groups"] = ds_map_create();
-   ds_map_copy(backupEntry[? "groups"],(instance).htme_mp_groups);
+   backupEntry[? "groups"] = (instance).htme_mp_groups;
+   // This will create a new "groups" but the engine want a link to the instances "groups"
+   //backupEntry[? "groups"] = ds_map_create();
+   //ds_map_copy(backupEntry[? "groups"],(instance).htme_mp_groups);
    backupEntry[? "object"] = object_id;
    backupEntry[? "player"] = playerhash;
    backupEntry[? "stayAlive"] = inst_stayAlive;
@@ -47,6 +49,18 @@ if (is_undefined(backupEntry)) {
    backupEntry[? "backupVars"] = backupVars;
    backupEntry[? "syncVars"] = ds_map_create();
    ds_map_add(self.serverBackup,instancehash,backupEntry);
+} else {
+    // Check if instance exists in same roome
+    if instance_exists(instance) {
+        // Make sure (instance).htme_mp_groups is a reference to backupEntry[? "groups"]
+        if (instance).htme_mp_groups!=backupEntry[? "groups"] {
+            // Server created a new instace of an object that is in the backup
+            // Server ran mp_sync and created some maps that is allready created in the backup
+            // Remove the new maps and link to the old ones
+            ds_map_destroy((instance).htme_mp_groups);
+            (instance).htme_mp_groups=backupEntry[? "groups"];
+        }
+    }
 }
 
 /* Check datatype */
@@ -187,5 +201,8 @@ if (buffer_read(in_buff, buffer_s8 ) == htme_packet.SIGNEDPACKET_NEW) {
 if (self.tmp_instanceForceCreated) {
    self.tmp_instanceForceCreated = false;
    htme_debugger("htme_serverRecieveVarGroup",htme_debug.WARNING,"Deleted a temporary instance.");
-   with instance {instance_destroy();}
+   with instance {
+        htme_clean_mp_sync();
+        instance_destroy();
+   }
 }

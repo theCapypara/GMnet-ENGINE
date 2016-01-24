@@ -50,7 +50,11 @@ for(var i=0; i<ds_map_size(mapToUse); i+=1) {
                htme_debugger("htme_serverBroadcastRoomChange",htme_debug.DEBUG,"Tell "+inner_key+" to unsync "+inner_key);
                if (inner_key == "0:0") {
                   //Server: 
-                  with inst {instance_destroy();}
+                  with inst {
+                    // Clean mp_sync maps
+                    htme_clean_mp_sync();
+                    instance_destroy();
+                  }
                } else {
                  //Client: unsync this instance
                  htme_serverBroadcastUnsync(key,inner_key);

@@ -49,9 +49,13 @@ for(var i=0; i<ds_map_size(mapToUse); i+=1) {
     //Check if instance belongs to player
     if (instplayer == phash) {
        htme_serverBroadcastUnsync(key);
-       htme_cleanUpInstance(inst);
+       if instance_exists(inst) {
+            htme_cleanUpInstance(inst);
+       }
        htme_serverRemoveBackup(key);
-       with (inst) {instance_destroy();}
+       if instance_exists(inst) {
+            with (inst) {instance_destroy();}
+       }
        ds_map_delete(self.globalInstances,key);
        key = ds_map_find_next(mapToUse, key);
     } else {

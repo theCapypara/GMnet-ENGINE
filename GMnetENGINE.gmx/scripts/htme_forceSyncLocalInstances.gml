@@ -28,7 +28,7 @@ htme_debugger("htme_forceSyncLocalInstances",htme_debug.DEBUG,"Forcing the sync 
 
 //This will loop through all var groups or only lcoal var groups if client
 for(var i=0; i<ds_list_size(self.grouplist); i+=1) {
-    var group = ds_list_find_value(grouplist,i);
+    var group = ds_list_find_value(self.grouplist,i);
     
     /**RETRIEVE INFORMATION**/
     var inst_hash = group[? "instancehash"];

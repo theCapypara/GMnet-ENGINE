@@ -28,6 +28,7 @@ ds_map_delete(self.playermap,argument0);
 ds_map_delete(self.playerrooms,argument0);
 ds_map_delete(self.serverTimeoutSend,argument0);
 ds_map_delete(self.serverTimeoutRecv,argument0);
+htme_clean_signed_packets(argument0);
 if (self.use_udphp) {
     //Remove from udphp player list
     var pos = ds_list_find_index(self.udphp_playerlist,argument0);
