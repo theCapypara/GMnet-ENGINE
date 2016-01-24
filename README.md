@@ -29,7 +29,7 @@ http://gmnet.parakoopa.de/punch (PUNCH)
 
 * [GMnet PUNCH demo project](https://github.com/Parakoopa/GMnet-PUNCH-Demo)
 * [GMnet GATE.PUNCH](https://github.com/Parakoopa/GMnet-GATE-PUNCH)
-* [GMnet GATE.TESTER](https://github.com/Parakoopa/GMnet-GATE-TESTER) (Web-based debugging tool for other GMnet GATE producs)
+* [GMnet GATE.TESTER](https://github.com/Parakoopa/GMnet-GATE-TESTER) (Web-based debugging tool for other GMnet GATE products)
 * [Manual pages](https://github.com/Parakoopa/GMnet-manual) (Get and edit the manual pages found on http://gmnet.parakoopa.de)
 
 ## Branches & Versioning
