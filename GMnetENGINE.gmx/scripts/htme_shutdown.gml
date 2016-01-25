@@ -45,7 +45,7 @@ for(var i=0; i<ds_map_size(self.globalInstances); i+=1) {
             htme_serverRemoveBackup(key);        
         with inst_id {instance_destroy();}
     }
-    key = ds_map_find_next(global.htme_object.globalInstances, key);
+    key = ds_map_find_next(self.globalInstances, key);
 }
 //CLEAN ALL DATA
 ds_map_clear(self.localInstances);
@@ -75,4 +75,14 @@ ds_map_destroy(self.sPcountOUT);
 self.sPcountOUT = ds_map_create();
 ds_map_destroy(self.sPcountIN);
 self.sPcountIN = ds_map_create();
-if (ds_exists(self.chatQueues,ds_type_map)) {ds_map_destroy(self.chatQueues);}
+if (ds_exists(self.chatQueues,ds_type_map)) {
+    key = ds_map_find_first(self.chatQueues);
+    for(var i=0; i<ds_map_size(self.chatQueues); i+=1) {
+        var chat_queue = ds_map_find_value(self.chatQueues,key);
+        if (ds_exists(chat_queue,ds_type_queue)) {
+            ds_queue_destroy(chat_queue);
+        }
+        key = ds_map_find_next(self.chatQueues, key);
+    }    
+    ds_map_destroy(self.chatQueues);
+}
