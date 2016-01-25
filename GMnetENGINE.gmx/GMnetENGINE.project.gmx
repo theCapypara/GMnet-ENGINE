@@ -3,8 +3,8 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
-  <datafiles number="9" name="datafiles">
-    <datafiles number="9" name="htme">
+  <datafiles number="11" name="datafiles">
+    <datafiles number="11" name="htme">
       <datafile>
         <name>README.txt</name>
         <exists>-1</exists>
@@ -58,23 +58,6 @@
       <filename>addport.vbs</filename>
     </datafile>
     <datafile>
-      <name>portmapper.jar</name>
-      <exists>-1</exists>
-      <size>5314716</size>
-      <exportAction>2</exportAction>
-      <exportDir></exportDir>
-      <overwrite>0</overwrite>
-      <freeData>-1</freeData>
-      <removeEnd>0</removeEnd>
-      <store>0</store>
-      <ConfigOptions>
-        <Config name="Default">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
-      </ConfigOptions>
-      <filename>portmapper.jar</filename>
-    </datafile>
-    <datafile>
       <name>ProcessLauncher.dll</name>
       <exists>-1</exists>
       <size>15834</size>
@@ -107,6 +90,40 @@
         </Config>
       </ConfigOptions>
       <filename>removeport.vbs</filename>
+    </datafile>
+    <datafile>
+      <name>upnpc-shared.exe</name>
+      <exists>-1</exists>
+      <size>8704</size>
+      <exportAction>2</exportAction>
+      <exportDir></exportDir>
+      <overwrite>0</overwrite>
+      <freeData>-1</freeData>
+      <removeEnd>0</removeEnd>
+      <store>0</store>
+      <ConfigOptions>
+        <Config name="Default">
+          <CopyToMask>9223372036854775807</CopyToMask>
+        </Config>
+      </ConfigOptions>
+      <filename>upnpc-shared.exe</filename>
+    </datafile>
+    <datafile>
+      <name>miniupnpc.dll</name>
+      <exists>-1</exists>
+      <size>91177</size>
+      <exportAction>2</exportAction>
+      <exportDir></exportDir>
+      <overwrite>0</overwrite>
+      <freeData>-1</freeData>
+      <removeEnd>0</removeEnd>
+      <store>0</store>
+      <ConfigOptions>
+        <Config name="Default">
+          <CopyToMask>9223372036854775807</CopyToMask>
+        </Config>
+      </ConfigOptions>
+      <filename>miniupnpc.dll</filename>
     </datafile>
   </datafiles>
   <NewExtensions>

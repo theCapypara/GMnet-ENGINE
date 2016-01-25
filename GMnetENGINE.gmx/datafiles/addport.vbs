@@ -1,4 +1,4 @@
 Set oShell = CreateObject ("Wscript.Shell") 
 Dim strArgs
-strArgs = "java -jar portmapper.jar -add -description GameMakerStudio -externalPort " & WScript.Arguments.Item(0) & " -internalPort " & WScript.Arguments.Item(0) & " -protocol udp"
+strArgs = "upnpc-shared.exe -e GameMakerStudio -r " & WScript.Arguments.Item(0) & " UDP " & WScript.Arguments.Item(0) & " TCP"
 oShell.Run strArgs, 0, false
