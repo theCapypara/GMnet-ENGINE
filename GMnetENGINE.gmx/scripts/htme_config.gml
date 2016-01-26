@@ -46,7 +46,7 @@ self.udphp_master_port = 6510;
  * Works on Windows,Android
  * @type boolean
  */
-self.upnp_enabled = true;
+self.upnp_enabled = false;
 
 /** 
  * WHEN USING GMnet PUNCH:
