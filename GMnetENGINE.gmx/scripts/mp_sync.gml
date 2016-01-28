@@ -35,6 +35,7 @@ if (isLocal) {
     self.htme_mp_vars = ds_map_create();
     //Temporary variable maps for comparing against when syncing and recieving
     //with tolerance and/or IMPORTANTPLUS
+    self.htme_mp_vars_recv = ds_map_create(); // Dummy for the cleaning scripts   
     self.htme_mp_vars_sync = ds_map_create();
     
     self.htme_mp_stayAlive = false;
@@ -48,6 +49,10 @@ if (isLocal) {
         htme_debugger("mp_sync",htme_debug.DEBUG,"Added instance "+object_get_name(v_object)+"."+string(v_id)+" to htme! Internal hash: "+v_hash);
     }
 } else {
+    // Create new "groups"
+    // This instance may allready be in the backup so we create a new now and in
+    // htme_serverRecieveVarGroup we check it
+    // If allready in backup we destroy this new map and reference to the backup
     self.htme_mp_groups = ds_map_create();
     self.htme_mp_vars = ds_map_create();
     //Temporary variable maps for comparing against when syncing and recieving

@@ -70,7 +70,7 @@ for(var i=0; i<ds_map_size(mapToUse); i+=1) {
             if !is_undefined(backupVars[? "friction"]) friction = backupVars[? "friction"];
             if !is_undefined(backupVars[? "hspeed"]) hspeed = backupVars[? "hspeed"];
             if !is_undefined(backupVars[? "vspeed"]) vspeed = backupVars[? "vspeed"];
-            self.htme_mp_vars = ds_map_create();
+            //self.htme_mp_vars = ds_map_create(); // should already be created in above code [instance_create(-100,-100,backupEntry[? "object"])]
             ds_map_copy(self.htme_mp_vars,backupVars);
             event_perform(ev_step,ev_step_end);
         }

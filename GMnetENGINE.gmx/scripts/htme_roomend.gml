@@ -33,18 +33,18 @@ var new_insthash = undefined;
 
 htme_debugger("htme_roomend",htme_debug.DEBUG,"ROOMEND triggered!");
 
-var m=ds_map_create();
-ds_map_copy(m,self.globalInstances);
+var mapToUse=ds_map_create();
+ds_map_copy(mapToUse,self.globalInstances);
 
-var insthash=ds_map_find_first(m);
+var insthash=ds_map_find_first(mapToUse);
 
 //This will loop through all global instances
-for(var i=0; i<ds_map_size(m); i+=1) {
-    var instid = ds_map_find_value(m,insthash);
+for(var i=0; i<ds_map_size(mapToUse); i+=1) {
+    var instid = ds_map_find_value(mapToUse,insthash);
     if (!is_undefined(instid)) {
-        if (!instance_exists(instid)) {insthash = ds_map_find_next(m, insthash);continue;}
+        if (!instance_exists(instid)) {insthash = ds_map_find_next(mapToUse, insthash);continue;}
         //Do nothing if stay alive
-        if (htme_isStayAlive(insthash)) {insthash = ds_map_find_next(m, insthash);continue;}
+        if (htme_isStayAlive(insthash)) {insthash = ds_map_find_next(mapToUse, insthash);continue;}
         var isLocal = false;
         if ((instid).htme_mp_player == self.playerhash) isLocal = true;
         if (!isLocal) {
@@ -53,11 +53,22 @@ for(var i=0; i<ds_map_size(m); i+=1) {
            if (!self.isServer) {
               ds_map_delete(self.globalInstances,insthash);
            }
-           /* (2) */ 
-           if ((instid).persistent) {
-              htme_debugger("htme_roomend",htme_debug.INFO,"Destroyed a persistent global instance "+insthash+"!");
-              with instid {instance_destroy();}
-           }
+            /* (2) */ 
+            if ((instid).persistent) {
+               htme_debugger("htme_roomend",htme_debug.INFO,"Destroyed a persistent global instance "+insthash+"!");
+               // On server do a simple clean but on client do a full sweep
+               if (self.isServer) {
+                   with instid {
+                     htme_clean_mp_sync();
+                     instance_destroy();
+                   }
+               } else {
+                   htme_cleanUpInstance(instid);
+                   with instid {
+                     instance_destroy();
+                   }              
+               }
+            }
         } else if (!(instid).persistent) {
            htme_debugger("htme_roomend",htme_debug.DEBUG,"Unregistered a local instance "+insthash+"!");
            with (instid) {mp_unsync();}
@@ -67,10 +78,10 @@ for(var i=0; i<ds_map_size(m); i+=1) {
         htme_debugger("htme_roomend",htme_debug.WARNING,"Undefined found in globalInstances");
     }
     // Get next
-    insthash = ds_map_find_next(m, insthash);
+    insthash = ds_map_find_next(mapToUse, insthash);
 }
 
 htme_forceSyncLocalInstances(self.playerhash);
 
 // Clean
-ds_map_destroy(m);
+ds_map_destroy(mapToUse);

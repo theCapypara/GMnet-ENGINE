@@ -44,7 +44,9 @@ if (!script_execute(self.serverEventHandlerConnect,ev_map)) {
     }
     exit;
 }
-ds_map_destroy(ev_map);
+else {
+    ds_map_destroy(ev_map);
+}
 var player = ip+":"+string(port);
 var playerhash = htme_hash();
 //Now we extend the playerhash with the player number.

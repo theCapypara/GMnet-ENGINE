@@ -226,12 +226,14 @@
           <script>scripts\htme_chatSend.gml</script>
           <script>scripts\htme_chatAddToQueue.gml</script>
           <script>scripts\htme_chatAddChannel.gml</script>
+          <script>scripts\htme_clean_mp_sync.gml</script>
         </scripts>
         <scripts name="signed_packets">
           <script>scripts\htme_sendNewSignedPacket.gml</script>
           <script>scripts\htme_initSignedPacket.gml</script>
           <script>scripts\htme_sendSingleSignedPacket.gml</script>
           <script>scripts\htme_recieveSignedPackets.gml</script>
+          <script>scripts\htme_clean_signed_packets.gml</script>
         </scripts>
       </scripts>
       <scripts name="instance comamnds">
