@@ -79,12 +79,12 @@ if (self.dbgstate = vk_f9) draw_set_colour(self.dbgcolor_a);
 draw_text(self.dbg_right-20,offs,str);
 if (self.dbgstate = vk_f9) draw_set_colour(self.dbgcolor);
 offs = offs + string_height(str);
-/*
-str = "TOOLKIT (F10) #========#";
+
+str = "MAPS AND LISTS (F10) #========#";
 if (self.dbgstate = vk_f10) draw_set_colour(self.dbgcolor_a);
 draw_text(self.dbg_right-20,offs,str);
 if (self.dbgstate = vk_f10) draw_set_colour(self.dbgcolor);
-offs = offs + string_height(str);*/
+offs = offs + string_height(str);
 
 if (!self.isServer) {
     str = "DISCONNECT (F11) #========#";

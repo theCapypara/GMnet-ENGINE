@@ -102,6 +102,7 @@ switch (self.dbgstate) {
         htme_doSignedPackets(false);
     break;
     case vk_f10:
+        htme_doMapsAndLists();
     break;
     case vk_f9:
         htme_doSignedPackets(true);

@@ -220,6 +220,7 @@
             <script>scripts\htme_doGlobalSync.gml</script>
             <script>scripts\htme_doSignedPackets.gml</script>
             <script>scripts\htme_doChat.gml</script>
+            <script>scripts\htme_doMapsAndLists.gml</script>
           </scripts>
           <script>scripts\htme_defaultEventHandler.gml</script>
           <script>scripts\htme_chatSend.gml</script>
