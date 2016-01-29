@@ -49,14 +49,8 @@ htme_init();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Disconnect or kick clients if started
-if (!self.isConnected) exit;
-
-if (self.isServer) {
-    htme_serverShutdown();
-} else {
-    htme_clientDisconnect();
-}
+            <string>/// udphp destroyed us we must clean some now
+htme_clean_connect_leftovers();
 </string>
           </argument>
         </arguments>
@@ -151,6 +145,30 @@ htme_roomend();
         <arguments>
           <argument>
             <kind>1</kind>
+            <string>/// Re-init if disconnected in last room
+if self.clientStopped = true {
+    htme_init(true);
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
             <string>///htme_roomstart(); - Sync current room
 htme_roomstart();
 </string>
@@ -176,12 +194,15 @@ htme_roomstart();
           <argument>
             <kind>1</kind>
             <string>///Disconnect or kick clients if started
-if (!self.isConnected) exit;
-
-if (self.isServer) {
-    htme_serverShutdown();
-} else {
-    htme_clientDisconnect();
+// Tell client/server that we want to disconnect now
+if htme_disconnectNow()
+{
+    // If disconnect is ok then do some cleaning
+    // Remove persistent but not synced objects
+    with htme_obj_chat instance_destroy();
+    with htme_obj_playerlist instance_destroy();
+    // Go back to menu room
+    room_goto(htme_rom_menu);    
 }
 </string>
           </argument>
@@ -207,6 +228,39 @@ if (self.isServer) {
             <kind>1</kind>
             <string>///htme_debugoverlay(); - Draw debug overlay
 htme_debugoverlay();
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="27">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// Shutdown client or server
+// Tell client/server that we want to shutdown now
+if htme_disconnectNow()
+{
+    // If disconnect is ok then do some cleaning
+    // Remove persistent but not synced objects
+    with htme_obj_chat instance_destroy();
+    with htme_obj_playerlist instance_destroy();
+    // Go back to menu room
+    room_goto(htme_rom_menu);    
+}
 </string>
           </argument>
         </arguments>

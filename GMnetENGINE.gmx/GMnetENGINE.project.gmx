@@ -104,6 +104,7 @@
         <script>scripts\htme_clientIsConnected.gml</script>
         <script>scripts\htme_clientConnectionFailed.gml</script>
         <script>scripts\htme_isStarted.gml</script>
+        <script>scripts\htme_isLostConnection.gml</script>
         <script>scripts\htme_isServer.gml</script>
         <script>scripts\htme_getPlayers.gml</script>
         <script>scripts\htme_findPlayerInstance.gml</script>
@@ -116,6 +117,7 @@
           <script>scripts\htme_commitData.gml</script>
         </scripts>
         <script>scripts\htme_getPlayerNumber.gml</script>
+        <script>scripts\htme_disconnectNow.gml</script>
         <script>scripts\htme_serverDisconnect.gml</script>
         <script>scripts\htme_serverShutdown.gml</script>
         <script>scripts\htme_clientDisconnect.gml</script>
@@ -227,6 +229,7 @@
           <script>scripts\htme_chatAddToQueue.gml</script>
           <script>scripts\htme_chatAddChannel.gml</script>
           <script>scripts\htme_clean_mp_sync.gml</script>
+          <script>scripts\htme_clean_connect_leftovers.gml</script>
         </scripts>
         <scripts name="signed_packets">
           <script>scripts\htme_sendNewSignedPacket.gml</script>

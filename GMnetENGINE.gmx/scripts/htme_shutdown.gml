@@ -33,6 +33,8 @@ for(var i=0; i<ds_map_size(self.localInstances); i+=1) {
         if wasServer 
             htme_serverRemoveBackup(key);
         with inst_id {instance_destroy();}
+    } else if wasServer {
+        htme_serverRemoveBackup(key);
     }
     key = ds_map_find_next(self.localInstances, key);
 }
@@ -44,6 +46,8 @@ for(var i=0; i<ds_map_size(self.globalInstances); i+=1) {
         if wasServer
             htme_serverRemoveBackup(key);        
         with inst_id {instance_destroy();}
+    } else if wasServer {
+        htme_serverRemoveBackup(key);
     }
     key = ds_map_find_next(self.globalInstances, key);
 }
@@ -56,7 +60,7 @@ self.socketOrServer = -1;
 self.server_ip = "";
 self.playerhash = "";
 self.server_port = 0;
-if (ds_exists(self.udphp_playerlist, ds_type_map)) {ds_map_destroy(self.udphp_playerlist);}
+if (ds_exists(self.udphp_playerlist, ds_type_list)) {ds_list_destroy(self.udphp_playerlist);}
 if (ds_exists(self.playermap, ds_type_map)) {ds_map_destroy(self.playermap);}
 if (ds_exists(self.kickmap, ds_type_map)) {ds_map_destroy(self.kickmap);}
 if (ds_exists(self.playerrooms, ds_type_map)) {ds_map_destroy(self.playerrooms);}
@@ -70,6 +74,17 @@ if (ds_exists(self.serverTimeoutRecv, ds_type_map)) {ds_map_destroy(self.serverT
 if (ds_exists(self.signedPacketsCategories, ds_type_map)) {ds_map_destroy(self.signedPacketsCategories);}
 if (ds_exists(self.serverBackup, ds_type_map)) {ds_map_destroy(self.serverBackup);}
 if (ds_exists(self.signedPackets, ds_type_list)) {ds_list_destroy(self.signedPackets);}
+if (ds_exists(self.lanlobby, ds_type_list)) {
+    // Clean list from ds maps
+    for (var i=0; i<ds_list_size(self.lanlobby); i+=1)
+    {
+        if ds_exists(self.lanlobby[| i],ds_type_map) {
+            ds_map_destroy(self.lanlobby[| i]);
+        }
+    }
+    ds_list_destroy(self.lanlobby);
+}
+
 htme_clean_signed_packets("");
 ds_map_destroy(self.sPcountOUT);
 self.sPcountOUT = ds_map_create();
