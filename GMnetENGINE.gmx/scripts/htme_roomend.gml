@@ -54,6 +54,7 @@ for(var i=0; i<ds_map_size(mapToUse); i+=1) {
               ds_map_delete(self.globalInstances,insthash);
            }
             /* (2) */ 
+            // Handle persistent
             if ((instid).persistent) {
                htme_debugger("htme_roomend",htme_debug.INFO,"Destroyed a persistent global instance "+insthash+"!");
                // On server do a simple clean but on client do a full sweep
@@ -68,6 +69,21 @@ for(var i=0; i<ds_map_size(mapToUse); i+=1) {
                      instance_destroy();
                    }              
                }
+            } else {
+               // Handle non persistent
+               htme_debugger("htme_roomend",htme_debug.INFO,"Destroyed a global instance "+insthash+"!");
+               // On server do a simple clean but on client do a full sweep
+               if (self.isServer) {
+                   with instid {
+                     htme_clean_mp_sync();
+                     instance_destroy();
+                   }
+               } else {
+                   htme_cleanUpInstance(instid);
+                   with instid {
+                     instance_destroy();
+                   }              
+               }                
             }
         } else if (!(instid).persistent) {
            htme_debugger("htme_roomend",htme_debug.DEBUG,"Unregistered a local instance "+insthash+"!");

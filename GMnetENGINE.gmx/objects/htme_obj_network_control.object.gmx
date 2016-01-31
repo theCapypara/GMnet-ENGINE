@@ -113,9 +113,14 @@
           <argument>
             <kind>1</kind>
             <string>///Check if engine running
-if (!htme_isStarted()) {
-    show_message("Game Server or Client died! Restarting game...");
-    game_restart();
+if (htme_isLostConnection()) {
+    show_message("Game Server or Client died! Go back to menu...");
+    
+    // Clean other persistent non synced objects from room
+    with htme_obj_chat instance_destroy();
+    with htme_obj_playerlist instance_destroy();    
+    
+    room_goto(htme_rom_menu);
 }
 </string>
           </argument>

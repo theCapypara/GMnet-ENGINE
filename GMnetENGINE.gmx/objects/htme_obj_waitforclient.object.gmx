@@ -31,7 +31,8 @@ if (htme_clientIsConnected()) {
 }
 if (htme_clientConnectionFailed()) {
     show_message("Connection with server failed!");
-    game_restart();
+    htme_clientStop();
+    room_goto(htme_rom_menu);
 }
 </string>
           </argument>

@@ -115,8 +115,18 @@ if (argument_count > 10) {
 
 if (ds_exists(global.udphp_downloadlist_topmap,ds_type_map)) {
    ds_map_destroy(global.udphp_downloadlist_topmap);
+   global.udphp_downloadlist_topmap=-1;
 }
-global.udphp_downloadlist = -1;
+if (ds_exists(global.udphp_downloadlist,ds_type_list)) {
+    for (var i=0; i<ds_list_size(global.udphp_downloadlist); i+=1)
+    {
+        if (ds_exists(global.udphp_downloadlist[| i],ds_type_map)) {
+            ds_map_destroy(global.udphp_downloadlist[| i]);
+        }
+    }
+    ds_list_destroy(global.udphp_downloadlist);
+    global.udphp_downloadlist = -1;
+}
 global.udphp_downloadlist_refreshing = true;
 
 var buffer = buffer_create(256, buffer_grow, 1);

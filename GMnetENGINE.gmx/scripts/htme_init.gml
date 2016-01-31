@@ -1,4 +1,4 @@
-///htme_init()
+///htme_init([bool re-init])
 
 /* 
 **   _    _            _ 
@@ -39,6 +39,14 @@
 /*=================
  *** BELOW: INTERNAL VARIABLES - DO NOT CHANGE 
  =================*/
+ 
+// Handle reinit if disconnected once
+if argument_count>0 {
+    if argument[0]=true {
+        // Clear old ds
+        htme_clean_connect_leftovers();
+    }
+}
  
 /** 
  * ID of the Object that controls the engine. You normally don't have to change this.

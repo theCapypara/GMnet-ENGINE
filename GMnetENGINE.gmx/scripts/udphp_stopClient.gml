@@ -28,5 +28,19 @@ if (!instance_exists(client)) {
     exit;
 }
 
+// Clean others
+if ds_exists(global.udphp_downloadlist_topmap,ds_type_map) {
+    ds_map_destroy(global.udphp_downloadlist_topmap);
+    global.udphp_downloadlist_topmap=-1;
+}
+if ds_exists(global.udphp_downloadlist,ds_type_list) {
+    ds_list_destroy(global.udphp_downloadlist);
+    global.udphp_downloadlist=-1;
+}
+if ds_exists(global.udphp_clients,ds_type_map) {
+    ds_map_destroy(global.udphp_clients);
+    global.udphp_clients=-1;
+}
+
 with (client) {instance_destroy();}
-udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.CLIENT, client, "Client stopped...");
+udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.CLIENT, client, "Client stopped...");
