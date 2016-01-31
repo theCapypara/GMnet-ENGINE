@@ -8,3 +8,5 @@ The source code for MiniUPnPc can be found at: https://github.com/miniupnp/miniu
 upnpc-static.exe is part of the oficial release 2015-09-18 for windows and was included in this official binary download:
     http://miniupnp.free.fr/files/download.php?file=upnpc-exe-win32-20150918.zip
 
+upnpc-static is a linux 32bit static binary and is compiled by GMnet project maintainer Parakoopa using the 1.9. release:
+    https://github.com/miniupnp/miniupnp/releases/tag/miniupnpc_1_9
