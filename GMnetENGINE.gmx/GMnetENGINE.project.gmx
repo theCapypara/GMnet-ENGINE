@@ -3,8 +3,8 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
-  <datafiles number="12" name="datafiles">
-    <datafiles number="12" name="htme">
+  <datafiles number="13" name="datafiles">
+    <datafiles number="13" name="htme">
       <datafile>
         <name>README.txt</name>
         <exists>-1</exists>
@@ -40,74 +40,93 @@
         <filename>LICENSE.txt</filename>
       </datafile>
     </datafiles>
-    <datafile>
-      <name>addport.vbs</name>
-      <exists>-1</exists>
-      <size>269</size>
-      <exportAction>2</exportAction>
-      <exportDir></exportDir>
-      <overwrite>0</overwrite>
-      <freeData>-1</freeData>
-      <removeEnd>0</removeEnd>
-      <store>0</store>
-      <ConfigOptions>
-        <Config name="Default">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
-      </ConfigOptions>
-      <filename>addport.vbs</filename>
-    </datafile>
-    <datafile>
-      <name>ProcessLauncher.dll</name>
-      <exists>-1</exists>
-      <size>15834</size>
-      <exportAction>2</exportAction>
-      <exportDir></exportDir>
-      <overwrite>0</overwrite>
-      <freeData>-1</freeData>
-      <removeEnd>0</removeEnd>
-      <store>0</store>
-      <ConfigOptions>
-        <Config name="Default">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
-      </ConfigOptions>
-      <filename>ProcessLauncher.dll</filename>
-    </datafile>
-    <datafile>
-      <name>removeport.vbs</name>
-      <exists>-1</exists>
-      <size>195</size>
-      <exportAction>2</exportAction>
-      <exportDir></exportDir>
-      <overwrite>0</overwrite>
-      <freeData>-1</freeData>
-      <removeEnd>0</removeEnd>
-      <store>0</store>
-      <ConfigOptions>
-        <Config name="Default">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
-      </ConfigOptions>
-      <filename>removeport.vbs</filename>
-    </datafile>
-    <datafile>
-      <name>upnpc-static.exe</name>
-      <exists>0</exists>
-      <size>0</size>
-      <exportAction>2</exportAction>
-      <exportDir></exportDir>
-      <overwrite>0</overwrite>
-      <freeData>-1</freeData>
-      <removeEnd>0</removeEnd>
-      <store>0</store>
-      <ConfigOptions>
-        <Config name="Default">
-          <CopyToMask>9223372036854775807</CopyToMask>
-        </Config>
-      </ConfigOptions>
-      <filename>upnpc-static.exe</filename>
-    </datafile>
+    <datafiles number="13" name="udphp_lib">
+      <datafile>
+        <name>removeport.vbs</name>
+        <exists>-1</exists>
+        <size>195</size>
+        <exportAction>2</exportAction>
+        <exportDir></exportDir>
+        <overwrite>0</overwrite>
+        <freeData>-1</freeData>
+        <removeEnd>0</removeEnd>
+        <store>0</store>
+        <ConfigOptions>
+          <Config name="Default">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+        </ConfigOptions>
+        <filename>removeport.vbs</filename>
+      </datafile>
+      <datafile>
+        <name>upnpc-static.exe</name>
+        <exists>0</exists>
+        <size>0</size>
+        <exportAction>2</exportAction>
+        <exportDir></exportDir>
+        <overwrite>0</overwrite>
+        <freeData>-1</freeData>
+        <removeEnd>0</removeEnd>
+        <store>0</store>
+        <ConfigOptions>
+          <Config name="Default">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+        </ConfigOptions>
+        <filename>upnpc-static.exe</filename>
+      </datafile>
+      <datafile>
+        <name>ProcessLauncher.dll</name>
+        <exists>-1</exists>
+        <size>15834</size>
+        <exportAction>2</exportAction>
+        <exportDir></exportDir>
+        <overwrite>0</overwrite>
+        <freeData>-1</freeData>
+        <removeEnd>0</removeEnd>
+        <store>0</store>
+        <ConfigOptions>
+          <Config name="Default">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+        </ConfigOptions>
+        <filename>ProcessLauncher.dll</filename>
+      </datafile>
+      <datafile>
+        <name>addport.vbs</name>
+        <exists>-1</exists>
+        <size>269</size>
+        <exportAction>2</exportAction>
+        <exportDir></exportDir>
+        <overwrite>0</overwrite>
+        <freeData>-1</freeData>
+        <removeEnd>0</removeEnd>
+        <store>0</store>
+        <ConfigOptions>
+          <Config name="Default">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+        </ConfigOptions>
+        <filename>addport.vbs</filename>
+      </datafile>
+      <datafile>
+        <name>miniupnpc.txt</name>
+        <exists>-1</exists>
+        <size>451</size>
+        <exportAction>2</exportAction>
+        <exportDir></exportDir>
+        <overwrite>0</overwrite>
+        <freeData>-1</freeData>
+        <removeEnd>0</removeEnd>
+        <store>0</store>
+        <ConfigOptions>
+          <Config name="Default">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+        </ConfigOptions>
+        <filename>miniupnpc.txt</filename>
+      </datafile>
+    </datafiles>
   </datafiles>
   <NewExtensions>
     <extension index="0">extensions\UpnpAndroid</extension>
