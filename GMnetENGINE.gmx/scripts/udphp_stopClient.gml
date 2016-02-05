@@ -42,5 +42,8 @@ if ds_exists(global.udphp_clients,ds_type_map) {
     global.udphp_clients=-1;
 }
 
-with (client) {instance_destroy();}
-udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.CLIENT, client, "Client stopped...");
+// Check if object exists
+if client>-1 {
+    with (client) {instance_destroy();}
+}
+udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.CLIENT, client, "Client stopped...");

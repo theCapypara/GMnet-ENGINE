@@ -35,8 +35,12 @@ with inst {
          ds_map_destroy(group);
          key = ds_map_find_next(self.htme_mp_groups, key);
      }
-     ds_map_destroy(self.htme_mp_vars_recv);    
+     ds_map_destroy(self.htme_mp_vars_recv);
+     self.htme_mp_vars_recv=-1;
      ds_map_destroy(self.htme_mp_groups);
+     self.htme_mp_groups=-1;
      ds_map_destroy(self.htme_mp_vars);
+     self.htme_mp_vars=-1;
      ds_map_destroy(self.htme_mp_vars_sync);
+     self.htme_mp_vars_sync=-1;
 }

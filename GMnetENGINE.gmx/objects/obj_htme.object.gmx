@@ -49,8 +49,15 @@ htme_init();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>/// udphp destroyed us we must clean some now
-htme_clean_connect_leftovers();
+            <string>/// Clean
+// Tell client/server that we want to disconnect now
+if htme_disconnectNow()
+{
+    // If disconnect is ok then do some cleaning
+    // Remove persistent but not synced objects
+    with htme_obj_chat instance_destroy();
+    with htme_obj_playerlist instance_destroy(); 
+}
 </string>
           </argument>
         </arguments>
@@ -193,17 +200,8 @@ htme_roomstart();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Disconnect or kick clients if started
-// Tell client/server that we want to disconnect now
-if htme_disconnectNow()
-{
-    // If disconnect is ok then do some cleaning
-    // Remove persistent but not synced objects
-    with htme_obj_chat instance_destroy();
-    with htme_obj_playerlist instance_destroy();
-    // Go back to menu room
-    room_goto(htme_rom_menu);    
-}
+            <string>/// Clean
+instance_destroy();
 </string>
           </argument>
         </arguments>

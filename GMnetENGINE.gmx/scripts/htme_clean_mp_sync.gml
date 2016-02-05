@@ -16,6 +16,9 @@
 **
 */
 
-ds_map_destroy(self.htme_mp_vars_recv);     
-ds_map_destroy(self.htme_mp_vars_sync);
-ds_map_destroy(self.htme_mp_vars);
+if ds_exists(self.htme_mp_vars_recv,ds_type_map) ds_map_destroy(self.htme_mp_vars_recv);
+self.htme_mp_vars_recv=-1;     
+if ds_exists(self.htme_mp_vars_sync,ds_type_map) ds_map_destroy(self.htme_mp_vars_sync);
+self.htme_mp_vars_sync=-1;
+if ds_exists(self.htme_mp_vars,ds_type_map) ds_map_destroy(self.htme_mp_vars);
+self.htme_mp_vars=-1;

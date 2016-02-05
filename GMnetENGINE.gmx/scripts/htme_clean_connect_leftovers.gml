@@ -17,7 +17,11 @@
 **
 */
 
-ds_map_destroy(self.localInstances);
-ds_map_destroy(self.globalInstances);
-ds_map_destroy(self.sPcountOUT);
-ds_map_destroy(self.sPcountIN);
+if ds_exists(self.localInstances,ds_type_map) ds_map_destroy(self.localInstances);
+self.localInstances=-1;
+if ds_exists(self.globalInstances,ds_type_map) ds_map_destroy(self.globalInstances);
+self.globalInstances=-1;
+if ds_exists(self.sPcountOUT,ds_type_map) ds_map_destroy(self.sPcountOUT);
+self.sPcountOUT=-1;
+if ds_exists(self.sPcountIN,ds_type_map) ds_map_destroy(self.sPcountIN);
+self.sPcountIN=-1;

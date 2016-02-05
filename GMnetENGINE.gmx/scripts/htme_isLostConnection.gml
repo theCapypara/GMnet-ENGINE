@@ -19,7 +19,9 @@
 if instance_exists(global.htme_object) {
     if (!htme_isStarted()) {
         // Clean everything
-        with global.htme_object htme_clientDisconnect();
+        if global.htme_object.clientStopped=false {
+            with global.htme_object htme_clientDisconnect();
+        }
         return true;
     }
 } else {
