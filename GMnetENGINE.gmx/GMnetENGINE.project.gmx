@@ -87,10 +87,12 @@
         <script>scripts\udphp_downloadServerList.gml</script>
       </scripts>
       <script>scripts\udphp_config.gml</script>
+      <script>scripts\udphp_error_message_handler.gml</script>
     </scripts>
     <scripts name="htme">
       <script>scripts\htme_config.gml</script>
       <script>scripts\htme_init.gml</script>
+      <script>scripts\htme_error_message_handler.gml</script>
       <scripts name="internal">
         <script>scripts\htme_debugger.gml</script>
         <script>scripts\htme_hash.gml</script>

@@ -83,7 +83,7 @@ if (htme_serverStart(port,32)) {
     htme_setData(3,get_string("Enter a server description (for the lobbies)?","A server created for the GMnet CORE/ENGINE demo project"));
     room_goto(htme_rom_demo);
 } else {
-    show_message("Could not start server! Check your network configuration!");
+    htme_error_message_handler("Could not start server! Check your network configuration!");
     game_end();
 }
 </string>
@@ -110,12 +110,12 @@ if (htme_serverStart(port,32)) {
             <kind>1</kind>
             <string>///GOTO LOBBY
 if (!obj_htme.use_udphp) {
-   show_message("You need to have GMnet PUNCH enabled in htme_config (use_udphp)!#(And have GMnet ENGINE or GMnet PUNCH)");
+   htme_error_message_handler("You need to have GMnet PUNCH enabled in htme_config (use_udphp)!#(And have GMnet ENGINE or GMnet PUNCH)");
 } else {
   if (room_exists(asset_get_index("udphhtme_lobby"))) {
      room_goto(asset_get_index("udphhtme_lobby"));
   } else {
-   show_message("GMnet PUNCH is NOT INSTALLED (or the lobby room is missing)!#(Do you have GMnet ENGINE or GMnet CORE with GMnet PUNCH installed? Make sure you imported the room udphhtme_lobby. See the first chapter of the tutorial ('Adding the engine to a project') for help!)"); 
+   htme_error_message_handler("GMnet PUNCH is NOT INSTALLED (or the lobby room is missing)!#(Do you have GMnet ENGINE or GMnet CORE with GMnet PUNCH installed? Make sure you imported the room udphhtme_lobby. See the first chapter of the tutorial ('Adding the engine to a project') for help!)"); 
   }
 }
 </string>
@@ -195,7 +195,7 @@ if (htme_clientStart(ip, port)) {
     //Wait for connection success!
     room_goto(htme_rom_connecting);
 } else {
-    show_message("Could not start client! Check your network configuration!");
+    htme_error_message_handler("Could not start client! Check your network configuration!");
     game_end();
 }
 </string>
