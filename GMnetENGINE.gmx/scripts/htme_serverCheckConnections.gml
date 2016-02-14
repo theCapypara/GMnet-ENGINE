@@ -58,7 +58,7 @@ for(var i=0; i<ds_map_size(self.playermap); i+=1) {
         //FIXME: We can't check any other clients this step, because the loop is now brocken
         exit;
     }
-    ds_map_replace(self.serverTimeoutSend,key, timeoutSend-1);
-    ds_map_replace(self.serverTimeoutRecv,key, timeoutRecv-1);
+    ds_map_replace(self.serverTimeoutSend,key, timeoutSend-htme_get_count());
+    ds_map_replace(self.serverTimeoutRecv,key, timeoutRecv-htme_get_count());
     key = ds_map_find_next(self.playermap, key);
 }

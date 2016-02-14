@@ -38,6 +38,6 @@ if (self.clientTimeoutRecv < 0) {
     return false;
 }
 
-self.clientTimeoutSend--;
-self.clientTimeoutRecv--;
+self.clientTimeoutSend-=htme_get_count();
+self.clientTimeoutRecv-=htme_get_count();
 return true;

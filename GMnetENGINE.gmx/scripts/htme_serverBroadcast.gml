@@ -30,5 +30,5 @@ if (self.lan_intervalpnt >= self.lan_interval) {
     network_send_broadcast(self.socketOrServer, self.port+1, self.buffer, buffer_tell(self.buffer));
     self.lan_intervalpnt = 0;
 } else {
-    self.lan_intervalpnt++;
+    self.lan_intervalpnt+=htme_get_count();
 }

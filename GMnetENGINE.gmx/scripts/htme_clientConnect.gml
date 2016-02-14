@@ -21,7 +21,7 @@
 if (!self.isConnected) {
     //Connect to server now!
     htme_debugger("htme_clientStart",htme_debug.DEBUG,"Connecting with server "+string(server_ip)+":"+string(server_port))
-    self.client_timeout++;
+    self.client_timeout+=htme_get_count();
     //Send a packet to the server to request connection. If this reaches the server, he will
     //add us to the list of players and send an answer.
     buffer_seek(self.buffer, buffer_seek_start, 0);

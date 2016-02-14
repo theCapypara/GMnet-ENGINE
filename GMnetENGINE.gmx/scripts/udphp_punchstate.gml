@@ -46,7 +46,7 @@ switch (client.punch_stage)
                 // Send message and try to connect to server
                 network_send_udp( client.udp_socket, client.server_ip, client.punch_stage_external_server_port+client.punch_stage_counter, client.buffer, buffer_tell(client.buffer) );            
                 // Wait some to test the other port
-                client.punch_stage_timeout-=1;
+                client.punch_stage_timeout-=udphp_get_count();
                 // Timeout on this port try another one
                 if (client.punch_stage_timeout<=0) {
                     client.punch_stage_sub1=udphp_punch_substates.DEFAULT;
@@ -125,7 +125,7 @@ switch (client.punch_stage)
                 break;
             case udphp_punch_substates.PRED_REST:
                 // Wait some to test the new port
-                client.punch_stage_timeout-=1;
+                client.punch_stage_timeout-=udphp_get_count();
                 // Timeout on this port try another one
                 if client.punch_stage_timeout<=0 
                 {

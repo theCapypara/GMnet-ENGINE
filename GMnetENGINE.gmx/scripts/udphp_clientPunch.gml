@@ -43,7 +43,7 @@ if (!client.connected) {
     if (client.directconnect) {
         //DIRECT CONNECT or GOT SERVER PORT (and can now connect directly)
         udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.CLIENT, client, "Connecting with server "+string(client.server_ip)+":"+string(client.server_port))
-        client.timeout++;
+        client.timeout+=udphp_get_count();
         //Send a packet to the server to punch the hole. If this reaches the server, he will
         //add us to the list of players and send an answer.
         buffer_seek(client.buffer, buffer_seek_start, 0);
@@ -52,8 +52,8 @@ if (!client.connected) {
         udphp_punchstate(client);
 
         // Change punch stages depending on the total timeout
-        if (client.punch_stage != udphp_punch_states.TRY_SEQUENCE_PORT && 
-          client.timeout == floor(global_timeout*(udphp_punch_states.TRY_SEQUENCE_PORT/100))) {
+        if (client.punch_stage < udphp_punch_states.TRY_SEQUENCE_PORT && 
+          client.timeout > global_timeout*(udphp_punch_states.TRY_SEQUENCE_PORT/100)) {
             // Try change the external server port
             // If the server NAT changed the port to a sequencent port nearby the received port from master server
             // Some NAT change the external port when external ip change in the send network message.
@@ -63,8 +63,8 @@ if (!client.connected) {
             // Only config this once
             client.punch_stage = udphp_punch_states.TRY_SEQUENCE_PORT;
             
-        } else if (client.punch_stage != udphp_punch_states.TRY_PREDICTING_PORT && 
-          client.timeout == floor((global_timeout*udphp_punch_states.TRY_PREDICTING_PORT/100))) {
+        } else if (client.punch_stage < udphp_punch_states.TRY_PREDICTING_PORT && 
+          client.timeout > (global_timeout*udphp_punch_states.TRY_PREDICTING_PORT/100)) {
             // Try change the external server port
             // If the server NAT changed the port to a random port
             // We can use the last port from the master server as a max and min to predict the next port

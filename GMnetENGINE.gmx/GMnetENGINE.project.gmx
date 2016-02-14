@@ -81,6 +81,7 @@
         <script>scripts\udphp_string_explode.gml</script>
         <script>scripts\udphp_handleerror.gml</script>
         <script>scripts\udphp_punchstate.gml</script>
+        <script>scripts\udphp_get_count.gml</script>
       </scripts>
       <scripts name="lobby">
         <script>scripts\udphp_downloadNetworking.gml</script>
@@ -100,6 +101,7 @@
         <script>scripts\htme_ds_map_find_key.gml</script>
         <script>scripts\htme_playerMapPort.gml</script>
         <script>scripts\htme_playerMapIP.gml</script>
+        <script>scripts\htme_get_count.gml</script>
       </scripts>
       <scripts name="tools">
         <script>scripts\htme_isLocal.gml</script>
