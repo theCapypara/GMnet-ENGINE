@@ -33,6 +33,21 @@ self.socketOrServer = network_create_socket(network_socket_udp);
 if( self.socketOrServer<0 ){   
     //Stop client, when a socket could not be created
     htme_debugger("htme_clientStart",htme_debug.DEBUG,"Could not start Client! Return of network_create_socket: "+string(self.socketOrServer));
+    //Create dummy variables for clean script, else it will crash
+    self.playermap = -1;
+    self.kickmap = -1;
+    self.playerrooms = -1;
+    self.serverTimeoutSend = -1;
+    self.serverTimeoutRecv = -1;
+    self.signedPackets = -1;
+    self.signedPacketsCategories = -1;
+    self.serverBackup = -1;
+    self.playerlist = -1;
+    self.grouplist = -1;
+    self.grouplist_local = -1;
+    self.globalsync = -1;
+    self.globalsync_datatypes = -1;
+    self.chatQueues = -1;    
     htme_clientStop();
     return false;
 }

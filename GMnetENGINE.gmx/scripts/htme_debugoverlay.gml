@@ -43,7 +43,7 @@ if (string_copy(self.gamename,0,13) == "gmnet_engine_") {
     draw_text(self.dbg_right-20,self.dbg_top+50,str);
     draw_set_halign(fa_left);
     if (keyboard_check_pressed(vk_f10)) {
-        show_message("Warning! 
+        htme_error_message_handler("Warning! 
 You are using the default gamename string! 
 If you are testing the demo project or simply play arround with the engine, ignore this.
 Otherwise, when making your game, you need to change 'self.gamename' in 'htme_config'.

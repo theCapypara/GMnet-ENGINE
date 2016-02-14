@@ -31,7 +31,7 @@ switch (gmversionpick)
     case 1: self.socketOrServer = network_create_socket_ext(network_socket_udp,port); break;
     case 2: self.socketOrServer = network_create_socket(network_socket_udp); break;
     case 3: self.socketOrServer = network_create_server(network_socket_udp,port,maxclients); break;
-    default: show_message("Go to script: htme_serverStart and decomment the one you use!");  
+    default: htme_error_message_handler("Go to script: htme_serverStart and decomment the one you use!");  
 }
 
 self.port = port;
@@ -39,6 +39,21 @@ self.port = port;
 //Check if server was created
 if(self.socketOrServer<0) {
     htme_debugger("htme_serverStart",htme_debug.ERROR,"Could not start Server! Return of network_create_server: "+string(self.socketOrServer));
+    //Create dummy variables for clean script, else it will crash
+    self.playermap = -1;
+    self.kickmap = -1;
+    self.playerrooms = -1;
+    self.serverTimeoutSend = -1;
+    self.serverTimeoutRecv = -1;
+    self.signedPackets = -1;
+    self.signedPacketsCategories = -1;
+    self.serverBackup = -1;
+    self.playerlist = -1;
+    self.grouplist = -1;
+    self.grouplist_local = -1;
+    self.globalsync = -1;
+    self.globalsync_datatypes = -1;
+    self.chatQueues = -1;
     htme_serverStop();
     return false;
 }

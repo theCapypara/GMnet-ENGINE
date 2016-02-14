@@ -282,7 +282,7 @@ if (ds_exists(l,ds_type_list)) {
         var game = entry[? "data1"];
         if (game != self.game) {
            //Not compatible game, exit
-           show_message("Game server or version is incompatible!");
+           htme_error_message_handler("Game server or version is incompatible!");
            exit;
         }
         //====GMnet PUNCH DEMO ONLY
@@ -305,7 +305,7 @@ if (ds_exists(l,ds_type_list)) {
                 //Wait for connection success!
                 room_goto(asset_get_index("htme_rom_connecting"));
             } else {
-                show_message("Could not start client! Check your network configuration!");
+                htme_error_message_handler("Could not start client! Check your network configuration!");
             }
         }
     } else {
@@ -345,7 +345,7 @@ if (ds_exists(l,ds_type_list)) {
         var game = entry[? "data1"];
         if (game != self.game) {
            //Not compatible game, exit
-           show_message("Game server or version is incompatible!");
+           htme_error_message_handler("Game server or version is incompatible!");
            exit;
         }
         //====GMnet PUNCH DEMO ONLY
@@ -368,7 +368,7 @@ if (ds_exists(l,ds_type_list)) {
                 //Wait for connection success!
                 room_goto(asset_get_index("htme_rom_connecting"));
             } else {
-                show_message("Could not start client! Check your network configuration!");
+                htme_error_message_handler("Could not start client! Check your network configuration!");
             }
         }
     } else {
@@ -408,7 +408,7 @@ if (ds_exists(l,ds_type_list)) {
         var game = entry[? "data1"];
         if (game != self.game) {
            //Not compatible game, exit
-           show_message("Game server or version is incompatible!");
+           htme_error_message_handler("Game server or version is incompatible!");
            exit;
         }
         //====GMnet PUNCH DEMO ONLY
@@ -431,7 +431,7 @@ if (ds_exists(l,ds_type_list)) {
                 //Wait for connection success!
                 room_goto(asset_get_index("htme_rom_connecting"));
             } else {
-                show_message("Could not start client! Check your network configuration!");
+                htme_error_message_handler("Could not start client! Check your network configuration!");
             }
         }
     } else {
@@ -471,7 +471,7 @@ if (ds_exists(l,ds_type_list)) {
         var game = entry[? "data1"];
         if (game != self.game) {
            //Not compatible game, exit
-           show_message("Game server or version is incompatible!");
+           htme_error_message_handler("Game server or version is incompatible!");
            exit;
         }
         //====GMnet PUNCH DEMO ONLY
@@ -494,7 +494,7 @@ if (ds_exists(l,ds_type_list)) {
                 //Wait for connection success!
                 room_goto(asset_get_index("htme_rom_connecting"));
             } else {
-                show_message("Could not start client! Check your network configuration!");
+                htme_error_message_handler("Could not start client! Check your network configuration!");
             }
         }
     } else {

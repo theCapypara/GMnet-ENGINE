@@ -67,7 +67,7 @@ htme_debugger("htme_init",htme_debug.DEBUG,"Loaded configuration");
 var currentConfigVersion = 1;
 
 if (self.config_version != currentConfigVersion) {
-   show_message("You need to update your GMnet configuration.#
+   htme_error_message_handler("You need to update your GMnet configuration.#
        Plese have a look at the changelog in the manual or on the marketplace page for more information.");
    htme_debugger("htme_init",htme_debug.DEBUG,"Config Version check NOT successful");
    //Destroy event crashes game if this variable isn't set

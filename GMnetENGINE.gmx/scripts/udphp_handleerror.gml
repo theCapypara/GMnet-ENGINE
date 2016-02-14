@@ -42,12 +42,12 @@ switch type {
     case udphp_dbglvl.ERROR:
         pretext += message;
         show_debug_message(pretext);
-        show_message(pretext);
+        udphp_error_message_handler(pretext);
     break;
     case udphp_dbglvl.WARNING:
         pretext += message;
         show_debug_message(pretext);
-        if (debug) show_message(pretext);
+        if (debug) udphp_error_message_handler(pretext);
     break;
     case udphp_dbglvl.DEBUG:
     default:

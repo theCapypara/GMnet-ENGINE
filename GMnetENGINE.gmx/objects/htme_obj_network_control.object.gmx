@@ -114,7 +114,7 @@
             <kind>1</kind>
             <string>///Check if engine running
 if (htme_isLostConnection()) {
-    show_message("Game Server or Client died! Go back to menu...");
+    htme_error_message_handler("Game Server or Client died! Go back to menu...");
     
     // Clean other persistent non synced objects from room
     with htme_obj_chat instance_destroy();
