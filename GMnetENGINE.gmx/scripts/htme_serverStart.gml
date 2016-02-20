@@ -23,6 +23,9 @@ with (global.htme_object) {
 var port = argument0;
 var maxclients = argument1;
 
+// Set max clients to engine
+self.maxConnectingClients = maxclients;
+
 //Create the server socket
 htme_debugger("htme_serverStart",htme_debug.DEBUG,"STARTING SERVER");
 switch (gmversionpick)

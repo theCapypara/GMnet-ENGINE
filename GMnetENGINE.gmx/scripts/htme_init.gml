@@ -206,6 +206,8 @@ self.tmp_instanceForceCreated = false;
 self.grouplist = -1;
 //The same for only local instances (server)
 self.grouplist_local = -1;
+// max connecting clients
+self.maxConnectingClients = 0;
 //
 self.tmp_creatingNetworkInstanceHash = "";
 //the 7 data strings (2-8)
