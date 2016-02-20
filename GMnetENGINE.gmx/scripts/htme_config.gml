@@ -60,6 +60,14 @@ use_delta_time=false;
 
 /** 
  * WHEN USING GMnet PUNCH:
+ * Setup the portforward on the router using upnp
+ * Works on Windows,Android,Linux
+ * @type boolean
+ */
+self.upnp_enabled = false;
+
+/** 
+ * WHEN USING GMnet PUNCH:
  * The server should reconnect to the master server every x steps.
  * The server will only reconnect if it's no longer connected.
  * @type real

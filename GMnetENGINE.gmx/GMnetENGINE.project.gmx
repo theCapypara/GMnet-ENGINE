@@ -3,8 +3,8 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
-  <datafiles number="5" name="datafiles">
-    <datafiles number="5" name="htme">
+  <datafiles number="17" name="datafiles">
+    <datafiles number="17" name="htme">
       <datafile>
         <name>README.txt</name>
         <exists>-1</exists>
@@ -40,8 +40,148 @@
         <filename>LICENSE.txt</filename>
       </datafile>
     </datafiles>
+    <datafiles number="17" name="udphp_lib">
+      <datafile>
+        <name>removeport.vbs</name>
+        <exists>-1</exists>
+        <size>195</size>
+        <exportAction>2</exportAction>
+        <exportDir></exportDir>
+        <overwrite>0</overwrite>
+        <freeData>-1</freeData>
+        <removeEnd>0</removeEnd>
+        <store>0</store>
+        <ConfigOptions>
+          <Config name="Default">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+        </ConfigOptions>
+        <filename>removeport.vbs</filename>
+      </datafile>
+      <datafile>
+        <name>upnpc-static.exe</name>
+        <exists>0</exists>
+        <size>0</size>
+        <exportAction>2</exportAction>
+        <exportDir></exportDir>
+        <overwrite>0</overwrite>
+        <freeData>-1</freeData>
+        <removeEnd>0</removeEnd>
+        <store>0</store>
+        <ConfigOptions>
+          <Config name="Default">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+        </ConfigOptions>
+        <filename>upnpc-static.exe</filename>
+      </datafile>
+      <datafile>
+        <name>ProcessLauncher.dll</name>
+        <exists>-1</exists>
+        <size>15834</size>
+        <exportAction>2</exportAction>
+        <exportDir></exportDir>
+        <overwrite>0</overwrite>
+        <freeData>-1</freeData>
+        <removeEnd>0</removeEnd>
+        <store>0</store>
+        <ConfigOptions>
+          <Config name="Default">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+        </ConfigOptions>
+        <filename>ProcessLauncher.dll</filename>
+      </datafile>
+      <datafile>
+        <name>addport.vbs</name>
+        <exists>-1</exists>
+        <size>269</size>
+        <exportAction>2</exportAction>
+        <exportDir></exportDir>
+        <overwrite>0</overwrite>
+        <freeData>-1</freeData>
+        <removeEnd>0</removeEnd>
+        <store>0</store>
+        <ConfigOptions>
+          <Config name="Default">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+        </ConfigOptions>
+        <filename>addport.vbs</filename>
+      </datafile>
+      <datafile>
+        <name>miniupnpc.txt</name>
+        <exists>-1</exists>
+        <size>451</size>
+        <exportAction>2</exportAction>
+        <exportDir></exportDir>
+        <overwrite>0</overwrite>
+        <freeData>-1</freeData>
+        <removeEnd>0</removeEnd>
+        <store>0</store>
+        <ConfigOptions>
+          <Config name="Default">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+        </ConfigOptions>
+        <filename>miniupnpc.txt</filename>
+      </datafile>
+      <datafile>
+        <name>upnpc-static</name>
+        <exists>-1</exists>
+        <size>63080</size>
+        <exportAction>2</exportAction>
+        <exportDir></exportDir>
+        <overwrite>0</overwrite>
+        <freeData>-1</freeData>
+        <removeEnd>0</removeEnd>
+        <store>0</store>
+        <ConfigOptions>
+          <Config name="Default">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+        </ConfigOptions>
+        <filename>upnpc-static</filename>
+      </datafile>
+      <datafile>
+        <name>addport.sh</name>
+        <exists>-1</exists>
+        <size>75</size>
+        <exportAction>2</exportAction>
+        <exportDir></exportDir>
+        <overwrite>0</overwrite>
+        <freeData>-1</freeData>
+        <removeEnd>0</removeEnd>
+        <store>0</store>
+        <ConfigOptions>
+          <Config name="Default">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+        </ConfigOptions>
+        <filename>addport.sh</filename>
+      </datafile>
+      <datafile>
+        <name>removeport.sh</name>
+        <exists>-1</exists>
+        <size>75</size>
+        <exportAction>2</exportAction>
+        <exportDir></exportDir>
+        <overwrite>0</overwrite>
+        <freeData>-1</freeData>
+        <removeEnd>0</removeEnd>
+        <store>0</store>
+        <ConfigOptions>
+          <Config name="Default">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+        </ConfigOptions>
+        <filename>removeport.sh</filename>
+      </datafile>
+    </datafiles>
   </datafiles>
-  <NewExtensions/>
+  <NewExtensions>
+    <extension index="0">extensions\GMnet</extension>
+  </NewExtensions>
   <sounds name="sound"/>
   <sprites name="sprites">
     <sprites name="htme_demo">
@@ -289,6 +429,9 @@
     </objects>
     <objects name="udphp_demo">
       <object>objects\obj_udphphtme_lobby</object>
+    </objects>
+    <objects name="upnp">
+      <object>objects\obj_upnp</object>
     </objects>
   </objects>
   <rooms name="rooms">
