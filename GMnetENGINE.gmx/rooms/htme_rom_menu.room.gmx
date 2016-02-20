@@ -53,6 +53,7 @@
   <instances>
     <instance objName="htme_obj_menu" x="32" y="64" name="inst_CDE01468" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_htme" x="64" y="64" name="inst_C3BA4EBC" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_dual_instance" x="96" y="64" name="inst_F15EF4BE" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles/>
   <PhysicsWorld>0</PhysicsWorld>
