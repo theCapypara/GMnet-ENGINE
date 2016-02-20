@@ -36,7 +36,6 @@ auto_remove_port=true;
 failedtoload=false;
 switch (os_type)
 {
-    case os_windows: if !processDLL_init("ProcessLauncher.dll") {failedtoload=true; instance_destroy();} break;
     case os_android: event_user(2); break;
 }
 
@@ -45,39 +44,6 @@ getlocalip=true;
 mylocalip="";
 upnp_running=0; // If upnp works in extension
 upnp_id=htme_hash(); // So we can filter this computer broadcast
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="1" enumb="0">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>/// Unload
-// Auto remove port
-if auto_remove_port event_user(1);
-// Unload from os
-if failedtoload=false
-{
-    switch (os_type)
-    {
-        case os_windows: processDLL_free(); break;
-    }
-}
 </string>
           </argument>
         </arguments>
@@ -247,7 +213,11 @@ if port_to_set&gt;-1
 {
     switch (os_type)
     {
-        case os_windows: execute_shell_dir("removeport.vbs",working_directory,string(port_to_set)); break;
+        case os_windows: execute_shell_dir("removeport.vbs",working_directory+"udphp_lib/",string(port_to_set)); break;
+        case os_linux: 
+            execute_shell_dir_linux("chmod",working_directory+"udphp_lib/","+x removeport.sh"); 
+            execute_shell_dir_linux("./removeport.sh",working_directory+"udphp_lib/",string(port_to_set)); 
+            break;
         case os_android: if upnp_running=1 Upnp_remove(port_to_set); break;
     }
 }
@@ -276,9 +246,14 @@ if port_to_set&gt;-1
             <string>/// Add port
 if port_to_set&gt;-1
 {
+    show_message("Let's go!");
     switch (os_type)
     {
-        case os_windows: execute_shell_dir("addport.vbs",working_directory,string(port_to_set)); break;
+        case os_windows: execute_shell_dir("addport.vbs",working_directory+"udphp_lib/",string(port_to_set)); break;
+        case os_linux: 
+            execute_shell_dir_linux("chmod",working_directory+"udphp_lib/","+x addport.sh"); 
+            execute_shell_dir_linux("./addport.sh",working_directory+"udphp_lib/",string(port_to_set)); 
+            break;
     }
 }
 </string>

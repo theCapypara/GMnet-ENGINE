@@ -42,8 +42,9 @@ self.udphp_master_ip = "95.85.63.183";
 self.udphp_master_port = 6510;
 
 /** 
+ * WHEN USING GMnet PUNCH:
  * Setup the portforward on the router using upnp
- * Works on Windows,Android
+ * Works on Windows,Android,Linux
  * @type boolean
  */
 self.upnp_enabled = false;

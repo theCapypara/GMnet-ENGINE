@@ -3,8 +3,8 @@
   <Configs name="configs">
     <Config>Configs\Default</Config>
   </Configs>
-  <datafiles number="13" name="datafiles">
-    <datafiles number="13" name="htme">
+  <datafiles number="17" name="datafiles">
+    <datafiles number="17" name="htme">
       <datafile>
         <name>README.txt</name>
         <exists>-1</exists>
@@ -40,7 +40,7 @@
         <filename>LICENSE.txt</filename>
       </datafile>
     </datafiles>
-    <datafiles number="13" name="udphp_lib">
+    <datafiles number="17" name="udphp_lib">
       <datafile>
         <name>removeport.vbs</name>
         <exists>-1</exists>
@@ -126,10 +126,61 @@
         </ConfigOptions>
         <filename>miniupnpc.txt</filename>
       </datafile>
+      <datafile>
+        <name>upnpc-static</name>
+        <exists>-1</exists>
+        <size>63080</size>
+        <exportAction>2</exportAction>
+        <exportDir></exportDir>
+        <overwrite>0</overwrite>
+        <freeData>-1</freeData>
+        <removeEnd>0</removeEnd>
+        <store>0</store>
+        <ConfigOptions>
+          <Config name="Default">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+        </ConfigOptions>
+        <filename>upnpc-static</filename>
+      </datafile>
+      <datafile>
+        <name>addport.sh</name>
+        <exists>-1</exists>
+        <size>75</size>
+        <exportAction>2</exportAction>
+        <exportDir></exportDir>
+        <overwrite>0</overwrite>
+        <freeData>-1</freeData>
+        <removeEnd>0</removeEnd>
+        <store>0</store>
+        <ConfigOptions>
+          <Config name="Default">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+        </ConfigOptions>
+        <filename>addport.sh</filename>
+      </datafile>
+      <datafile>
+        <name>removeport.sh</name>
+        <exists>-1</exists>
+        <size>75</size>
+        <exportAction>2</exportAction>
+        <exportDir></exportDir>
+        <overwrite>0</overwrite>
+        <freeData>-1</freeData>
+        <removeEnd>0</removeEnd>
+        <store>0</store>
+        <ConfigOptions>
+          <Config name="Default">
+            <CopyToMask>9223372036854775807</CopyToMask>
+          </Config>
+        </ConfigOptions>
+        <filename>removeport.sh</filename>
+      </datafile>
     </datafiles>
   </datafiles>
   <NewExtensions>
-    <extension index="0">extensions\UpnpAndroid</extension>
+    <extension index="0">extensions\GMnet</extension>
   </NewExtensions>
   <sounds name="sound"/>
   <sprites name="sprites">
@@ -340,14 +391,6 @@
     </scripts>
     <scripts name="htme_demo">
       <script>scripts\totro.gml</script>
-    </scripts>
-    <scripts name="upnp">
-      <scripts name="windows">
-        <script>scripts\execute_program_dir.gml</script>
-        <script>scripts\execute_shell_dir.gml</script>
-        <script>scripts\processDLL_init.gml</script>
-        <script>scripts\processDLL_free.gml</script>
-      </scripts>
     </scripts>
   </scripts>
   <objects name="objects">
