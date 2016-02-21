@@ -1,4 +1,4 @@
-///htme_syncGroupNow(sync group name)
+///htme_syncGroupNow(sync group name, [sync group name 2])
 /*
 **  Description:
 **      Forces the synchronization of a variable group with the given name.
@@ -21,8 +21,13 @@ with obj_htme {
     for(var i=0; i<ds_list_size(self.grouplist_local); i+=1) {
         var group = ds_list_find_value(grouplist_local,i);
         // Set to sync the group now
-        if (group[? "name"] == argument0) {
+        if (group[? "name"] == argument[0]) {
             group[? "__counter"] = 0;
-        }      
+        }    
+        if argument_count>1 {
+            if (group[? "name"] == argument[1]) {
+                group[? "__counter"] = 0;
+            }    
+        }         
     }
 }
