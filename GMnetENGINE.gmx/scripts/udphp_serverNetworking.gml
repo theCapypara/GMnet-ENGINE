@@ -21,7 +21,7 @@
 
 /// CHECK IF SERVER IS RUNNING (we can use any server-releated variable for that; we assume they don't get changed from outside)
 if (global.udphp_server_counter == -1) {
-    udphp_handleerror(udphp_dbglvl.WARNING, udphp_dbgtarget.SERVER, 0, "Server was not started.");
+    htme_debugger("udphp_serverNetworking", htme_debug.WARNING, "Server was not started.", true);
     exit;
 }
 
@@ -40,7 +40,7 @@ if (in_id != global.udphp_server_udp and in_id != global.udphp_server_tcp) exit;
 
 //SCENARIO 1: Master server sends client information! Somebody wants to connect
 if (in_ip == global.udphp_master and in_id == global.udphp_server_tcp) {
-    udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.SERVER, 0, "Got message from master server");
+    htme_debugger("udphp_serverNetworking", htme_debug.DEBUG, "Got message from master server", true);
     //Read command
     var com = buffer_read(in_buff, buffer_s8 );
     switch com {
@@ -49,10 +49,10 @@ if (in_ip == global.udphp_master and in_id == global.udphp_server_tcp) {
             var client_ip = buffer_read(in_buff, buffer_string );
             var client_port = real(buffer_read(in_buff, buffer_string ));
             ds_map_add(incoming_requests,client_ip+":"+string(client_port),0);
-            udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.SERVER, 0, "Client "+client_ip+string(client_port)+ "wants to connect.");
+            htme_debugger("udphp_serverNetworking", htme_debug.DEBUG, "Client "+client_ip+string(client_port)+ "wants to connect.", true);
         break;
         default:
-            udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.SERVER, 0, "Unknown message from master server. ("+string(com)+")");
+            htme_debugger("udphp_serverNetworking", htme_debug.DEBUG, "Unknown message from master server. ("+string(com)+")", true);
         break;
     }
 } 
@@ -70,7 +70,7 @@ else if (ds_list_find_index(players,in_ip+":"+string(in_port)) == -1) {
             //the server thinks we are connected, but we aren't! Time the players out like in
             //the demo to check if they are connected.
             ds_map_add(incoming_requests2,in_ip+":"+string(in_port),0);
-            udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.SERVER, 0, "CONNECTED TO CLIENT "+in_ip+":"+string(in_port));
+            htme_debugger("udphp_serverNetworking", htme_debug.DEBUG, "CONNECTED TO CLIENT "+in_ip+":"+string(in_port), true);
         break;
     }
 }
@@ -78,7 +78,7 @@ else {
      //SCENARIO 2,5: Check if data was requested.
      switch buffer_read(in_buff, buffer_s8 ) {
         case udphp_packet.DATAREQ:
-             udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.SERVER, 0, "Client "+in_ip+":"+string(in_port)+" asked for data");
+             htme_debugger("udphp_serverNetworking", htme_debug.DEBUG, "Client "+in_ip+":"+string(in_port)+" asked for data", true);
              //Send data
              buffer_seek(global.udphp_server_buffer, buffer_seek_start, 0);
              buffer_write(global.udphp_server_buffer, buffer_s8, udphp_packet.DATA);

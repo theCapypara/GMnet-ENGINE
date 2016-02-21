@@ -57,4 +57,4 @@ with (global.htme_object) {
     self.lanlobbysearch = true;
     self.lanlobbyfilter = gamefilter;
     self.lanlobbysearchserver = network_create_server(network_socket_udp,port+1,32);
-}
+}

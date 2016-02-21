@@ -40,7 +40,7 @@ var directconnect_port = argument4;
 
 // Create a new client instance for this client
 var client = instance_create(0,0,obj_punch_client);
-udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.CLIENT, client, "Starting...");
+htme_debugger("udphp_createClient", htme_debug.DEBUG, "Starting...", true);
 
 // Create a TCP/IP socket
 var tcp_client = network_create_socket(network_socket_tcp);
@@ -51,7 +51,7 @@ client.buffer = buffer;
 
 if( udp_client<0 or tcp_client<0 ){   
     //Stop client, when a socket could not be created
-    udphp_handleerror(udphp_dbglvl.ERROR, udphp_dbgtarget.CLIENT, client, "Could not start Client!");
+    htme_debugger("udphp_createClient", htme_debug.ERROR, "Could not start Client!", true);
     udphp_stopClient(client);
     return false;
     exit;
@@ -70,13 +70,13 @@ if (!directconnect) {
     //Send request to server when hole punching.
     //UDP -> Send port
     //See udphp_serverPunch - This is essentially the same (just for the client in this case).
-    udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.CLIENT, client, "Setting up hole punch.");
+    htme_debugger("udphp_createClient", htme_debug.DEBUG, "Setting up hole punch.", true);
     buffer_seek(buffer, buffer_seek_start, 0);
     buffer_write(buffer, buffer_string, "connect"+chr(10));
     //Please note: The master server bundled with this extension can only save one port
     //per client, this means multiple clients can not connect from the same ip at the same time.
     //(if they are CONNECTED though, a new one can be registered and connect!)
-    udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.CLIENT, client, "Requesting connection Data - Sent UDP Packet");
+    htme_debugger("udphp_createClient", htme_debug.DEBUG, "Requesting connection Data - Sent UDP Packet", true);
     network_send_udp(udp_client,global.udphp_master, global.udphp_master_port, buffer, buffer_tell(buffer) );
     
     //TCP -> Send connection
@@ -91,21 +91,21 @@ if (!directconnect) {
          //When the master server is not reachable, we fall back to direct connect.
          //PLEASE NOTE: Because of this you usally WANT to specify the port even with
          //             directconnect send to false! See arguement list for details!
-         udphp_handleerror(udphp_dbglvl.WARNING, udphp_dbgtarget.CLIENT, client, "Requesting connection Data - Master Server Connection failed. Fallback to direct connect.");
+         htme_debugger("udphp_createClient", htme_debug.WARNING, "Requesting connection Data - Master Server Connection failed. Fallback to direct connect.", true);
          client.directconnect = true;
     } else {
        //Great! Let's wait for a response.
-       udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.CLIENT, client, "Requesting connection Data - Connected via TCP");
+       htme_debugger("udphp_createClient", htme_debug.DEBUG, "Requesting connection Data - Connected via TCP", true);
        err = network_send_raw(tcp_client,buffer, buffer_tell(buffer) );
         if (err<0) {
-           udphp_handleerror(udphp_dbglvl.WARNING, udphp_dbgtarget.CLIENT, client, "Requesting connection Data - Master Server Connection failed. Fallback to direct connect.");
+           htme_debugger("udphp_createClient", htme_debug.WARNING, "Requesting connection Data - Master Server Connection failed. Fallback to direct connect.", true);
            client.directconnect = true;
        }
        else {
-           udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.CLIENT, client, "Requesting connection Data - Sent TCP Packet");
+           htme_debugger("udphp_createClient", htme_debug.DEBUG, "Requesting connection Data - Sent TCP Packet", true);
        }
     }
-} else udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.CLIENT, client, "We are not holepunching on request.");
+} else htme_debugger("udphp_createClient", htme_debug.DEBUG, "We are not holepunching on request.", true);
 
-udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.CLIENT, client, "Started");
+htme_debugger("udphp_createClient", htme_debug.DEBUG, "Started", true);
 return client;

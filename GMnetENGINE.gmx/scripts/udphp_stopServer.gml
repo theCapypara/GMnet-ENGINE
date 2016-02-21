@@ -17,9 +17,9 @@
 **      <nothing>
 **
 */
-udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.SERVER, 0, "Stopping server...");
+htme_debugger("udphp_stopServer", htme_debug.DEBUG, "Stopping server...", true);
 if (global.udphp_server_counter == -1) {
-    udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.SERVER, 0, "Server was not started.");
+    htme_debugger("udphp_stopServer", htme_debug.DEBUG, "Server was not started.", true);
     exit;
 }
 
@@ -34,4 +34,4 @@ global.udphp_server_incoming_requests = -1;
 ds_map_destroy(global.udphp_server_incoming_requests2);
 global.udphp_server_incoming_requests2 = -1;
 global.udphp_server_players = -1;
-udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.SERVER, 0, "Server stopped");
+htme_debugger("udphp_stopServer", htme_debug.DEBUG, "Server stopped", true);

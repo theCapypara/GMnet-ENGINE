@@ -18,7 +18,7 @@
 var client = argument0;
 
 if (!instance_exists(client)) {
-    udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.CLIENT, client, "Client not found");
+    htme_debugger("udphp_clientIsConnected", htme_debug.DEBUG, "Client not found", true);
     return false;
 }
 

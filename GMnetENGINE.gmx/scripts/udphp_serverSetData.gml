@@ -30,7 +30,7 @@
 
 /// CHECK IF SERVER IS RUNNING (we can use any server-releated variable for that; we assume they don't get changed from outside)
 if (global.udphp_server_counter == -1) {
-    udphp_handleerror(udphp_dbglvl.WARNING, udphp_dbgtarget.SERVER, 0, "Server was not started.");
+    htme_debugger("udphp_serverSetData", htme_debug.WARNING, "Server was not started.", true);
     exit;
 }
 

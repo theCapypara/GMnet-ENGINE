@@ -17,7 +17,7 @@ var client = argument0;
 
 /// CHECK IF CLIENT IS RUNNING (we can use any client-releated variable for that; we assume they don't get changed from outside)
 if (!instance_exists(client)) {
-    udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.CLIENT, client, "Client not found");
+    htme_debugger("udphp_punchstate", htme_debug.DEBUG, "Client not found", true);
     exit;
 }
 
@@ -34,7 +34,7 @@ switch (client.punch_stage)
                 // to test more ports increase the connect timeout variable in config
                 client.punch_stage_timeout=global.udphp_punch_stage_timeout_initial;
                 // Change port on client
-                udphp_handleerror(udphp_dbglvl.WARNING, udphp_dbgtarget.CLIENT, client, "No response. Try connect using sequence server port: " + string(client.punch_stage_external_server_port+client.punch_stage_counter));
+                htme_debugger("udphp_punchstate", htme_debug.WARNING, "No response. Try connect using sequence server port: " + string(client.punch_stage_external_server_port+client.punch_stage_counter), true);
                 client.server_port = client.punch_stage_external_server_port+client.punch_stage_counter;                
                 // Send message and try to connect to server
                 network_send_udp( client.udp_socket, client.server_ip, client.punch_stage_external_server_port+client.punch_stage_counter, client.buffer, buffer_tell(client.buffer) );                
@@ -120,7 +120,7 @@ switch (client.punch_stage)
                     // Send message and try to connect to server
                     network_send_udp( client.udp_socket, client.server_ip, client.punch_stage_predict_list[client.punch_stage_counter], client.buffer, buffer_tell(client.buffer) );                     
                 }
-                udphp_handleerror(udphp_dbglvl.WARNING, udphp_dbgtarget.CLIENT, client, "No response. Try connect using predict server port: " + string(client.punch_stage_counter/array_length_1d(client.punch_stage_predict_list)) + "% tested");
+                htme_debugger("udphp_punchstate", htme_debug.WARNING, "No response. Try connect using predict server port: " + string(client.punch_stage_counter/array_length_1d(client.punch_stage_predict_list)) + "% tested", true);
                 client.punch_stage_sub1=udphp_punch_substates.PRED_REST;
                 break;
             case udphp_punch_substates.PRED_REST:

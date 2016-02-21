@@ -21,7 +21,7 @@
 var client = argument0;
 /// CHECK IF CLIENT IS RUNNING (we can use any client-releated variable for that; we assume they don't get changed from outside)
 if (!instance_exists(client)) {
-    udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.CLIENT, client, "Client not found");
+    htme_debugger("udphp_clientNetworking", htme_debug.DEBUG, "Client not found", true);
 }
 
 //Networking related variables
@@ -34,14 +34,14 @@ if (in_id != client.udp_socket and in_id != client.tcp_socket) exit;
 
 ///SCENARIO 1: Master Server sent an answer
 if (in_ip == global.udphp_master) {
-    udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.CLIENT, client, "Got message from master server");
+    htme_debugger("udphp_clientNetworking", htme_debug.DEBUG, "Got message from master server", true);
     //Check command
     var com = buffer_read(in_buff, buffer_s8 );
     switch com {
         case udphp_packet.MASTER:
             //master server sent port and ip! Set IP and port and set directconnect to true
             //client will now connect to server
-            udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.CLIENT, client, "Server found!");
+            htme_debugger("udphp_clientNetworking", htme_debug.DEBUG, "Server found!", true);
             client.server_ip = buffer_read(in_buff, buffer_string )
             client.server_port = real(buffer_read(in_buff, buffer_string ));
             // Reset punch state
@@ -87,19 +87,19 @@ if (in_ip == global.udphp_master) {
         break;
         case udphp_packet.MASTER_NOTFOUND:
             //server not found. Try to connect directly.
-            udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.CLIENT, client, "Remote server not connected to master server, try a direct connect.");
+            htme_debugger("udphp_clientNetworking", htme_debug.DEBUG, "Remote server not connected to master server, try a direct connect.", true);
             client.directconnect = true;
         break;
         default:
-            udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.CLIENT, client, "Unknown message from master server. ("+string(com)+")");
+            htme_debugger("udphp_clientNetworking", htme_debug.DEBUG, "Unknown message from master server. ("+string(com)+")", true);
         break;
     }
 ///SCENARIO 2: Connected to server
 } else if (!udphp_clientIsConnected(client) /* * Sadly in_ip is empty if the server contacts us * && in_ip == ds_map_find_value(global.udphp_clients_serverip,client)*/) {
-    udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.CLIENT, client, "Got message from server");
+    htme_debugger("udphp_clientNetworking", htme_debug.DEBUG, "Got message from server", true);
     switch buffer_read(in_buff, buffer_s8 ) {
         case udphp_packet.SERVWELCOME:
-            udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.CLIENT, client, "CONNECTED TO SERVER!");
+            htme_debugger("udphp_clientNetworking", htme_debug.DEBUG, "CONNECTED TO SERVER!", true);
             //We can kill the socket to the master server now
             network_destroy(client.tcp_socket);
             client.connected = true;
@@ -117,7 +117,7 @@ if (in_ip == global.udphp_master) {
              global.udphp_tmp_data6 = buffer_read(in_buff, buffer_string );
              global.udphp_tmp_data7 = buffer_read(in_buff, buffer_string );
              global.udphp_tmp_data8 = buffer_read(in_buff, buffer_string );
-             udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.CLIENT, client, "Got data from server. Check (data1): "+global.udphp_tmp_data1);
+             htme_debugger("udphp_clientNetworking", htme_debug.DEBUG, "Got data from server. Check (data1): "+global.udphp_tmp_data1, true);
              
      }
      //After that we need to reset the buffer for future use

@@ -23,7 +23,7 @@
 
 /// CHECK IF SERVER IS RUNNING (we can use any server-releated variable for that; we assume they don't get changed from outside)
 if (global.udphp_server_counter == -1) {
-    udphp_handleerror(udphp_dbglvl.WARNING, udphp_dbgtarget.SERVER, 0, "Server was not started.");
+    htme_debugger("udphp_serverPunch", htme_debug.WARNING, "Server was not started.", true);
     exit;
 }
 
@@ -49,7 +49,7 @@ if (global.udphp_server_counter < 1) {
         //     [technically only via tcp but with our master server it's also excepcted via udp by the master server]
         buffer_write(buffer, buffer_string, "reg"+chr(10));
         network_send_udp(server,global.udphp_master, global.udphp_master_port, buffer, buffer_tell(buffer) );
-        udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.SERVER, 0, "Reconnecting to master Server - Sent UDP Packet");
+        htme_debugger("udphp_serverPunch", htme_debug.DEBUG, "Reconnecting to master Server - Sent UDP Packet", true);
         
         
         //TCP -> Open connection
@@ -73,14 +73,14 @@ if (global.udphp_server_counter < 1) {
         server_tcp = network_create_socket(network_socket_tcp);
         var err = network_connect_raw(server_tcp,global.udphp_master, global.udphp_master_port);
         
-        if (err<0) udphp_handleerror(udphp_dbglvl.WARNING, udphp_dbgtarget.SERVER, 0, "Reconnecting to master Server - TCP Connection failed.");
+        if (err<0) htme_debugger("udphp_serverPunch", htme_debug.WARNING, "Reconnecting to master Server - TCP Connection failed.", true);
         else {
             err = network_send_raw(server_tcp,buffer, buffer_tell(buffer) );
-            if (err<0) udphp_handleerror(udphp_dbglvl.WARNING, udphp_dbgtarget.SERVER, 0, "Reconnecting to master Server - TCP Connection failed.");
+            if (err<0) htme_debugger("udphp_serverPunch", htme_debug.WARNING, "Reconnecting to master Server - TCP Connection failed.", true);
             else {
-                udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.SERVER, 0,  "Reconnecting to master Server - Reconnected via TCP");
-                udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.SERVER, 0, "Reconnecting to master Server - Sent TCP Packet");
-                udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.SERVER, 0, "Reconnected to master Server.");
+                htme_debugger("udphp_serverPunch", htme_debug.DEBUG, "Reconnecting to master Server - Reconnected via TCP", true);
+                htme_debugger("udphp_serverPunch", htme_debug.DEBUG, "Reconnecting to master Server - Sent TCP Packet", true);
+                htme_debugger("udphp_serverPunch", htme_debug.DEBUG, "Reconnected to master Server.", true);
             }
         }
         
@@ -112,13 +112,13 @@ for(i=0; i<ds_map_size(incoming_requests); i+=1) {
     var ip = udphp_playerListIP(key);
     var port = udphp_playerListPort(key);
     
-    udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.SERVER, 0, "Conencting with client "+ip+":"+string(port));
+    htme_debugger("udphp_serverPunch", htme_debug.DEBUG, "Conencting with client "+ip+":"+string(port), true);
     
     if (ds_list_find_index(players,ip+":"+string(port)) != -1 //If we are connected (player is in the player list [he get's stored there in the networking script]
         or timeout > global.udphp_connection_timeouts) //or if the timeout has been reched
         {
-        if (timeout > global.udphp_connection_timeouts) udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.SERVER, 0, "Connection timed out.");
-        else udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.SERVER, 0, "Connection established."); 
+        if (timeout > global.udphp_connection_timeouts) htme_debugger("udphp_serverPunch", htme_debug.DEBUG, "Connection timed out.", true);
+        else htme_debugger("udphp_serverPunch", htme_debug.DEBUG, "Connection established.", true);
         //Then: Abort connection attempt, either because it's not needed anymore or because we are connected.
         delete = true;
     } else {
@@ -154,7 +154,7 @@ for(i=0; i<ds_map_size(incoming_requests2); i+=1) {
     var ip = udphp_playerListIP(key);
     var port = udphp_playerListPort(key);
     
-    udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.SERVER, 0, "Making "+ip+" aware we are connected.");
+    htme_debugger("udphp_serverPunch", htme_debug.DEBUG, "Making "+ip+" aware we are connected.", true);
     
     //We are using 3 seconds as a fixed timeout for now
     if (timeout > 3) {

@@ -1,4 +1,4 @@
-///udphp_config(master_ip,master_port,reconnect_intv,timeouts,debug,silent,delta time)
+///udphp_config(master_ip,master_port,reconnect_intv,timeouts,debuglevel,deltatime)
 
 /*
 **  Description:
@@ -6,7 +6,7 @@
 **      and is used to define things like master server ip and port.
 **  
 **  Usage:
-**      udphp_config(master_ip,master_port,reconnect_intv,timeouts,debug,silent)
+**      udphp_config(master_ip,master_port,reconnect_intv,timeouts,debuglevel)
 **
 **  Arguments:
 **      master_ip         string    IP of the master server
@@ -15,11 +15,8 @@
 **                                  to the master server.
 **      timeouts          real      Timeout in STEPS after which server and client give
 **                                  up to connect to each other.
-**      debug             boolean   If true, log all debug information, alert on error and warning
-**                                  Default setting: Log debug and warning, alert on error
-**      silent            boolean   If true, log nothing, alert on nothing.
-**                                  Default setting: Log debug and warning, alert on error
-**                                  (ignored if debug is set to true) 
+**      debuglevel        enumvalue Change debuglevel to one of the values of htme_debug
+**                                  defined in htme_debugger
 **      delta time        boolean   If true, use delta time insted of step time
 **                                  Default setting: false
 **
@@ -53,8 +50,6 @@ global.udphp_punch_stage_timeout_initial = 1;
 //====== END CONFIGURATION ==========//
 
 /* First: Setup enums */
-enum udphp_dbglvl {DEBUG,WARNING,ERROR}
-enum udphp_dbgtarget {MAIN,SERVER,CLIENT}
 enum udphp_packet {
     KNOCKKNOCK=-3,
     MASTER=-1,
@@ -84,19 +79,17 @@ var master_ip = argument0;
 var master_port = argument1;
 var reconnect_intv = argument2;
 var timeouts = argument3;
-var debug = argument4;
-var silent = argument5;
-var deltatime = argument6;
+var debuglevel = argument4;
+var deltatime = argument5;
 
 /** Set timeout for master server connection
   * TODO: Add option to specify this value
   */
 network_set_config(network_config_connect_timeout, 4000);
 
+global.htme_debuglevel = debuglevel;
 global.udphp_master = master_ip;
 global.udphp_master_port = master_port;
-global.udphp_debug = debug;
-global.udphp_silent = silent
 global.udphp_connection_timeouts = timeouts;
 global.udphp_server_udp = -1;
 global.udphp_server_tcp = -1;
@@ -131,4 +124,4 @@ global.udphp_downloadlist_refreshing = false;
 global.udphp_downloadlist_topmap = -1;
 global.udphp_downloadlist = -1;
 
-udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.MAIN, 0, "Started.");
+htme_debugger("udphp_config", htme_debug.DEBUG, "PUNCH Started.", true);

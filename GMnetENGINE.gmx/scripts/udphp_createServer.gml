@@ -27,7 +27,7 @@ var udp_server = argument0;
 var buffer = argument1;
 var player_list = argument2;
 
-udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.SERVER, 0, "Starting...");
+htme_debugger("udphp_createServer" , htme_debug.DEBUG, "Starting...", true);
 
 //Assign UDP server and create a TCP spcket that we will need to communicate with the master server
 //(the master server responds via this tcp socket)
@@ -36,7 +36,7 @@ global.udphp_server_tcp = network_create_socket(network_socket_tcp);
 
 //Check if both sockets are ready to go
 if( global.udphp_server_udp<0 or global.udphp_server_tcp<0 ){    
-    udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.SERVER, 0, "Could not start Server!");
+    htme_debugger("udphp_createServer", htme_debug.DEBUG, "Could not start Server!", true);
     udphp_stopServer();
     return false;
     exit;
@@ -47,8 +47,8 @@ global.udphp_server_buffer = buffer;
 
 //Assign player list. Fail if list does not exist
 if (!ds_exists(player_list,ds_type_list)) {
-    udphp_handleerror(udphp_dbglvl.WARNING, udphp_dbgtarget.SERVER, 0, "The player-list provided for server startup is invalid.");
-    udphp_handleerror(udphp_dbglvl.ERROR, udphp_dbgtarget.SERVER, 0, "Could not start Server!");
+    htme_debugger("udphp_createServer", htme_debug.WARNING, "The player-list provided for server startup is invalid.", true);
+    htme_debugger("udphp_createServer", htme_debug.ERROR, "Could not start Server!", true);
     udphp_stopServer();
     return false;
     exit;
@@ -79,5 +79,5 @@ global.udphp_server_data6 = "";
 global.udphp_server_data7 = "";
 global.udphp_server_data8 = "";
 
-udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.SERVER, 0, "Started!");
+htme_debugger("udphp_createServer", htme_debug.DEBUG, "Started!", true);
 return true;

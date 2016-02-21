@@ -39,12 +39,12 @@
 var client = argument0;
 
 if (!udphp_clientIsConnected(client)) {
-   udphp_handleerror(udphp_dbglvl.WARNING, udphp_dbgtarget.CLIENT, client, "ClientReadData failed: Client was not connected!");
+   htme_debugger("udphp_clientReadData", htme_debug.WARNING, "ClientReadData failed: Client was not connected!", true);
    exit;
 }
 
 buffer_seek(client.buffer, buffer_seek_start, 0);
 
 buffer_write(client.buffer, buffer_s8, udphp_packet.DATAREQ);
-udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.CLIENT, client, "ClientReadData. Asking for Server data");
+htme_debugger("udphp_clientReadData", htme_debug.DEBUG, "ClientReadData. Asking for Server data", true);
 network_send_udp(client.udp_socket,udphp_clientGetServerIP(client),udphp_clientGetServerPort(client), client.buffer, buffer_tell(client.buffer) );

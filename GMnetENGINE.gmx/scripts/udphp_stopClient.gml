@@ -22,9 +22,9 @@
 
 var client = argument0;
 
-udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.CLIENT, client, "Stopping client...");
+htme_debugger("udphp_stopClient", htme_debug.DEBUG, "Stopping client...", true);
 if (!instance_exists(client)) {
-    udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.CLIENT, client, "Client not found");
+    htme_debugger("udphp_stopClient", htme_debug.DEBUG, "Client not found", true);
     exit;
 }
 
@@ -46,4 +46,4 @@ if ds_exists(global.udphp_clients,ds_type_map) {
 if client>-1 {
     with (client) {instance_destroy();}
 }
-udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.CLIENT, client, "Client stopped...");
+htme_debugger("udphp_stopClient", htme_debug.DEBUG, "Client stopped...", true);

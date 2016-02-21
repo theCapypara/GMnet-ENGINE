@@ -20,7 +20,7 @@
 
 /// CHECK IF SERVER IS RUNNING (we can use any server-releated variable for that; we assume they don't get changed from outside)
 if (global.udphp_server_counter == -1) {
-    udphp_handleerror(udphp_dbglvl.WARNING, udphp_dbgtarget.SERVER, 0, "Server was not started.");
+    htme_debugger("udphp_serverCommitData", htme_debug.WARNING, "Server was not started.", true);
     exit;
 }
 
@@ -31,4 +31,4 @@ var server_tcp = global.udphp_server_tcp;
 global.udphp_server_counter = 0;
 network_destroy(server_tcp);
 
-udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.SERVER, 0, "Updated data string for master server");
+htme_debugger("udphp_serverCommitData", htme_debug.DEBUG, "Updated data string for master server", true);

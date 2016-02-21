@@ -81,7 +81,7 @@ htme_debugger("htme_init",htme_debug.DEBUG,"Config Version check successful");
  *** ENUMS - CONFIGURATION CAN BE FOUND BELOW! 
  ***/
 
-enum htme_debug {NONE=-1,DEBUG=0,TRAFFIC=1,CHATDEBUG=2,INFO=3,WARNING=4,ERROR=5};
+// htme_debug IS NOW DEFINED IN htme_debugger(...)!!!
 
 //first part of buffer: htme packets start at 100, they are signed 8bit
 enum htme_packet {
@@ -142,11 +142,7 @@ self.version_mayor = 1300;
  
 if (self.use_udphp) {
     htme_debugger("htme_init",htme_debug.INFO,"Starting GMnet PUNCH...");
-    var u_debug = false, u_silent = true;
-    if (self.debuglevel <= htme_debug.INFO) {u_debug=false;u_silent=false;}
-    if (self.debuglevel <= htme_debug.DEBUG) {u_debug=true;u_silent=false;}
-    if (self.debuglevel == htme_debug.TRAFFIC) {u_debug=false;u_silent=true;}
-    script_execute(asset_get_index("udphp_config"),self.udphp_master_ip, self.udphp_master_port,self.udphp_rctintv,self.global_timeout,u_debug,u_silent,self.use_delta_time);
+    script_execute(asset_get_index("udphp_config"),self.udphp_master_ip, self.udphp_master_port,self.udphp_rctintv,self.global_timeout,global.htme_debuglevel,self.use_delta_time);
     //Set some additional PUNCH variables
     global.udphp_punch_stage_timeout_initial = self.punch_stage_timeout;
 }

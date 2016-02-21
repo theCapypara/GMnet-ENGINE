@@ -1,27 +1,47 @@
-///htme_debugger(scriptname,level,message)
+///htme_debugger(scriptname,level,message, [isPunch])
 
 /*
 **  Description:
-**      This script outputs debug messages related to the text engine
+**      This script outputs debug messages related to GMnet ENGINE/PUNCH
 **  
 **  Usage:
 **      <See above>
 **
 **  Arguments:ac
 **      scriptname  string      name of the script file that output this debug message
-**      level       htme_debug  Value of the enum htme_debug declared in text_setup
+**      level       htme_debug  Value of the enum htme_debug declared below
 **      message     string      Debug message
+**      isPunch     boolean     If true: Message was sent by GMnet PUNCH
 **
 **  Returns:
 **      <nothing>
 **
 */
 
-var scriptname = argument0;
-var level = argument1;
-var message = argument2;
+enum htme_debug {
+    NONE=-1,
+    DEBUG=0,
+    CHATDEBUG=2,
+    INFO=3,
+    WARNING=4,
+    ERROR=5
+};
 
-if (global.htme_object.debuglevel != htme_debug.NONE && level >= global.htme_object.debuglevel) {
+//exit; - Take this line out to enable production mode where logging is disabled
+
+var scriptname = argument[0];
+var level = argument[1];
+var message = argument[2];
+var ispunch = false;
+if (argument_count > 3) {
+    ispunch = argument[3];
+}
+var product = "ENGINE";
+if (ispunch) {
+    product = "PUNCH ";
+}
+
+if (global.htme_debuglevel != htme_debug.NONE && level >= global.htme_debuglevel) {
     levelname = "UNKNOWN";
     switch (level) {
         case htme_debug.NONE:
@@ -42,10 +62,6 @@ if (global.htme_object.debuglevel != htme_debug.NONE && level >= global.htme_obj
         case htme_debug.ERROR:
             levelname = "ERROR";
             break;
-        case htme_debug.TRAFFIC:
-            levelname = "TRAFFIC";
-            break;
     }
-    if (global.htme_object.debuglevel == htme_debug.TRAFFIC && level != htme_debug.TRAFFIC) exit;
-    show_debug_message("MULTIPLAYER ENGINE ["+string(current_time)+"|"+string(current_hour)+":"+string(current_minute)+":"+string(current_second)+"] "+scriptname+" - "+levelname+" - "+message);
+    show_debug_message("GMnet "+product+" ["+string(current_time)+"|"+string(current_hour)+":"+string(current_minute)+":"+string(current_second)+"] "+scriptname+":"+string(id)+" - "+levelname+" - "+message);
 }

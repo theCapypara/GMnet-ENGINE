@@ -218,8 +218,6 @@
         <script>scripts\udphp_clientIsConnected.gml</script>
       </scripts>
       <scripts name="internal">
-        <script>scripts\udphp_string_explode.gml</script>
-        <script>scripts\udphp_handleerror.gml</script>
         <script>scripts\udphp_punchstate.gml</script>
         <script>scripts\udphp_get_count.gml</script>
       </scripts>
@@ -228,16 +226,11 @@
         <script>scripts\udphp_downloadServerList.gml</script>
       </scripts>
       <script>scripts\udphp_config.gml</script>
-      <script>scripts\udphp_error_message_handler.gml</script>
     </scripts>
     <scripts name="htme">
       <script>scripts\htme_config.gml</script>
       <script>scripts\htme_init.gml</script>
-      <script>scripts\htme_error_message_handler.gml</script>
       <scripts name="internal">
-        <script>scripts\htme_debugger.gml</script>
-        <script>scripts\htme_hash.gml</script>
-        <script>scripts\htme_string_explode.gml</script>
         <script>scripts\htme_ds_map_find_key.gml</script>
         <script>scripts\htme_playerMapPort.gml</script>
         <script>scripts\htme_playerMapIP.gml</script>
@@ -402,6 +395,12 @@
     </scripts>
     <scripts name="htme_demo">
       <script>scripts\totro.gml</script>
+    </scripts>
+    <scripts name="gmnet_tools">
+      <script>scripts\htme_error_message_handler.gml</script>
+      <script>scripts\htme_string_explode.gml</script>
+      <script>scripts\htme_hash.gml</script>
+      <script>scripts\htme_debugger.gml</script>
     </scripts>
   </scripts>
   <objects name="objects">

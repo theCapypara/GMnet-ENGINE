@@ -28,7 +28,7 @@ if (in_id != global.udphp_downloadServerlistSocket) exit;
 
 
 if (in_ip == global.udphp_master) {
-    udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.MAIN, 0, "Downloader: Got message from master server");
+    htme_debugger("udphp_downloadNetworking", htme_debug.DEBUG, "Downloader: Got message from master server", true);
     //Read command
     var com = buffer_read(in_buff, buffer_s8 );
     switch com {
@@ -39,16 +39,16 @@ if (in_ip == global.udphp_master) {
             global.udphp_downloadServerlistSocket = -1;
             global.udphp_downloadlist_refreshing = false;
             if (!is_string(json)) {
-                udphp_handleerror(udphp_dbglvl.WARNING, udphp_dbgtarget.MAIN, 0, "Downloader: Could not download lobby data.");
+                htme_debugger("udphp_downloadNetworking", htme_debug.WARNING, "Downloader: Could not download lobby data.", true);
                 exit;
             }
-            udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.MAIN, 0, json);
+            htme_debugger("udphp_downloadNetworking", htme_debug.DEBUG, json, true);
             global.udphp_downloadlist_topmap = json_decode(json);
             global.udphp_downloadlist =  global.udphp_downloadlist_topmap[? "default"];
-            udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.MAIN, 0, "Downloader: Got lobby data.");
+            htme_debugger("udphp_downloadNetworking", htme_debug.DEBUG, "Downloader: Got lobby data.", true);
         break;
         default:
-            udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.MAIN, 0, "Downloader: Unknown message from master server. ("+string(com)+")");
+            htme_debugger("udphp_downloadNetworking", htme_debug.DEBUG, "Downloader: Unknown message from master server. ("+string(com)+")", true);
         break;
     }
 } 

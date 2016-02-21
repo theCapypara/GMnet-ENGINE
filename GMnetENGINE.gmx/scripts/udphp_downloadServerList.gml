@@ -147,8 +147,8 @@ buffer_write(buffer, buffer_string, string(limit)+chr(10));
 
 global.udphp_downloadServerlistSocket = network_create_socket(network_socket_tcp);
 var err = network_connect_raw(global.udphp_downloadServerlistSocket,global.udphp_master, global.udphp_master_port);
-if (err<0) udphp_handleerror(udphp_dbglvl.WARNING, udphp_dbgtarget.MAIN, 0, "udphp_downloadServerList - TCP Connection failed.");
+if (err<0) htme_debugger("udphp_downloadServerList", htme_debug.WARNING, "udphp_downloadServerList - TCP Connection failed.", true);
 //Save this socket so we know the master server speaks to us when checking incoming packets.
 network_send_raw(global.udphp_downloadServerlistSocket,buffer, buffer_tell(buffer) );
-udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.MAIN, 0, "Requested server list.");
+htme_debugger("udphp_downloadServerList", htme_debug.DEBUG, "Requested server list.", true);
 buffer_delete(buffer);

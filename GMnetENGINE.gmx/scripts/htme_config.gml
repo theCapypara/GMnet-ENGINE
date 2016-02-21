@@ -5,9 +5,9 @@
 /** 
  * Set the level of debug. The debug messages of this level and higher
  * will be shown. NONE disables debug messages.
- * For possible levels see htme_init
+ * For possible levels see htme_debugger
  */
-self.debuglevel = htme_debug.INFO;
+global.htme_debuglevel = htme_debug.INFO;
 
 /** 
  * Enable or disable the debug overlay. Provides you with useful debugging tools.

@@ -23,7 +23,7 @@ var client = argument0;
 /// CHECK IF CLIENT IS RUNNING (we can use any client-releated variable for that; we assume they don't get changed from outside)
 if (!instance_exists(client)) {
     //Debug level is DEBUG because other than with serverPunch, calling this function is your way of finding out if the server still exists
-    udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.CLIENT, client, "Client not found");
+    htme_debugger("udphp_clientPunch", htme_debug.DEBUG, "Client not found", true);
     return false;
     exit;
 }
@@ -33,7 +33,7 @@ var global_timeout = global.udphp_connection_timeouts;
 //Failsafe, in case data got corrupted
 if (is_real(client.server_ip) or 
     is_string(client.server_port)) {
-    udphp_handleerror(udphp_dbglvl.WARNING, udphp_dbgtarget.CLIENT, 0, "Invalid client data for client "+string(client)+" - Stopping client.");
+    htme_debugger("udphp_clientPunch", htme_debug.WARNING, "Invalid client data for client "+string(client)+" - Stopping client.", true);
     udphp_stopClient(client);
     exit;
 }
@@ -42,7 +42,7 @@ if (is_real(client.server_ip) or
 if (!client.connected) { 
     if (client.directconnect) {
         //DIRECT CONNECT or GOT SERVER PORT (and can now connect directly)
-        udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.CLIENT, client, "Connecting with server "+string(client.server_ip)+":"+string(client.server_port))
+        htme_debugger("udphp_clientPunch", htme_debug.DEBUG, "Connecting with server "+string(client.server_ip)+":"+string(client.server_port), true);
         client.timeout+=udphp_get_count();
         //Send a packet to the server to punch the hole. If this reaches the server, he will
         //add us to the list of players and send an answer.
@@ -78,7 +78,7 @@ if (!client.connected) {
         
         else if (client.timeout > global_timeout) {
             //When the timeout was exceeded, give up and return false to indicate the connection has failed
-            udphp_handleerror(udphp_dbglvl.ERROR, udphp_dbgtarget.CLIENT, client, "Could not connect to server!")
+            htme_debugger("udphp_clientPunch", htme_debug.ERROR, "Could not connect to server!", true);
             //Client get's stoppped. Return false, instance must be destroyed now
             udphp_stopClient(client);
             return false;

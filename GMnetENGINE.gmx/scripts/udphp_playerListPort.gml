@@ -16,4 +16,4 @@
 */
 
 //argument0 : ip:port
-return real(udphp_string_explode(argument0,":",1));
+return real(htme_string_explode(argument0,":",1));
