@@ -113,7 +113,7 @@ switch (client.punch_stage)
                 for (var i=0; i<client.punch_stage_burst; i+=1)
                 {
                     // Check if over max then end this
-                    if is_undefined(client.punch_stage_predict_list[client.punch_stage_counter]) break;
+                    if (array_length_1d(client.punch_stage_predict_list)-1)<client.punch_stage_counter break;
                     // Count up port to use
                     client.punch_stage_counter+=1;                    
                     // Send to new port
