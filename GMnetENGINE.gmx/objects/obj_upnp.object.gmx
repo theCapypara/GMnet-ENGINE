@@ -153,6 +153,9 @@ with (global.htme_object)
     var in_id = ds_map_find_value(async_load, "id");
     var in_port = ds_map_find_value(async_load, "port");
     
+    // htme used the buffer so we need to rewind it
+    buffer_seek(in_buff, buffer_seek_start, 0);
+    
     //Read command
     code = buffer_read(in_buff, buffer_s8 );
     switch code 
