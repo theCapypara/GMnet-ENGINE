@@ -77,11 +77,17 @@ switch (datatype) {
         //Simple datatype
         var length = buffer_read(in_buff,buffer_u8);
         for (var l=0;l<length;l++) {
-            var vname = buffer_read(in_buff,buffer_string);
-            var vval = buffer_read(in_buff,datatype);
-            //Check tolerance
-            var checkedval = htme_RecieveVar(ds_map_find_value((instance).htme_mp_vars,vname),vval,tolerance,datatype);
-            ds_map_replace((instance).htme_mp_vars,vname,checkedval);
+            // we must check if we got more in buffer
+            // we may not get all variables if some is SMART
+            // so the length can be wrong
+            if (buffer_tell(in_buff)<buffer_get_size(in_buff))
+            {
+                var vname = buffer_read(in_buff,buffer_string);
+                var vval = buffer_read(in_buff,datatype);
+                //Check tolerance
+                var checkedval = htme_RecieveVar(ds_map_find_value((instance).htme_mp_vars,vname),vval,tolerance,datatype);
+                ds_map_replace((instance).htme_mp_vars,vname,checkedval);
+            }
         }
     break;
 }
