@@ -32,6 +32,7 @@ if (!self.isServer && self.playerhash == "") {
 /**RETRIEVE INFORMATION**/
 var inst_hash = group[? "instancehash"];
 var inst = group[? "instance"];
+var inst_player = noone;
 if (instance_exists(inst)) {
     var inst_groups = (inst).htme_mp_groups;
     var inst_object = (inst).htme_mp_object;
@@ -39,6 +40,7 @@ if (instance_exists(inst)) {
     var inst_stayAlive =  (inst).htme_mp_stayAlive;
 } else if (self.isServer) {
     var backupEntry = ds_map_find_value(self.serverBackup,inst_hash);
+    if is_undefined(backupEntry) backupEntry=-4;
     if (ds_exists(backupEntry,ds_type_map)) {
         var inst_groups = backupEntry[? "groups"];
         var inst_object = backupEntry[? "object"];
