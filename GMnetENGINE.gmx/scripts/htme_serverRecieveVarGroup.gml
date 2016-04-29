@@ -114,6 +114,11 @@ switch (datatype) {
             with instance { image_yscale = tmp_i_image_yscale;}
         }
         if (buffer_read(in_buff,buffer_bool)) {
+            var tmp_i_image_angle = htme_RecieveVar(backupEntry[? "image_angle"],buffer_read(in_buff,buffer_f32),tolerance,buffer_f32);
+            backupVars[? "image_angle"] = tmp_i_image_angle;
+            with instance { image_angle = tmp_i_image_angle;}
+        }
+        if (buffer_read(in_buff,buffer_bool)) {
             var tmp_i_visible = htme_RecieveVar(backupEntry[? "visible"],buffer_read(in_buff,buffer_bool),tolerance,buffer_bool);
             backupVars[? "visible"] = tmp_i_visible;
             with instance { visible = tmp_i_visible;}

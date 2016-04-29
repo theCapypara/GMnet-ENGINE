@@ -48,6 +48,7 @@ switch (group[? "datatype"]) {
         num += htme_syncVar(buffer,group,buffer_f32,backupVars[? "image_speed"],"image_speed",prevSyncMap);
         num += htme_syncVar(buffer,group,buffer_f32,backupVars[? "image_xscale"],"image_xscale",prevSyncMap);
         num += htme_syncVar(buffer,group,buffer_f32,backupVars[? "image_yscale"],"image_yscale",prevSyncMap);
+        num += htme_syncVar(buffer,group,buffer_f32,backupVars[? "image_angle"],"image_angle",prevSyncMap);
         num += htme_syncVar(buffer,group,buffer_bool,backupVars[? "visible"],"visible",prevSyncMap);
     break;
     case mp_buffer_type.BUILTINPHYSICS:
