@@ -57,6 +57,8 @@ switch (datatype) {
         if (buffer_read(in_buff,buffer_bool))
            (instance).image_yscale = htme_RecieveVar((instance).image_yscale,buffer_read(in_buff,buffer_f32),tolerance,buffer_f32);
         if (buffer_read(in_buff,buffer_bool))
+           (instance).image_angle = htme_RecieveVar((instance).image_angle,buffer_read(in_buff,buffer_f32),tolerance,buffer_f32);
+        if (buffer_read(in_buff,buffer_bool))
            (instance).visible = htme_RecieveVar((instance).visible,buffer_read(in_buff,buffer_bool),tolerance,buffer_bool);
     break;
     case mp_buffer_type.BUILTINPHYSICS:
