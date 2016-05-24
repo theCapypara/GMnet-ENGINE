@@ -81,7 +81,7 @@ for(var i = 0;i&lt;ds_list_size(playerlist);i++) {
       * that this player controls 
       */
     var instance = htme_findPlayerInstance(htme_obj_player,player);
-    if (instance != -1) {
+    if (instance != noone) {
         var name = (instance).name;
         var _image_blend = (instance).image_blend;
     } else {

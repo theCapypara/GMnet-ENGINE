@@ -34,7 +34,7 @@ for (var i=0; i<5000; i+=1) {
     }
 }
 
-var str = key+"Current list count: " + string(countlist) + "#--------#" + "Current map count: " + string(countmap);
+var str = "Current list count: " + string(countlist) + "#--------#" + "Current map count: " + string(countmap);
 draw_text(self.dbg_left+20,offs,str);
 offs = offs + string_height(str);
 
