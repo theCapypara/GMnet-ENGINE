@@ -26,8 +26,8 @@ var maxclients = argument1;
 // Set max clients to engine
 self.maxConnectingClients = maxclients;
 
-// Start upnp
-if upnp_enabled
+// Start upnp (if not using udphp else udphp will start the upnp)
+if upnp_enabled and use_udphp=false
 {
     // Create a upnp handler
     if instance_number(obj_upnp)=0 instance_create(0,0,obj_upnp);
@@ -79,7 +79,7 @@ if(self.socketOrServer<0) {
 if (self.use_udphp) {
     htme_debugger("htme_serverStart",htme_debug.DEBUG,"LOADING GMnet PUNCH");
     self.udphp_playerlist = ds_list_create();
-    if(!script_execute(asset_get_index("udphp_createServer"),self.socketOrServer,self.buffer,self.udphp_playerlist)) {
+    if(!script_execute(asset_get_index("udphp_createServer"),self.socketOrServer,self.buffer,self.udphp_playerlist,port)) {
         //Error while starting udphp
         htme_debugger("htme_serverStart",htme_debug.ERROR,"Could not start GMnet PUNCH server instance! Check udphp log, increase log level if neccesary.");
         htme_serverStop();
