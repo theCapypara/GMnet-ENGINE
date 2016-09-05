@@ -1,4 +1,4 @@
-///udphp_config(master_ip,master_port,reconnect_intv,timeouts,debug,silent,delta time)
+///udphp_config(master_ip,master_port,reconnect_intv,timeouts,debug,silent,delta time,upnp)
 
 /*
 **  Description:
@@ -21,6 +21,8 @@
 **                                  Default setting: Log debug and warning, alert on error
 **                                  (ignored if debug is set to true) 
 **      delta time        boolean   If true, use delta time insted of step time
+**                                  Default setting: false
+**      upnp              boolean   If true, use upnp to port forward
 **                                  Default setting: false
 **
 **  Returns:
@@ -63,6 +65,7 @@ enum udphp_packet {
     DATAREQ=-5,
     DATA=-6,
     MASTER_LOBBY=-7,
+    GETLOCALIPBROADCAST=-8,
 }
 
 //The value of the enum is the amount of time the state should kick in in percent
@@ -87,6 +90,7 @@ var timeouts = argument3;
 var debug = argument4;
 var silent = argument5;
 var deltatime = argument6;
+var upnpenabled = argument7;
 
 /** Set timeout for master server connection
   * TODO: Add option to specify this value
@@ -127,6 +131,8 @@ global.udphp_tmp_data8 = "";
 global.udphp_clients = ds_map_create();
 global.udphp_version = "1.2.4";
 global.udphp_deltatime = deltatime;
+global.udphp_upnp = upnpenabled;
+global.udphp_upnp_port = 0;
 global.udphp_downloadlist_refreshing = false;
 global.udphp_downloadlist_topmap = -1;
 global.udphp_downloadlist = -1;

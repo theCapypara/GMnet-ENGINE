@@ -250,12 +250,16 @@ draw_sprite(htme_logo,0,20,20);
 draw_text(20,120,text1);
 draw_set_colour(c_red);
 draw_text(300,400,text2);
+if point_in_rectangle(mouse_x,mouse_y,300,400,400,430) event_perform(ev_keyboard,ord('N'));
 draw_set_colour(c_yellow);
 draw_text(300,440,text3);
+if point_in_rectangle(mouse_x,mouse_y,300,440,400,470) event_perform(ev_keyboard,ord('B'));
 draw_set_colour(c_fuchsia);
 draw_text(300,480,text4);
+if point_in_rectangle(mouse_x,mouse_y,300,480,400,510) event_perform(ev_keyboard,ord('K'));
 draw_set_colour(c_aqua);
 draw_text(300,520,text5);
+if point_in_rectangle(mouse_x,mouse_y,300,520,400,550) event_perform(ev_keyboard,ord('L'));
 draw_set_colour(c_white);
 </string>
           </argument>

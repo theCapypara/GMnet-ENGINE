@@ -33,6 +33,7 @@ var in_port = ds_map_find_value(async_load, "port");
 var incoming_requests = global.udphp_server_incoming_requests;
 var incoming_requests2 = global.udphp_server_incoming_requests2;
 var players = global.udphp_server_players;
+buffer_seek(in_buff, buffer_seek_start, 0);
 
 //Only continue if this is for the server
 if (in_id != global.udphp_server_udp and in_id != global.udphp_server_tcp) exit;

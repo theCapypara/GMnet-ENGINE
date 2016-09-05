@@ -32,6 +32,8 @@ port_to_set=-1;
 // Auto remove port when exit game
 auto_remove_port=true;
 
+upnp_id=udphp_hash(); // So we can filter this computer broadcast
+
 // Setup on os
 failedtoload=false;
 switch (os_type)
@@ -43,7 +45,6 @@ switch (os_type)
 getlocalip=true;
 mylocalip="";
 upnp_running=0; // If upnp works in extension
-upnp_id=htme_hash(); // So we can filter this computer broadcast
 </string>
           </argument>
         </arguments>
@@ -145,38 +146,36 @@ if type == "finished"
             <kind>1</kind>
             <string>/// Get local ip from broadcast
 if (!self.getlocalip) exit;
-with (global.htme_object) 
+
+//Set up some local variables.
+var in_ip = ds_map_find_value(async_load, "ip");
+var in_buff = ds_map_find_value(async_load, "buffer");
+var in_id = ds_map_find_value(async_load, "id");
+var in_port = ds_map_find_value(async_load, "port");
+
+// htme used the buffer so we need to rewind it
+buffer_seek(in_buff, buffer_seek_start, 0);
+
+//Read command
+code = buffer_read(in_buff, buffer_s8 );
+switch code 
 {
-    //Set up some local variables.
-    var in_ip = ds_map_find_value(async_load, "ip");
-    var in_buff = ds_map_find_value(async_load, "buffer");
-    var in_id = ds_map_find_value(async_load, "id");
-    var in_port = ds_map_find_value(async_load, "port");
-    
-    // htme used the buffer so we need to rewind it
-    buffer_seek(in_buff, buffer_seek_start, 0);
-    
-    //Read command
-    code = buffer_read(in_buff, buffer_s8 );
-    switch code 
-    {
-        case htme_packet.GETLOCALIPBROADCAST:
-            // Get upnp id
-            var message_id=buffer_read(in_buff, buffer_string);
-            if other.upnp_id=message_id
+    case udphp_packet.GETLOCALIPBROADCAST:
+        // Get upnp id
+        var message_id=buffer_read(in_buff, buffer_string);
+        if other.upnp_id=message_id
+        {
+            other.mylocalip=in_ip;
+            other.getlocalip=false;
+            // Stop broadcast
+            other.alarm[0]=-1;
+            // Start upnp
+            switch (os_type)
             {
-                other.mylocalip=in_ip;
-                other.getlocalip=false;
-                // Stop broadcast
-                other.alarm[0]=-1;
-                // Start upnp
-                switch (os_type)
-                {
-                    case os_android: Upnp_add(other.port_to_set,other.mylocalip); break;
-                }      
+                case os_android: Upnp_add(other.port_to_set,other.mylocalip); break;
             }      
-            break;
-    }
+        }      
+        break;
 }
 </string>
           </argument>
@@ -202,16 +201,19 @@ with (global.htme_object)
             <kind>1</kind>
             <string>/// Get local IP
 getlocalip=true;
-with global.htme_object
+
+var buffer=global.udphp_server_buffer;
+var socketOrServer=global.udphp_server_udp;
+var port=global.udphp_upnp_port;
+
+if socketOrServer&gt;-1
 {
-    if self.socketOrServer&gt;-1
-    {
-        buffer_seek(self.buffer, buffer_seek_start, 0);
-        buffer_write(self.buffer, buffer_s8, htme_packet.GETLOCALIPBROADCAST);
-        buffer_write(self.buffer, buffer_string, other.upnp_id);
-        network_send_broadcast(self.socketOrServer, self.port, self.buffer, buffer_tell(self.buffer));
-    }
+    buffer_seek(buffer, buffer_seek_start, 0);
+    buffer_write(buffer, buffer_s8, udphp_packet.GETLOCALIPBROADCAST);
+    buffer_write(buffer, buffer_string, upnp_id);
+    network_send_broadcast(socketOrServer, port, buffer, buffer_tell(buffer));
 }
+
 // Set alarm to try broadcast again
 alarm[0]=room_speed*5;
 </string>
