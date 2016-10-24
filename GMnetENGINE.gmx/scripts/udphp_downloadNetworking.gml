@@ -25,7 +25,7 @@ var in_port = ds_map_find_value(async_load, "port");
 
 //Only continue if this is for the "lobby socket"
 if (in_id != global.udphp_downloadServerlistSocket) exit;
-
+buffer_seek(in_buff, buffer_seek_start, 0);
 
 if (in_ip == global.udphp_master) {
     udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.MAIN, 0, "Downloader: Got message from master server");
