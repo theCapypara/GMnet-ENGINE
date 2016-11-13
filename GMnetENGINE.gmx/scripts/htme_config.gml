@@ -25,6 +25,13 @@ self.debugoverlay = true;
 self.gmversionpick=1;
 
 /** 
+ * Use string id for rooms and objects
+ * Allow to create separete server/client project
+ * Engine will use the objects and rooms string names instead of the gm id number
+ */
+self.use_string_as_id=false;
+
+/** 
  * Use GMnet PUNCH? Set to true if GMnet PUNCH is installed and should be used to make the conection.
  * GMnet PUNCH is installed if you use GMnet ENGINE and needs to be installed manually
  * when using GMnet CORE.

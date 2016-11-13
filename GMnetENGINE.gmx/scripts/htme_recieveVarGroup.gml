@@ -25,9 +25,25 @@ var in_port = ds_map_find_value(async_load, "port");
 
 var instancehash = buffer_read(in_buff,buffer_string);
 var playerhash = buffer_read(in_buff,buffer_string);
-var inst_room = buffer_read(in_buff,buffer_u16);
+if use_string_as_id=false
+{
+    var inst_room = buffer_read(in_buff,buffer_u16);
+}
+else
+{
+    var inst_room = buffer_read(in_buff,buffer_string);
+    inst_room=asset_get_index(inst_room);
+}
 var groupname = buffer_read(in_buff,buffer_string);
-var object_id = buffer_read(in_buff,buffer_u16);
+if use_string_as_id=false
+{
+    var object_id = buffer_read(in_buff,buffer_u16);
+}
+else
+{
+    var object_id = buffer_read(in_buff,buffer_string);
+    object_id=asset_get_index(object_id);
+}
 var inst_stayAlive = buffer_read(in_buff,buffer_bool);
 var instance = ds_map_find_value(self.globalInstances,instancehash);
 var tolerance = buffer_read(in_buff,buffer_f32);

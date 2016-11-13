@@ -103,11 +103,25 @@ buffer_write(self.buffer, buffer_string, inst_hash);
 //Write player
 buffer_write(self.buffer, buffer_string, inst_player);
 //Write room
-buffer_write(self.buffer, buffer_u16, inst_room);
+if use_string_as_id=false
+{
+    buffer_write(self.buffer, buffer_u16, inst_room);
+}
+else
+{
+    buffer_write(self.buffer, buffer_string, room_get_name(inst_room));
+}
 //Write groupname
 buffer_write(self.buffer, buffer_string, group[? "name"]);
 //Write object id
-buffer_write(self.buffer, buffer_u16, inst_object);
+if use_string_as_id=false
+{
+    buffer_write(self.buffer, buffer_u16, inst_object);
+}
+else
+{
+    buffer_write(self.buffer, buffer_string, object_get_name(inst_object));
+}
 //Write stayAlive
 buffer_write(self.buffer,buffer_bool, inst_stayAlive);
 //Write tolerance
