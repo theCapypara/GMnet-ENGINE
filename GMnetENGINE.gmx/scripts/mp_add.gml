@@ -60,7 +60,10 @@ group[? "type"] = mp_type.FAST;
 group[? "interval"] = interval;
 group[? "tolerance"] = 0;
 group[? "name"] = groupname;
-group[? "__counter"] = 1;
+if global.htme_object.use_delta_time
+    group[? "__counter"] = 0;
+else
+    group[? "__counter"] = 1;
 
 //Metadata of the instance for looping
 group[? "instance"] = self.id;
