@@ -34,46 +34,64 @@ if (playerhash == self.playerhash) {
    exit;
 }
 
+var new_val;
+
 /* Check datatype */
 switch (datatype) {
     //Check special datatypes
     case mp_buffer_type.BUILTINPOSITION:  
-        if (buffer_read(in_buff,buffer_bool))
-           (instance).x = htme_RecieveVar((instance).x,buffer_read(in_buff,buffer_f32),tolerance,buffer_f32);
-        if (buffer_read(in_buff,buffer_bool))
-           (instance).y = htme_RecieveVar((instance).y,buffer_read(in_buff,buffer_f32),tolerance,buffer_f32);
+        if (buffer_read(in_buff,buffer_bool)) {
+            new_val=buffer_read(in_buff,buffer_f32);
+           (instance).x = htme_RecieveVar((instance).x,new_val,tolerance,buffer_f32);}
+        if (buffer_read(in_buff,buffer_bool)) {
+            new_val=buffer_read(in_buff,buffer_f32);
+           (instance).y = htme_RecieveVar((instance).y,new_val,tolerance,buffer_f32);}
     break;
     case mp_buffer_type.BUILTINBASIC:  
-        if (buffer_read(in_buff,buffer_bool))
-           (instance).image_alpha = htme_RecieveVar((instance).image_alpha,buffer_read(in_buff,buffer_u8),tolerance,buffer_u8);
-        if (buffer_read(in_buff,buffer_bool))
-           (instance).image_blend = htme_RecieveVar((instance).image_blend,buffer_read(in_buff,buffer_u32),tolerance,buffer_u32);
-        if (buffer_read(in_buff,buffer_bool))
-           (instance).image_index = htme_RecieveVar((instance).image_index,buffer_read(in_buff,buffer_u16),tolerance,buffer_u16);
-        if (buffer_read(in_buff,buffer_bool))
-           (instance).image_speed = htme_RecieveVar((instance).image_speed,buffer_read(in_buff,buffer_f32),tolerance,buffer_f32);
-        if (buffer_read(in_buff,buffer_bool))
-           (instance).image_xscale = htme_RecieveVar((instance).image_xscale,buffer_read(in_buff,buffer_f32),tolerance,buffer_f32);
-        if (buffer_read(in_buff,buffer_bool))
-           (instance).image_yscale = htme_RecieveVar((instance).image_yscale,buffer_read(in_buff,buffer_f32),tolerance,buffer_f32);
-        if (buffer_read(in_buff,buffer_bool))
-           (instance).image_angle = htme_RecieveVar((instance).image_angle,buffer_read(in_buff,buffer_f32),tolerance,buffer_f32);
-        if (buffer_read(in_buff,buffer_bool))
-           (instance).visible = htme_RecieveVar((instance).visible,buffer_read(in_buff,buffer_bool),tolerance,buffer_bool);
+        if (buffer_read(in_buff,buffer_bool)) {
+            new_val=buffer_read(in_buff,buffer_u8);
+           (instance).image_alpha = htme_RecieveVar((instance).image_alpha,new_val,tolerance,buffer_u8);}
+        if (buffer_read(in_buff,buffer_bool)) {
+            new_val=buffer_read(in_buff,buffer_u32);
+           (instance).image_blend = htme_RecieveVar((instance).image_blend,new_val,tolerance,buffer_u32);}
+        if (buffer_read(in_buff,buffer_bool)) { 
+            new_val=buffer_read(in_buff,buffer_u16);
+           (instance).image_index = htme_RecieveVar((instance).image_index,new_val,tolerance,buffer_u16);}
+        if (buffer_read(in_buff,buffer_bool)) {
+            new_val=buffer_read(in_buff,buffer_f32);
+           (instance).image_speed = htme_RecieveVar((instance).image_speed,new_val,tolerance,buffer_f32);}
+        if (buffer_read(in_buff,buffer_bool)) {
+            new_val=buffer_read(in_buff,buffer_f32);
+           (instance).image_xscale = htme_RecieveVar((instance).image_xscale,new_val,tolerance,buffer_f32);}
+        if (buffer_read(in_buff,buffer_bool)) {
+            new_val=buffer_read(in_buff,buffer_f32);
+           (instance).image_yscale = htme_RecieveVar((instance).image_yscale,new_val,tolerance,buffer_f32);}
+        if (buffer_read(in_buff,buffer_bool)) {
+            new_val=buffer_read(in_buff,buffer_f32);
+           (instance).image_angle = htme_RecieveVar((instance).image_angle,new_val,tolerance,buffer_f32);}
+        if (buffer_read(in_buff,buffer_bool)) {
+            new_val=buffer_read(in_buff,buffer_bool);
+           (instance).visible = htme_RecieveVar((instance).visible,new_val,tolerance,buffer_bool);}
     break;
     case mp_buffer_type.BUILTINPHYSICS:
-        if (buffer_read(in_buff,buffer_bool))
-           (instance).direction = htme_RecieveVar((instance).direction,buffer_read(in_buff,buffer_f32),tolerance,buffer_f32);
-        if (buffer_read(in_buff,buffer_bool))
-           (instance).gravity = htme_RecieveVar((instance).gravity,buffer_read(in_buff,buffer_f32),tolerance,buffer_f32);
-        if (buffer_read(in_buff,buffer_bool))
-           (instance).gravity_direction = htme_RecieveVar((instance).gravity_direction,buffer_read(in_buff,buffer_u16),tolerance,buffer_u16);
-        if (buffer_read(in_buff,buffer_bool))
-           (instance).friction = htme_RecieveVar((instance).friction,buffer_read(in_buff,buffer_f32),tolerance,buffer_f32)
-        if (buffer_read(in_buff,buffer_bool))
-           (instance).hspeed = htme_RecieveVar((instance).hspeed,buffer_read(in_buff,buffer_f32),tolerance,buffer_f32);
-        if (buffer_read(in_buff,buffer_bool))
-           (instance).vspeed = htme_RecieveVar((instance).vspeed,buffer_read(in_buff,buffer_f32),tolerance,buffer_f32);
+        if (buffer_read(in_buff,buffer_bool)) {
+            new_val=buffer_read(in_buff,buffer_f32);
+           (instance).direction = htme_RecieveVar((instance).direction,new_val,tolerance,buffer_f32);}
+        if (buffer_read(in_buff,buffer_bool)) {
+            new_val=buffer_read(in_buff,buffer_f32);
+           (instance).gravity = htme_RecieveVar((instance).gravity,new_val,tolerance,buffer_f32);}
+        if (buffer_read(in_buff,buffer_bool)) {
+            new_val=buffer_read(in_buff,buffer_u16);
+           (instance).gravity_direction = htme_RecieveVar((instance).gravity_direction,new_val,tolerance,buffer_u16);}
+        if (buffer_read(in_buff,buffer_bool)) {
+            new_val=buffer_read(in_buff,buffer_f32);
+           (instance).friction = htme_RecieveVar((instance).friction,new_val,tolerance,buffer_f32);}
+        if (buffer_read(in_buff,buffer_bool)) {
+            new_val=buffer_read(in_buff,buffer_f32);
+           (instance).hspeed = htme_RecieveVar((instance).hspeed,new_val,tolerance,buffer_f32);}
+        if (buffer_read(in_buff,buffer_bool)) {
+            new_val=buffer_read(in_buff,buffer_f32);
+           (instance).vspeed = htme_RecieveVar((instance).vspeed,new_val,tolerance,buffer_f32);}
     break;
     default:
         //Simple datatype
