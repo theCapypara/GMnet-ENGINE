@@ -21,6 +21,15 @@
 var buffer = argument0;
 var target  = argument1;
 
+// Current in buffer (if any)
+// Too make sure the in buffer is not deleted
+var in_buffer=noone
+if is_undefined(async_load)
+{
+    ds_map_find_value(async_load, "buffer");
+    if is_undefined(in_buffer) in_buffer=noone;
+}
+
 //Get Player Outmap
 var target_outmap = ds_map_find_value(self.sPcountOUT,target);
 if (is_undefined(target_outmap)) {
@@ -39,9 +48,12 @@ buffer_seek(cache_buffer, buffer_seek_end, 0);
 ds_map_add(target_outmap,n,cache_buffer);
 
 //remove old entries
-if (ds_map_exists(target_outmap,n-500)) {
-   buffer_delete(ds_map_find_value(target_outmap,n-500));
-   ds_map_delete(target_outmap,n-500);
+if (ds_map_exists(target_outmap,n-signed_buffer_cache)) 
+{
+    var find_old_buffer=ds_map_find_value(target_outmap,n-signed_buffer_cache);
+    // Make sure the values is not the in buffer
+    if in_buffer!=find_old_buffer buffer_delete(find_old_buffer);
+    ds_map_delete(target_outmap,n-signed_buffer_cache);
 }
 
 target_outmap[? "n"] = n;

@@ -17,19 +17,33 @@
 **
 */
 
+// Current in buffer (if any)
+// Too make sure the in buffer is not deleted
+var in_buffer=noone
+if is_undefined(async_load)
+{
+    ds_map_find_value(async_load, "buffer");
+    if is_undefined(in_buffer) in_buffer=noone;
+}
+
 // Check if clean specific target
 if argument0!="" {
     // Clean target sPcountOUT buffers
     var target_outmap = ds_map_find_value(self.sPcountOUT,argument0);
     if (!is_undefined(target_outmap)) {
-        if ds_exists(target_outmap, ds_type_map) {
-            // This will loop through all buffers in target_outmap
-            for(var i=0; i<ds_map_size(target_outmap); i+=1) {
+        if ds_exists(target_outmap, ds_type_map) 
+        {
+            // Loop again until complete empty
+            while (!ds_map_empty(target_outmap))
+            {
                 // Delete buffer
-                var buffer_index=ds_map_find_value(target_outmap,i);
-                if !is_undefined(buffer_index) {
-                    buffer_delete(buffer_index);
+                var the_key=ds_map_find_first(target_outmap);
+                buffer_index=ds_map_find_value(target_outmap,the_key);
+                if !is_undefined(buffer_index) 
+                {
+                    if in_buffer!=buffer_index buffer_delete(buffer_index);
                 }
+                ds_map_delete(target_outmap,the_key);
             }
             // Destroy map itself
             ds_map_destroy(target_outmap);
@@ -47,12 +61,14 @@ if argument0!="" {
             if !is_undefined(target_ds_priority)
             {  
                 // This will loop through all buffers in target_ds_priority
-                for(var i=0; i<ds_priority_size(target_ds_priority); i+=1) {
+                while !ds_priority_empty(target_ds_priority)
+                {
                     // Delete buffer
-                    var buffer_index=ds_priority_find_priority(target_ds_priority,i);
-                    if !is_undefined(buffer_index) {
-                        buffer_delete(buffer_index);
-                    }            
+                    var buffer_index=ds_priority_delete_min(target_ds_priority);
+                    if !is_undefined(buffer_index) 
+                    {
+                        if in_buffer!=buffer_index buffer_delete(buffer_index);
+                    }
                 }
                 // Destroy ds priority
                 ds_priority_destroy(target_ds_priority);
@@ -69,14 +85,19 @@ if argument0!="" {
     for(var ii=0; ii<ds_map_size(self.sPcountOUT); ii+=1) {
         var target_outmap = ds_map_find_value(self.sPcountOUT,key);
         if (!is_undefined(target_outmap)) {
-            if ds_exists(target_outmap, ds_type_map) {
-                // This will loop through all buffers in target_outmap
-                for(var i=0; i<ds_map_size(target_outmap); i+=1) {
+            if ds_exists(target_outmap, ds_type_map) 
+            {
+                // Loop again until complete empty
+                while (!ds_map_empty(target_outmap))
+                {
                     // Delete buffer
-                    var buffer_index=ds_map_find_value(target_outmap,i);
-                    if !is_undefined(buffer_index) {
-                        buffer_delete(buffer_index);
+                    var the_key=ds_map_find_first(target_outmap);
+                    buffer_index=ds_map_find_value(target_outmap,the_key);
+                    if !is_undefined(buffer_index) 
+                    {
+                        if in_buffer!=buffer_index buffer_delete(buffer_index);
                     }
+                    ds_map_delete(target_outmap,the_key);
                 }
                 // Destroy map itself
                 ds_map_destroy(target_outmap);
@@ -99,13 +120,15 @@ if argument0!="" {
                 if !is_undefined(target_ds_priority)
                 {  
                     // This will loop through all buffers in target_ds_priority
-                    for(var i=0; i<ds_priority_size(target_ds_priority); i+=1) {
+                    while !ds_priority_empty(target_ds_priority)
+                    {
                         // Delete buffer
-                        var buffer_index=ds_priority_find_priority(target_ds_priority,i);
-                        if !is_undefined(buffer_index) {
-                            buffer_delete(buffer_index);
+                        var buffer_index=ds_priority_delete_min(target_ds_priority);
+                        if !is_undefined(buffer_index) 
+                        {
+                            if in_buffer!=buffer_index buffer_delete(buffer_index);
                         }
-                    }
+                    }                
                     // Destroy ds priority
                     ds_priority_destroy(target_ds_priority);
                 }

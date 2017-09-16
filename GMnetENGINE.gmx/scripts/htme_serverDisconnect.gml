@@ -13,7 +13,8 @@
 **      <nothing>
 **
 */
-
+// Handle offline mode
+htme_handle_offline_mode(false);
 if (!self.isServer) {
     htme_debugger("htme_serverDisconnect",htme_debug.WARNING,"Tried to use server disconect function while running in client mode.");
     exit;

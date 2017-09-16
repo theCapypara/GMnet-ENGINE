@@ -47,6 +47,8 @@ if (in_ip == global.udphp_master and in_id == global.udphp_server_tcp) {
     switch com {
         case udphp_packet.MASTER:
             //Comamnd indicates, that a client tries to connect: Store his information in incoming_requests and try to connect in udphp_serverPunch
+            show_debug_message("============ udphp_serverNetworking ============ BUFFER SIZE:" + string(buffer_get_size(in_buff)) + " TELL:" + string(buffer_tell(in_buff)));
+            if buffer_get_size(in_buff)=1 exit;
             var client_ip = buffer_read(in_buff, buffer_string );
             var client_port = real(buffer_read(in_buff, buffer_string ));
             ds_map_add(incoming_requests,string(client_ip)+":"+string(client_port),0);

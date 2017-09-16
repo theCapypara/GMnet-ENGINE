@@ -115,6 +115,7 @@ if htme_isStarted() {
         //This will retrieve the first unchecked message. They are ordered by time, oldest first.
         //ds_queue_dequeue will return this entry and then remove it from the queue.
         var raw_message = ds_queue_dequeue(queue);
+        var data_string = ds_queue_dequeue(queue);
         //We now need to get the sender and the actual message, we do this using these two
         //commands:
         var sender = htme_chatGetSender(raw_message);
@@ -122,7 +123,7 @@ if htme_isStarted() {
     
         /* Get player name - This works just as in playerlist */
         var player_instance = htme_findPlayerInstance(htme_obj_player,sender);
-         if (player_instance != -1) {
+         if (player_instance != noone) {
              var name = (player_instance).name;
          } else {
              var name = "(Someboy in another room)";
@@ -131,6 +132,12 @@ if htme_isStarted() {
         
         //Add to list of chat output
         ds_list_add(self.output,name+": "+message);
+        
+        // Remove old
+        while ds_list_size(self.output)&gt;100
+        {
+            ds_list_delete(self.output,0);
+        }        
     }
 }
 </string>
@@ -162,7 +169,7 @@ if (i_d == self.str_id) {
       if (ds_map_find_value(async_load, "result") != "") {
          var message = ds_map_find_value(async_load, "result");
          //Send the message using the CHAT API.
-         mp_chatSend(message);
+         mp_chatSend(message,"");
       }
    }
 }

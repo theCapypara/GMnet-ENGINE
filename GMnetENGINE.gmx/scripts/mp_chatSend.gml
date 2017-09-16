@@ -1,4 +1,4 @@
-///mp_chatSend(message,[to])
+///mp_chatSend(message,data string,[to])
 
 /*
 **  Description:
@@ -33,9 +33,9 @@
 var channel = self.htme_mp_chatChannel;
 
 with global.htme_object {
-    if (argument_count > 1) {
-        htme_chatSend(channel, argument[0], argument[1]);
+    if (argument_count > 2) {
+        htme_chatSend(channel, argument[0], argument[1], argument[2]);
     } else {
-        htme_chatSend(channel, argument[0]);
+        htme_chatSend(channel, argument[0], argument[1]);
     }
 }

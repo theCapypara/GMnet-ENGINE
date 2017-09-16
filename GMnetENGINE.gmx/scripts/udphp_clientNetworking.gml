@@ -39,10 +39,14 @@ if (in_ip == global.udphp_master) {
     var com = buffer_read(in_buff, buffer_s8 );
     switch com {
         case udphp_packet.MASTER:
+            // Exit if buffer is corrupted
+            if buffer_get_size(in_buff)=1 exit;
             //master server sent port and ip! Set IP and port and set directconnect to true
+            show_debug_message("Buffer size (2):" + string(buffer_get_size(in_buff)) + " Buffer tell:" + string(buffer_tell(in_buff)));
             //client will now connect to server
             udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.CLIENT, client, "Server found!");
             client.server_ip = buffer_read(in_buff, buffer_string )
+            if buffer_get_size(in_buff)=buffer_tell(in_buff) exit;
             client.server_port = real(buffer_read(in_buff, buffer_string ));
             // Reset punch state
             client.punch_stage = udphp_punch_states.DEFAULT;

@@ -72,6 +72,8 @@
   * recommended at all. You should cache the instance and only reread it if it
   * got destroyed (which may happen).
   */
+  
+if htme_isStarted()=false exit;
 draw_set_color(c_white);
 draw_text(40,35,"Players:");
 var playerlist = htme_getPlayers();
