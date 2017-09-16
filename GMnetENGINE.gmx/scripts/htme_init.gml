@@ -106,6 +106,7 @@ enum htme_packet {
     SIGNEDPACKET_NEW_CMD=124,
     SIGNEDPACKET=126,
     SIGNEDPACKET_ACCEPTED=127,
+    GETLOCALIPBROADCAST=-128,
     SIGNEDPACKET_NEW_CMD_REQ=1,
     SIGNEDPACKET_NEW_CMD_MISS=2
 }
@@ -149,7 +150,8 @@ if (self.use_udphp) {
     //Set some additional PUNCH variables
     global.udphp_punch_stage_timeout_initial = self.punch_stage_timeout;
 }
-
+//Init signed buffer cache
+self.signed_buffer_cache=500;
 //Is the engine started by creating a server or client?
 self.started = false;
 //true -> Server, false -> Client

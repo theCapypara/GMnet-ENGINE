@@ -1,4 +1,4 @@
-///htme_chatSend(channel,message,[to])
+///htme_chatSend(channel,message,data string,[to])
 
 /*
 **  Description:
@@ -26,15 +26,16 @@
 
 var channel = argument[0];
 var message = self.playerhash+chr(31)+argument[1];
+var data_string = argument[2];
 var to = "";
-if (argument_count > 2) {
-    to = argument[2];
+if (argument_count > 3) {
+    to = argument[3];
 }
 
 //Add to local queues
 if (to == "" or to == self.playerhash) {
     htme_debugger("htme_chatSend",htme_debug.CHATDEBUG,"CHAT API ["+channel+"] - Sending message "+message+" to myself.");
-    htme_chatAddToQueue(channel, message, to);
+    htme_chatAddToQueue(channel, message, data_string, to);
 }
 
 if (to == self.playerhash) {
@@ -43,7 +44,7 @@ if (to == self.playerhash) {
 }
 
 if (self.isServer) {
-    htme_chatSendServer(channel,message,to);
+    htme_chatSendServer(channel,message,data_string,to);
 } else {
     //Send message to server, the server will relay the message.
     buffer_seek(self.buffer, buffer_seek_start, 0);
@@ -51,6 +52,7 @@ if (self.isServer) {
     buffer_write(self.buffer, buffer_string,channel);
     buffer_write(self.buffer, buffer_string,to);
     buffer_write(self.buffer, buffer_string,message);
+    buffer_write(self.buffer, buffer_string,data_string);
     if (to == "")
         htme_debugger("htme_chatSend",htme_debug.CHATDEBUG,"CHAT API ["+channel+"] - Sending message "+message+" to all.");
     else

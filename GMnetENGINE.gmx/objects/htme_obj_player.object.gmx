@@ -126,7 +126,7 @@ mp_setType("basicPhysics",mp_type.SMART);
  * http://docs.yoyogames.com/source/dadiospice/002_reference/buffers/buffer_read.html
  * for all options
  */
-mp_add("playerName","name",buffer_string,60*room_speed);
+mp_add("playerName","name",buffer_string,999999*room_speed);
 mp_setType("playerName",mp_type.SMART);
 mp_add("controls","pressed_jump,pressed_left,pressed_right",buffer_bool,1);
 
@@ -217,10 +217,13 @@ if (htme_isLocal()) {
   * to the variables stored in the engine.
   **/
 
-self.name = mp_map_syncOut("name", self.name);
-self.pressed_jump = mp_map_syncOut("pressed_jump", self.pressed_jump);
-self.pressed_left = mp_map_syncOut("pressed_left", self.pressed_left);
-self.pressed_right = mp_map_syncOut("pressed_right", self.pressed_right);
+if !htme_isLocal()
+{
+    self.name = mp_map_syncOut("name", self.name);
+    self.pressed_jump = mp_map_syncOut("pressed_jump", self.pressed_jump);
+    self.pressed_left = mp_map_syncOut("pressed_left", self.pressed_left);
+    self.pressed_right = mp_map_syncOut("pressed_right", self.pressed_right);
+}
 </string>
           </argument>
         </arguments>
@@ -255,7 +258,8 @@ self.pressed_right = mp_map_syncOut("pressed_right", self.pressed_right);
  * and then sync them here. The multiplayer engine will not change the variables
  * for the local player, only retrieve them to send them to other players
  */
-if (htme_isLocal()) {
+if (htme_isLocal()) 
+{
     /** WRITES THE INPUTS FOR THE LOCAL PLAYER! These will be sent to all
       * other players as configured in the create event.
       *
@@ -270,16 +274,16 @@ if (htme_isLocal()) {
     self.pressed_jump = keyboard_check(vk_space);
     self.pressed_left = keyboard_check(vk_left);
     self.pressed_right = keyboard_check(vk_right);
+    
+    /** THIS SYNCS THE VARIABLES WITH THE ENGINE
+      * Add every variable synced via mp_add here!
+      * DO NOT JUST DO THIS FOR THE LOCAL PLAYER! Do it for all!
+      */
+    mp_map_syncIn("name",self.name);
+    mp_map_syncIn("pressed_jump",self.pressed_jump);
+    mp_map_syncIn("pressed_left",self.pressed_left);
+    mp_map_syncIn("pressed_right",self.pressed_right);    
 }
-
-/** THIS SYNCS THE VARIABLES WITH THE ENGINE
-  * Add every variable synced via mp_add here!
-  * DO NOT JUST DO THIS FOR THE LOCAL PLAYER! Do it for all!
-  */
-mp_map_syncIn("name",self.name);
-mp_map_syncIn("pressed_jump",self.pressed_jump);
-mp_map_syncIn("pressed_left",self.pressed_left);
-mp_map_syncIn("pressed_right",self.pressed_right);
 </string>
           </argument>
         </arguments>
@@ -431,6 +435,81 @@ draw_set_color(c_white);
         <whoName>self</whoName>
         <relative>0</relative>
         <isnot>0</isnot>
+      </action>
+    </event>
+    <event eventtype="10" enumb="50">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// RPC to client without responce
+if htme_isLocal()
+{
+    // Try find p2 client object
+    var P2_id=noone;
+    with obj_client_handler
+    {
+        if htme_getPlayerNumber(htme_mp_player)=2
+        {
+            P2_id=id;
+            break;
+        }
+    }
+    
+    if P2_id&gt;-1
+    {
+        with instance_create(0,0,obj_RPC_To_Client_Dummy)
+        {
+            client_object=P2_id;
+            TestData="Hi P2!";
+        }
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="10" enumb="49">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/// RPC to server with return value
+if htme_isLocal()
+{
+    with instance_create(0,0,obj_RPC_To_Server_Dummy)
+    {
+        TestData="Hi server how are you?";
+    }
+}
+</string>
+          </argument>
+        </arguments>
       </action>
     </event>
   </events>

@@ -16,4 +16,4 @@
 **
 */
 var theMessage=argument0;
-show_message(theMessage);
+show_debug_message(theMessage);

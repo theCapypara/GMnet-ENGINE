@@ -22,7 +22,7 @@ self.debugoverlay = true;
  * 2: network_create_socket(network_socket_udp); For tests
  * 3: network_create_server(network_socket_udp,port,maxclients); <=1.4.1567
  */
-self.gmversionpick=1;
+self.gmversionpick=3;
 
 /** 
  * Use string id for rooms and objects
@@ -71,7 +71,7 @@ use_delta_time=false;
  * Works on Windows,Android,Linux
  * @type boolean
  */
-self.upnp_enabled = false;
+self.upnp_enabled = true;
 
 /** 
  * WHEN USING GMnet PUNCH:
@@ -89,7 +89,7 @@ self.udphp_rctintv = 3*60*room_speed;
  * The timeout after which the server and client give up to connect to each other.
  * @type real
  */
-self.global_timeout = 5*room_speed;
+self.global_timeout = 15*room_speed;
 
 /** 
  * WHEN USING GMnet PUNCH:

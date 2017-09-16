@@ -73,6 +73,7 @@ enum udphp_punch_states {
     DEFAULT= 0,
     TRY_SEQUENCE_PORT= 25,
     TRY_PREDICTING_PORT= 40,
+    TRY_PROVIDED_PORT= 80
 }
 
 enum udphp_punch_substates {

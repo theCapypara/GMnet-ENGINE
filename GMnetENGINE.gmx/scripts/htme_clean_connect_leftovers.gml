@@ -16,7 +16,8 @@
 **      <nothing>
 **
 */
-
+if self.buffer>-1 buffer_delete(self.buffer);
+self.buffer=-1;
 if ds_exists(self.localInstances,ds_type_map) ds_map_destroy(self.localInstances);
 self.localInstances=-1;
 if ds_exists(self.globalInstances,ds_type_map) ds_map_destroy(self.globalInstances);

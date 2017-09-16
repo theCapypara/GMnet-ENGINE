@@ -17,13 +17,242 @@
   <androidsourcedir></androidsourcedir>
   <macsourcedir></macsourcedir>
   <maclinkerflags></maclinkerflags>
-  <maccompilerflags></maccompilerflags>
   <androidinject></androidinject>
-  <gradleinject></gradleinject>
   <iosSystemFrameworks/>
   <iosThirdPartyFrameworks/>
   <androidPermissions/>
-  <IncludedResources/>
+  <IncludedResources>
+    <Resource>Sprites\htme_demo\htme_spr_wall</Resource>
+    <Resource>Sprites\htme_demo\htme_spr_player</Resource>
+    <Resource>Sprites\htme_demo\htme_spr_door</Resource>
+    <Resource>Sprites\htme_demo\htme_logo</Resource>
+    <Resource>Sprites\Lobby\spr_TextFitBox</Resource>
+    <Resource>Scripts\Gmnet\Lobby\scr_Text_Fit_Box_Common.gml</Resource>
+    <Resource>Scripts\Gmnet\htme_demo\totro.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\htme_config</Resource>
+    <Resource>Scripts\Gmnet\htme\htme_init</Resource>
+    <Resource>Scripts\Gmnet\htme\htme_error_message_handler</Resource>
+    <Resource>Scripts\Gmnet\htme\internal\htme_debugger.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\internal\htme_hash.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\internal\htme_string_explode.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\internal\htme_ds_map_find_key.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\internal\htme_playerMapPort.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\internal\htme_playerMapIP.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\internal\htme_get_count.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\tools\htme_isLocal</Resource>
+    <Resource>Scripts\Gmnet\htme\tools\htme_clientIsConnected</Resource>
+    <Resource>Scripts\Gmnet\htme\tools\htme_clientConnectionFailed</Resource>
+    <Resource>Scripts\Gmnet\htme\tools\htme_isStarted</Resource>
+    <Resource>Scripts\Gmnet\htme\tools\htme_isLostConnection</Resource>
+    <Resource>Scripts\Gmnet\htme\tools\htme_isServer</Resource>
+    <Resource>Scripts\Gmnet\htme\tools\htme_getPlayers</Resource>
+    <Resource>Scripts\Gmnet\htme\tools\htme_findPlayerInstance</Resource>
+    <Resource>Scripts\Gmnet\htme\tools\htme_debugOverlayEnabled</Resource>
+    <Resource>Scripts\Gmnet\htme\tools\data\htme_setGamename.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\tools\data\htme_getGamename.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\tools\data\htme_setData.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\tools\data\htme_getDataServer.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\tools\data\htme_commitData.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\tools\htme_getPlayerNumber</Resource>
+    <Resource>Scripts\Gmnet\htme\tools\htme_disconnectNow</Resource>
+    <Resource>Scripts\Gmnet\htme\tools\htme_serverDisconnect</Resource>
+    <Resource>Scripts\Gmnet\htme\tools\htme_serverShutdown</Resource>
+    <Resource>Scripts\Gmnet\htme\tools\htme_clientDisconnect</Resource>
+    <Resource>Scripts\Gmnet\htme\tools\lanlobby\htme_startLANsearch.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\tools\lanlobby\htme_stopLANsearch.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\tools\lanlobby\htme_getLANServers.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\tools\htme_serverEventHandlerConnecting</Resource>
+    <Resource>Scripts\Gmnet\htme\tools\htme_serverEventHandlerDisconnecting</Resource>
+    <Resource>Scripts\Gmnet\htme\tools\global sync\htme_globalGet.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\tools\global sync\htme_globalSet.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\tools\global sync\htme_globalSetFast.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\tools\CHAT API\htme_chatGetSender.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\tools\CHAT API\htme_chatGetMessage.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\tools\htme_clientStart</Resource>
+    <Resource>Scripts\Gmnet\htme\tools\htme_serverStart</Resource>
+    <Resource>Scripts\Gmnet\htme\tools\htme_syncGroupNow</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\client\step\htme_clientCheckConnection.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\client\step\htme_clientConnect.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\client\step\htme_clientSyncSingleVarGroup.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\client\networking\htme_clientNetworking.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\client\networking\htme_clientConnectNetworking.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\client\networking\htme_clientCheckConnectionNetworking.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\client\networking\htme_clientRecieveVarGroup.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\client\htme_clientStop</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\client\htme_clientBroadcastUnsync</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\server\step\htme_serverCheckConnections.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\server\step\htme_serverSyncSingleVarGroup.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\server\step\htme_serverProcessKicks.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\server\step\htme_serverBroadcast.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\server\networking\htme_serverNetworking.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\server\networking\htme_serverSyncPlayersUDPHP.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\server\networking\htme_serverConnectNetworking.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\server\networking\htme_serverCheckConnectionsNetworking.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\server\networking\htme_serverRecieveVarGroup.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\server\htme_serverStop</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\server\htme_serverKickClient</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\server\htme_serverEventPlayerConnected</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\server\htme_serverEventPlayerDisconnected</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\server\htme_serverSendBufferToAllExcept</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\server\htme_serverSendAllInstances</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\server\htme_serverPlayerIsInRoom</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\server\htme_serverBroadcastRoomChange</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\server\htme_serverRemoveBackup</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\server\htme_serverRecreateInstancesLocal</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\server\htme_serverBroadcastUnsync</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\server\htme_chatSendServer</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\server\htme_serverAskPlayersToResync</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\step\htme_step.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\step\htme_syncInstances.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\step\htme_syncSingleVarGroup.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\step\htme_forceSyncLocalInstances.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\step\htme_syncVar.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\networking\htme_networking.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\networking\htme_recieveVarGroup.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\networking\htme_RecieveVar.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\networking\htme_recieveGS.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\networking\htme_networking_searchForBroadcasts.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\htme_roomend</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\htme_shutdown</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\htme_roomstart</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\htme_cleanUpInstance</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\htme_isStayAlive</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\htme_sendGS</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\htme_sendGSFast</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\debug overlay\htme_debugoverlay.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\debug overlay\htme_do_createMicro.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\debug overlay\htme_doDrawInstanceTable.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\debug overlay\htme_doMain.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\debug overlay\htme_dotbd.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\debug overlay\htme_doOff.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\debug overlay\htme_doInstVisible.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\debug overlay\htme_doInstAll.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\debug overlay\htme_doInstInvisible.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\debug overlay\htme_doInstCached.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\debug overlay\htme_doPlayers.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\debug overlay\htme_doGlobalSync.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\debug overlay\htme_doSignedPackets.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\debug overlay\htme_doChat.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\debug overlay\htme_doMapsAndLists.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\htme_defaultEventHandler</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\htme_chatSend</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\htme_chatAddToQueue</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\htme_chatAddChannel</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\htme_clean_mp_sync</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\common\htme_clean_connect_leftovers</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\signed_packets\htme_sendNewSignedPacket.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\signed_packets\htme_initSignedPacket.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\signed_packets\htme_sendSingleSignedPacket.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\signed_packets\htme_recieveSignedPackets.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\logic\signed_packets\htme_clean_signed_packets.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\instance comamnds\mp_sync.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\instance comamnds\mp_add.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\instance comamnds\mp_addPosition.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\instance comamnds\mp_addBuiltinBasic.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\instance comamnds\mp_addBuiltinPhysics.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\instance comamnds\mp_unsync.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\instance comamnds\mp_setType.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\instance comamnds\mp_stayAlive.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\instance comamnds\mp_map_syncIn.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\instance comamnds\mp_map_syncOut.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\instance comamnds\mp_tolerance.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\instance comamnds\mp_syncAsChatHandler.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\instance comamnds\mp_chatGetQueue.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\instance comamnds\mp_chatSend.gml</Resource>
+    <Resource>Scripts\Gmnet\htme\offline mode\htme_handle_offline_mode.gml</Resource>
+    <Resource>Scripts\Gmnet\udphp\server\udphp_createServer.gml</Resource>
+    <Resource>Scripts\Gmnet\udphp\server\udphp_serverPunch.gml</Resource>
+    <Resource>Scripts\Gmnet\udphp\server\udphp_serverNetworking.gml</Resource>
+    <Resource>Scripts\Gmnet\udphp\server\udphp_stopServer.gml</Resource>
+    <Resource>Scripts\Gmnet\udphp\server\udphp_serverCommitData.gml</Resource>
+    <Resource>Scripts\Gmnet\udphp\server\udphp_serverSetData.gml</Resource>
+    <Resource>Scripts\Gmnet\udphp\client\udphp_createClient.gml</Resource>
+    <Resource>Scripts\Gmnet\udphp\client\udphp_clientPunch.gml</Resource>
+    <Resource>Scripts\Gmnet\udphp\client\udphp_clientNetworking.gml</Resource>
+    <Resource>Scripts\Gmnet\udphp\client\udphp_stopClient.gml</Resource>
+    <Resource>Scripts\Gmnet\udphp\client\udphp_clientReadData.gml</Resource>
+    <Resource>Scripts\Gmnet\udphp\tools\udphp_clientGetServerIP.gml</Resource>
+    <Resource>Scripts\Gmnet\udphp\tools\udphp_clientGetServerPort.gml</Resource>
+    <Resource>Scripts\Gmnet\udphp\tools\udphp_playerListIP.gml</Resource>
+    <Resource>Scripts\Gmnet\udphp\tools\udphp_playerListPort.gml</Resource>
+    <Resource>Scripts\Gmnet\udphp\tools\udphp_clientIsConnected.gml</Resource>
+    <Resource>Scripts\Gmnet\udphp\internal\udphp_hash.gml</Resource>
+    <Resource>Scripts\Gmnet\udphp\internal\udphp_string_explode.gml</Resource>
+    <Resource>Scripts\Gmnet\udphp\internal\udphp_handleerror.gml</Resource>
+    <Resource>Scripts\Gmnet\udphp\internal\udphp_punchstate.gml</Resource>
+    <Resource>Scripts\Gmnet\udphp\internal\udphp_get_count.gml</Resource>
+    <Resource>Scripts\Gmnet\udphp\lobby\udphp_downloadNetworking.gml</Resource>
+    <Resource>Scripts\Gmnet\udphp\lobby\udphp_downloadServerList.gml</Resource>
+    <Resource>Scripts\Gmnet\udphp\udphp_config</Resource>
+    <Resource>Scripts\Gmnet\udphp\udphp_error_message_handler</Resource>
+    <Resource>Scripts\Gmnet\RPC\htmerpc_SCRIPT_WHO_SEND_RETURN_VALUE_INIT</Resource>
+    <Resource>Scripts\Gmnet\RPC\htmerpc_SCRIPTS_RUN_IN_ALL_ROOMS_INIT</Resource>
+    <Resource>Scripts\Gmnet\RPC\Core\htmerpc_Send_Return_Value.gml</Resource>
+    <Resource>Scripts\Gmnet\RPC\Core\htmerpc_callback.gml</Resource>
+    <Resource>Scripts\Gmnet\RPC\Core\htmerpc_send.gml</Resource>
+    <Resource>Scripts\Gmnet\RPC\Core\htmerpc_recieve.gml</Resource>
+    <Resource>Scripts\Gmnet\RPC\Core\htmerpc_send_callback.gml</Resource>
+    <Resource>Scripts\Gmnet\RPC\Core\htmerpc_Allow_Run_Script_Current_Room.gml</Resource>
+    <Resource>Scripts\Gmnet\RPC\Core\htmerpc_split_string.gml</Resource>
+    <Resource>Scripts\Gmnet\RPC\Core\htmerpc_send_add_datastring.gml</Resource>
+    <Resource>Scripts\Gmnet\RPC dummy\scr_RPC_dummy.gml</Resource>
+    <Resource>Scripts\Gmnet\RPC dummy\scr_RPC_dummy_return.gml</Resource>
+    <Resource>Scripts\Gmnet\Extra\scr_Buffer_To_String.gml</Resource>
+    <Resource>Scripts\Gmnet\Extra\scr_String_To_Buffer.gml</Resource>
+    <Resource>Scripts\Gmnet\Memory Leak Check\scr_memory_leak_test.gml</Resource>
+    <Resource>Scripts\Gmnet\Memory Leak Check\ds_list_create_debug.gml</Resource>
+    <Resource>Scripts\Gmnet\Memory Leak Check\ds_list_destroy_debug.gml</Resource>
+    <Resource>Scripts\Gmnet\Memory Leak Check\scr_memory_leak_init.gml</Resource>
+    <Resource>Fonts\font0</Resource>
+    <Resource>Objects\htme_demo\menu\htme_obj_menu</Resource>
+    <Resource>Objects\htme_demo\game\htme_obj_wall</Resource>
+    <Resource>Objects\htme_demo\game\htme_obj_player</Resource>
+    <Resource>Objects\htme_demo\game\htme_obj_time</Resource>
+    <Resource>Objects\htme_demo\game\htme_obj_door</Resource>
+    <Resource>Objects\obj_dual_instance</Resource>
+    <Resource>Objects\Gmnet\Lobby\obj_Lobby_button_parent</Resource>
+    <Resource>Objects\Gmnet\Lobby\obj_Lobby_button_1</Resource>
+    <Resource>Objects\Gmnet\Lobby\obj_Lobby_button_2</Resource>
+    <Resource>Objects\Gmnet\Lobby\obj_Lobby_button_3</Resource>
+    <Resource>Objects\Gmnet\Lobby\obj_Lobby_button_4</Resource>
+    <Resource>Objects\Gmnet\Lobby\obj_next_servers</Resource>
+    <Resource>Objects\Gmnet\Lobby\obj_refresh</Resource>
+    <Resource>Objects\Gmnet\Lobby\obj_prev_servers</Resource>
+    <Resource>Objects\Gmnet\Lobby\obj_back_to_main</Resource>
+    <Resource>Objects\Gmnet\Lobby\obj_lan_lobby</Resource>
+    <Resource>Objects\Gmnet\Lobby\obj_online_lobby</Resource>
+    <Resource>Objects\Gmnet\upnp\obj_upnp</Resource>
+    <Resource>Objects\Gmnet\udphp\obj_punch_client</Resource>
+    <Resource>Objects\Gmnet\htme\obj_htme</Resource>
+    <Resource>Objects\Gmnet\htme\obj_htme_rpc</Resource>
+    <Resource>Objects\Gmnet\RPC\obj_RPC_To_Server_Dummy</Resource>
+    <Resource>Objects\Gmnet\RPC\obj_RPC_To_Client_Dummy</Resource>
+    <Resource>Objects\Gmnet\RPC\obj_RPC_parent</Resource>
+    <Resource>Objects\Gmnet\Server\obj_server_handler</Resource>
+    <Resource>Objects\Gmnet\Client\obj_client_handler</Resource>
+    <Resource>Objects\Gmnet\WaitForConnection\htme_obj_waitforclient</Resource>
+    <Resource>Objects\Gmnet\LostConnection\htme_obj_network_control</Resource>
+    <Resource>Objects\Gmnet\Chat\htme_obj_chat</Resource>
+    <Resource>Objects\Gmnet\PlayerList\htme_obj_playerlist</Resource>
+    <Resource>Objects\Gmnet\Network objects creator\obj_create_network_objects</Resource>
+    <Resource>Objects\Gmnet\Offline Mode\obj_htme_offline_mode</Resource>
+    <Resource>Rooms\htme_demo\htme_rom_menu</Resource>
+    <Resource>Rooms\htme_demo\htme_rom_connecting</Resource>
+    <Resource>Rooms\htme_demo\htme_rom_demo</Resource>
+    <Resource>Rooms\htme_demo\htme_rom_demo2</Resource>
+    <Resource>Rooms\Lobby\rm_online_lobby</Resource>
+    <Resource>Rooms\Lobby\rm_lan_lobby</Resource>
+    <Resource>Included Files\htme\README.txt</Resource>
+    <Resource>Included Files\htme\LICENSE.txt</Resource>
+    <Resource>Included Files\udphp_lib\removeport.vbs</Resource>
+    <Resource>Included Files\udphp_lib\upnpc-static.exe</Resource>
+    <Resource>Included Files\udphp_lib\ProcessLauncher.dll</Resource>
+    <Resource>Included Files\udphp_lib\addport.vbs</Resource>
+    <Resource>Included Files\udphp_lib\miniupnpc.txt</Resource>
+    <Resource>Included Files\udphp_lib\upnpc-static</Resource>
+    <Resource>Included Files\udphp_lib\addport.sh</Resource>
+    <Resource>Included Files\udphp_lib\removeport.sh</Resource>
+  </IncludedResources>
   <files>
     <file>
       <filename>UpnpAndroid.ext</filename>

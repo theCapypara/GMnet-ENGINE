@@ -76,13 +76,14 @@ if (!is_undefined(player)) {
              var channel = buffer_read(in_buff,buffer_string);
              var to = buffer_read(in_buff,buffer_string);
              var message = buffer_read(in_buff,buffer_string);
-             htme_debugger("htme_serverNetworking",htme_debug.CHATDEBUG,"CHAT API ["+channel+"] - Recieved "+message+" to "+to+".");
+             var data_string = buffer_read(in_buff,buffer_string);
+             htme_debugger("htme_serverNetworking",htme_debug.CHATDEBUG,"CHAT API ["+channel+"] - Recieved "+message+" to "+to+" with data string" + data_string);
              //Add to local queues
              if (to == "" or to == self.playerhash) {
-                 htme_debugger("htme_serverNetworking",htme_debug.CHATDEBUG,"CHAT API ["+channel+"] - Relaying message "+message+" to myself.");
-                 htme_chatAddToQueue(channel, message, to);
+                 htme_debugger("htme_serverNetworking",htme_debug.CHATDEBUG,"CHAT API ["+channel+"] - Relaying message "+message+" with data string " + data_string + " to myself.");
+                 htme_chatAddToQueue(channel, message, data_string, to);
              }
-             htme_chatSendServer(channel,message,to);
+             htme_chatSendServer(channel,message,data_string,to);
         break;
     }
 }

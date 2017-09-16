@@ -135,6 +135,15 @@ switch (client.punch_stage)
                 }
         }    
         break;
+    case udphp_punch_states.TRY_PROVIDED_PORT:
+        // Send message and try to connect to server (with provided port)
+        if global.ConnectToServerPort>0
+        {
+            client.server_port=global.ConnectToServerPort;
+        }        
+        //show_debug_message("Try: " + string(client.server_port));
+        network_send_udp( client.udp_socket, client.server_ip, client.server_port, client.buffer, buffer_tell(client.buffer) );        
+        break;
     default:
         // Deafult punch
         // Send message and try to connect to server

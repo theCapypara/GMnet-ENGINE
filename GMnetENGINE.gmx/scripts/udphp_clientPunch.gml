@@ -52,7 +52,7 @@ if (!client.connected) {
         udphp_punchstate(client);
 
         // Change punch stages depending on the total timeout
-        if (client.punch_stage < udphp_punch_states.TRY_SEQUENCE_PORT && 
+if (client.punch_stage < udphp_punch_states.TRY_SEQUENCE_PORT && 
           client.timeout > global_timeout*(udphp_punch_states.TRY_SEQUENCE_PORT/100)) {
             // Try change the external server port
             // If the server NAT changed the port to a sequencent port nearby the received port from master server
@@ -74,7 +74,18 @@ if (!client.connected) {
             client.punch_stage_counter=0;            
             // Only config this once
             client.punch_stage=udphp_punch_states.TRY_PREDICTING_PORT;         
-        }                  
+        } else if (client.punch_stage < udphp_punch_states.TRY_PROVIDED_PORT && 
+          client.timeout > (global_timeout*udphp_punch_states.TRY_PROVIDED_PORT/100)) {
+            // Try change the external server port
+            // If the server NAT changed the port to a random port
+            // We can use the last port from the master server as a max and min to predict the next port
+            // Some NAT change the external port when external ip change in the send network message.
+            // Reset some variables we use
+            client.punch_stage_sub1= udphp_punch_substates.DEFAULT;
+            client.punch_stage_counter=0;    
+            // Only config this once
+            client.punch_stage=udphp_punch_states.TRY_PROVIDED_PORT;         
+        }                 
         
         else if (client.timeout > global_timeout) {
             //When the timeout was exceeded, give up and return false to indicate the connection has failed

@@ -1,4 +1,4 @@
-///htme_chatSendServer(channel,message,to)
+///htme_chatSendServer(channel,message,data string,to)
 
 /*
 **  Description:
@@ -25,13 +25,15 @@
 
 var channel = argument0;
 var message = argument1;
-var to = argument2;
+var data_string = argument2;
+var to = argument3;
 
 buffer_seek(self.buffer, buffer_seek_start, 0);
 buffer_write(self.buffer, buffer_s8,htme_packet.CHAT_API);
 buffer_write(self.buffer, buffer_string,channel);
 buffer_write(self.buffer, buffer_string,to);
 buffer_write(self.buffer, buffer_string,message);
+buffer_write(self.buffer, buffer_string,data_string);
 
 if (to == "") {
     //Send to all clients

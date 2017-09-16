@@ -31,8 +31,11 @@ if (in_ip == global.udphp_master) {
     udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.MAIN, 0, "Downloader: Got message from master server");
     //Read command
     var com = buffer_read(in_buff, buffer_s8 );
+    show_debug_message("Buffer size (1):" + string(buffer_get_size(in_buff)));
     switch com {
         case udphp_packet.MASTER_LOBBY:
+            // Exit if buffer is corrupted
+            if buffer_get_size(in_buff)=1 exit;        
             var json = buffer_read(in_buff, buffer_string );
             //Close socket to server
             network_destroy(global.udphp_downloadServerlistSocket);
@@ -51,4 +54,6 @@ if (in_ip == global.udphp_master) {
             udphp_handleerror(udphp_dbglvl.DEBUG, udphp_dbgtarget.MAIN, 0, "Downloader: Unknown message from master server. ("+string(com)+")");
         break;
     }
-} 
+}
+
+buffer_seek(in_buff, buffer_seek_start, 0);

@@ -55,8 +55,7 @@ if htme_disconnectNow()
 {
     // If disconnect is ok then do some cleaning
     // Remove persistent but not synced objects
-    with htme_obj_chat instance_destroy();
-    with htme_obj_playerlist instance_destroy(); 
+    with obj_create_network_objects instance_destroy();
 }
 </string>
           </argument>
@@ -254,8 +253,7 @@ if htme_disconnectNow()
 {
     // If disconnect is ok then do some cleaning
     // Remove persistent but not synced objects
-    with htme_obj_chat instance_destroy();
-    with htme_obj_playerlist instance_destroy();
+    with obj_create_network_objects instance_destroy();
     // Go back to menu room
     room_goto(htme_rom_menu);    
 }

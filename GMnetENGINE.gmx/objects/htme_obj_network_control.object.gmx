@@ -4,7 +4,7 @@
   <solid>0</solid>
   <visible>-1</visible>
   <depth>0</depth>
-  <persistent>0</persistent>
+  <persistent>-1</persistent>
   <parentName>&lt;undefined&gt;</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
@@ -114,11 +114,10 @@
             <kind>1</kind>
             <string>///Check if engine running
 if (htme_isLostConnection()) {
-    htme_error_message_handler("Game Server or Client died! Go back to menu...");
+    show_message("Game Server or Client died! Go back to menu...");
     
     // Clean other persistent non synced objects from room
-    with htme_obj_chat instance_destroy();
-    with htme_obj_playerlist instance_destroy();    
+    with obj_create_network_objects instance_destroy();
     
     room_goto(htme_rom_menu);
 }

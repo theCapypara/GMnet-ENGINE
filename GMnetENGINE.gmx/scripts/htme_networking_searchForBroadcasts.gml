@@ -23,13 +23,13 @@
 with (global.htme_object) {
     if(!self.lanlobbysearch) {exit;}
     //Set up some local variables.
-    buffer_seek(buffer, buffer_seek_start, 0);
     var in_ip = ds_map_find_value(async_load, "ip");
     var in_buff = ds_map_find_value(async_load, "buffer");
     var in_id = ds_map_find_value(async_load, "id");
     var in_port = ds_map_find_value(async_load, "port");
     
     //Read command
+    buffer_seek(in_buff, buffer_seek_start, 0);
     code = buffer_read(in_buff, buffer_s8 );
     switch code {
         case htme_packet.SERVER_BROADCAST:
@@ -65,4 +65,5 @@ with (global.htme_object) {
             ds_list_add(serverlist,map);
         break;
     }
+    buffer_seek(in_buff, buffer_seek_start, 0);
 }
