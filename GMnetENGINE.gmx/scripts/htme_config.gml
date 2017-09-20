@@ -74,6 +74,15 @@ use_delta_time=false;
 self.upnp_enabled = true;
 
 /** 
+ * WHEN USING Steam:
+ * Works on Windows,Mac,Linux
+ * Make sure you add your AppID in Global Game Settings>Steam and also start Steam.exe
+ * Use AppID 480 for tests
+ * @type boolean
+ */
+self.steam_enabled = false;
+
+/** 
  * WHEN USING GMnet PUNCH:
  * The server should reconnect to the master server every x steps.
  * The server will only reconnect if it's no longer connected.

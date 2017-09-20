@@ -43,6 +43,13 @@ if upnp_enabled and use_udphp=false
     }
 }
 
+// Start steamworks
+if steam_enabled
+{
+    // Create steam lobby
+    scr_steam_create_lobby(maxclients);
+}
+
 //Create the server socket
 htme_debugger("htme_serverStart",htme_debug.DEBUG,"STARTING SERVER");
 switch (gmversionpick)

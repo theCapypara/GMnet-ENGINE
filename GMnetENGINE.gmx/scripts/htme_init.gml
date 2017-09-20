@@ -64,6 +64,16 @@ htme_config();
 htme_debugger("htme_init",htme_debug.INFO,"SETTING UP GMnet CORE");
 htme_debugger("htme_init",htme_debug.DEBUG,"Loaded configuration");
 
+// Create steam object if needed, or delete if not needed
+if steam_enabled
+{
+    if !instance_exists(obj_steam) instance_create(0,0,obj_steam);
+}
+else
+{
+    with obj_steam instance_destroy();
+}
+
 var currentConfigVersion = 1;
 
 if (self.config_version != currentConfigVersion) {

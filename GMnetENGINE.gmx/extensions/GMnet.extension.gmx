@@ -8,8 +8,6 @@
   <license>See LICENSE or LICNESE.txt file</license>
   <description>Additional resources for GMnet ENGINE/PUNCH</description>
   <helpfile></helpfile>
-  <androidProps>-1</androidProps>
-  <iosProps>0</iosProps>
   <installdir></installdir>
   <classname></classname>
   <androidclassname>UpnpAndroid</androidclassname>
@@ -17,9 +15,19 @@
   <androidsourcedir></androidsourcedir>
   <macsourcedir></macsourcedir>
   <maclinkerflags></maclinkerflags>
+  <maccompilerflags></maccompilerflags>
   <androidinject></androidinject>
+  <androidmanifestinject></androidmanifestinject>
+  <iosplistinject></iosplistinject>
+  <androidactivityinject></androidactivityinject>
+  <gradleinject></gradleinject>
   <iosSystemFrameworks/>
   <iosThirdPartyFrameworks/>
+  <ConfigOptions>
+    <Config name="Default">
+      <CopyToMask>9223372036854775807</CopyToMask>
+    </Config>
+  </ConfigOptions>
   <androidPermissions/>
   <IncludedResources>
     <Resource>Sprites\htme_demo\htme_spr_wall</Resource>
