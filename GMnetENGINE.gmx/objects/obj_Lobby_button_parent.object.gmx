@@ -142,6 +142,7 @@ if MyServerNumber&gt;-1
                     var port = entry[? "port"];
                     var game = entry[? "data1"];
                     var the_server_port = entry[? "data4"]; // Port
+                    scr_steam_on_LoadSteamIDFromLobby(entry[? "data7"]);
                     global.ConnectToServerPort=real(the_server_port);
                     if (game != self.game) 
                     {
@@ -182,6 +183,7 @@ if MyServerNumber&gt;-1
                     var ip = entry[? "ip"];
                     var game = entry[? "data1"];
                     var the_server_port = entry[? "data4"]; // Port
+                    scr_steam_on_LoadSteamIDFromLobby(entry[? "data7"]);
                     global.ConnectToServerPort=real(the_server_port);                    
                     if (game != self.game) 
                     {

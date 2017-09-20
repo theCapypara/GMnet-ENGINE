@@ -186,7 +186,7 @@ udphp_downloadNetworking();
 self.game = obj_htme.gamename;
 
 ///Recieve lobby data from the master server
-udphp_downloadServerList("","date","DESC",self.game);
+udphp_downloadServerList("","date","DESC",self.game,"","","","","",scr_steam_get_invite());
 </string>
           </argument>
         </arguments>

@@ -28,6 +28,8 @@ if instance_exists(global.htme_object) {
             } else {
                 with global.htme_object htme_clientDisconnect();
             }
+            // Stop steam
+            scr_steam_clean();
             return true;
         }
     }
