@@ -248,6 +248,7 @@ self.lan_intervalpnt = self.lan_interval;
 self.serverEventHandlerConnect = htme_defaultEventHandler;
 self.serverEventHandlerDisconnect = htme_defaultEventHandler;
 self.chatQueues = -1;
+self.hash_counter = 1;
 //Signed Packet Count Map - Sending
 /*STRUCTURE:
     self.sPcountOUT -> 
