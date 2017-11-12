@@ -25,7 +25,6 @@ var in_buff = ds_map_find_value(async_load, "buffer");
 var in_id = ds_map_find_value(async_load, "id");
 var in_port = ds_map_find_value(async_load, "port");
 
-buffer_seek(in_buff, buffer_seek_start, 0);
 //Create playermap if it doesn't exist, fix for YYC compatibility
 if not ds_exists(self.playermap,ds_type_map)
     self.playermap = ds_map_create()
@@ -33,6 +32,7 @@ if not ds_exists(self.playermap,ds_type_map)
 //Check if the sender is valid
 if ((self.isServer && !is_undefined(ds_map_find_value(self.playermap,in_ip+":"+string(in_port)))) ||
     (!self.isServer && in_ip == self.server_ip && in_port == self.server_port)) {
+    buffer_seek(in_buff, buffer_seek_start, 0);
     //Read command
     var code = buffer_read(in_buff, buffer_s8 );
     switch code {

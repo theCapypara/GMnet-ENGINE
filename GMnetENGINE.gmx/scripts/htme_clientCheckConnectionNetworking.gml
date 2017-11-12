@@ -25,10 +25,10 @@ var in_ip = ds_map_find_value(async_load, "ip");
 var in_buff = ds_map_find_value(async_load, "buffer");
 var in_id = ds_map_find_value(async_load, "id");
 var in_port = ds_map_find_value(async_load, "port");
-buffer_seek(in_buff, buffer_seek_start, 0);
 
 //Check that the packet is from the server
 if (in_ip == self.server_ip) {
+    buffer_seek(in_buff, buffer_seek_start, 0);
     //Read command
     switch buffer_read(in_buff, buffer_s8 ) {
         case htme_packet.PING:
