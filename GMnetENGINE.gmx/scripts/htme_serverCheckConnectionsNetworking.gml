@@ -22,12 +22,12 @@ var in_ip = ds_map_find_value(async_load, "ip");
 var in_buff = ds_map_find_value(async_load, "buffer");
 var in_id = ds_map_find_value(async_load, "id");
 var in_port = ds_map_find_value(async_load, "port");
-buffer_seek(in_buff, buffer_seek_start, 0);
 
 var player = ds_map_find_value(self.playermap,in_ip+":"+string(in_port));
 
 //Check that the packet is from a valid client
 if (!is_undefined(player)) {
+    buffer_seek(in_buff, buffer_seek_start, 0);
     //Read command
     switch buffer_read(in_buff, buffer_s8 ) {
         case htme_packet.PING:
