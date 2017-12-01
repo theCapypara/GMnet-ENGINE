@@ -2,7 +2,7 @@
 #GMnet ENGINE Repository
 This is the repository of GMnet ENGINE - the multiplayer engine for Game Maker Studio.
 
-GMnet ENGINE contains the following three products (all can be used on their own ):
+GMnet ENGINE contains the following two products (all can be used on their own ):
 
 * ![GMnet CORE](http://parakoopa.de/GMnet/small_core.png)
   **GMnet CORE** (all scripts with the **htme_** prefix) is the main part of the engine. It handles the actual synchronization between players. Has functions to integrate PUNCH.
@@ -11,7 +11,28 @@ GMnet ENGINE contains the following three products (all can be used on their own
   **GMnet PUNCH** (all scripts with the **udphp_** prefix) handles NAT traversal/UDP hole punching, so players behind firewalls can communicate. It requires GMnet GATE.PUNCH (see below).
 
 
-* This repo also contains a demo project for GMnet ENGINE. The demo projects for the standalone PUNCH version can be found in the repos below
+* This repo also contains a base template project for GMnet ENGINE. The demo projects for the standalone PUNCH version can be found in the repos below
+
+**How to import GMnet:**
+**Import your game to GMnet (Best method):**
+1# Export your game to an extension​.
+2# Open GMnet base template in Game maker studio 1.4 or EA. 
+3# Import your game to the base template.
+
+**Import GMnet to your game (We need to update the extension you export first):**
+1# Open in Game maker studio 1.4 or EA.​ 
+2# Extensions>GMnet (double click) 
+3# Click "Export resources" tab 
+4# Click each resource in the right column (Extension:) and click the "Remove" button until every resource is gone. 
+5# Click "Add all" 
+6# Click"Ok". 
+7# Save the project. 
+8# Right click Extensions>GMnet>Export extension 
+9# Open your project and right click Extensions>Import extension 
+10# Import all
+
+**Tutorials how to get started:**
+https://www.youtube.com/watch?v=B2EG55iGuzo&list=PLfMGRgz7yTw-RtXnPV7a51aoZb3fufzZ9
 
 **More information about GMnet ENGINE and other products can be found on the website:**  
 http://gmnet.parakoopa.de
