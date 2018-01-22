@@ -1,7 +1,7 @@
 **Marketplace version:**
-https://marketplace.yoyogames.com/assets/1156/multiplayer-gmnet-engine
+* https://marketplace.yoyogames.com/assets/1156/multiplayer-gmnet-engine
 **IS OUTDATED!!! If you have downloaded it, remove it and download the latest from here:**
-https://github.com/Parakoopa/GMnet-ENGINE/archive/master.zip
+* https://github.com/Parakoopa/GMnet-ENGINE/archive/master.zip
 
 ![GMnet ENGINE](http://parakoopa.de/GMnet/engine.png)
 #GMnet ENGINE Repository
