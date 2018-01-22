@@ -14,6 +14,7 @@
 */
 
 with (global.htme_object) {
-    self.lanlobbysearch = false;
-    network_destroy(self.lanlobbysearchserver);
+    lanlobbysearch = false;
+    network_destroy(lanlobbysearchserver);
+    lanlobbysearchserver=noone;
 }
