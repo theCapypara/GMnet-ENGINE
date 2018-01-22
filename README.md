@@ -1,3 +1,8 @@
+#Marketplace version: 
+https://marketplace.yoyogames.com/assets/1156/multiplayer-gmnet-engine
+IS OUTDATED!!! If you have downloaded it, remove it and download the latest from here:
+https://github.com/Parakoopa/GMnet-ENGINE/archive/master.zip
+
 ![GMnet ENGINE](http://parakoopa.de/GMnet/engine.png)
 #GMnet ENGINE Repository
 This is the repository of GMnet ENGINE - the multiplayer engine for Game Maker Studio.
@@ -15,7 +20,7 @@ GMnet ENGINE contains the following two products (all can be used on their own )
 
 **How to import GMnet:**
 
-**Import your game to GMnet (Best method):**
+**Import your game into GMnet (Best method):**
 * 1# Export your game to an extension.
 * 2# Open GMnet base template in Game maker studio 1.4 or EA.
 * 3# Import your game to the base template.
@@ -31,6 +36,8 @@ GMnet ENGINE contains the following two products (all can be used on their own )
 * 8# Right click Extensions>GMnet>Export extension
 * 9# Open your project and right click Extensions>Import extension
 * 10# Import all
+* 11# Import Steamworks extension from the template
+* 12# Import WinDev extension from the template
 
 **Tutorials how to get started:**  
 https://www.youtube.com/watch?v=B2EG55iGuzo&list=PLfMGRgz7yTw-RtXnPV7a51aoZb3fufzZ9
