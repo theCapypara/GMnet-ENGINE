@@ -112,10 +112,10 @@ switch (client.punch_stage)
                 // Start burst
                 for (var i=0; i<client.punch_stage_burst; i+=1)
                 {
-                    // Check if over max then end this
-                    if (array_length_1d(client.punch_stage_predict_list)-1)<client.punch_stage_counter break;
                     // Count up port to use
-                    client.punch_stage_counter+=1;                    
+                    client.punch_stage_counter+=1;
+                    // Check if over max then end this
+                    if client.punch_stage_counter>=array_length_1d(client.punch_stage_predict_list) break;                    
                     // Send to new port
                     // Send message and try to connect to server
                     network_send_udp( client.udp_socket, client.server_ip, client.punch_stage_predict_list[client.punch_stage_counter], client.buffer, buffer_tell(client.buffer) );                     

@@ -78,6 +78,7 @@ self.upnp_enabled = true;
  * Works on Windows,Mac,Linux
  * Make sure you add your AppID in Global Game Settings>Steam and also start Steam.exe
  * Use AppID 480 for tests
+ * Make sure you enable the extesnion Steamworks.gml>Properties>Check checkbox for Windows/Mac/Linux
  * @type boolean
  */
 self.steam_enabled = false;
