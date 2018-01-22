@@ -43,6 +43,11 @@ GMnet ENGINE contains the following two products (all can be used on their own )
 * 11# Import Steamworks extension from the template
 * 12# Import WinDev extension from the template
 
+**To fully disable Steamworks in GMnet:**
+* 1# htme_config>steam_enabled = false;
+* 2# Extensions>Steamworks.gml>Properties>Un-check all platforms
+* 3# Global Game Settings>Steam>Un-check "Enable Steam"
+
 **Tutorials how to get started:**  
 https://www.youtube.com/watch?v=B2EG55iGuzo&list=PLfMGRgz7yTw-RtXnPV7a51aoZb3fufzZ9
 
